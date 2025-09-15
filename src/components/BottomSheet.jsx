@@ -114,7 +114,7 @@ export default function BottomSheet({ targetDate }) {
   return (
     <div
       ref={sheetRef}
-      className="fixed bottom-0 left-0 w-full z-50"
+      className="fixed bottom-0 w-full z-20 max-w-[430px] flex flex-col"
       style={{
         height: `${sheetHeight}px`,
         transform: `translateY(${getTranslateY()}px)`,
@@ -122,7 +122,7 @@ export default function BottomSheet({ targetDate }) {
       }}
     >
       <div
-        className="flex justify-center items-center h-[30px] cursor-pointer select-none"
+        className="flex justify-center items-center h-[44px] cursor-pointer select-none"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -133,44 +133,54 @@ export default function BottomSheet({ targetDate }) {
       </div>
 
       <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 h-full py-6">
-        <p className="text-[18px] text-center fontBold text-[#747474] mb-4">
+        <p className="text-[18px] text-center fontBold text-[#747474]">
           마감까지 남은 시간
         </p>
 
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-4 mt-8">
           {/* DAYS */}
           <div className="flex flex-col items-center">
             <p className="text-white text-5xl font-bold">
               {String(days).padStart(2, "0")}
             </p>
-            <p className="text-white text-md mt-1">DAYS</p>
+            <p className="text-white fontEL text-md mt-1">DAYS</p>
           </div>
-          <p className="text-white text-5xl self-start">:</p>
+
+          {/* 구분자 */}
+          <div className="flex items-start">
+            <p className="text-white text-5xl fontEL">:</p>
+          </div>
 
           {/* HOURS */}
           <div className="flex flex-col items-center">
             <p className="text-white text-5xl font-bold">
               {String(hours).padStart(2, "0")}
             </p>
-            <p className="text-white text-md mt-1">HOURS</p>
+            <p className="text-white fontEL text-md mt-1">HOURS</p>
           </div>
-          <p className="text-white text-5xl self-start">:</p>
+
+          <div className="flex items-start">
+            <p className="text-white text-5xl fontEL">:</p>
+          </div>
 
           {/* MINUTES */}
           <div className="flex flex-col items-center">
             <p className="text-white text-5xl font-bold">
               {String(minutes).padStart(2, "0")}
             </p>
-            <p className="text-white text-md mt-1">MINS</p>
+            <p className="text-white fontEL text-md mt-1">MINS</p>
           </div>
-          <p className="text-white text-5xl self-start">:</p>
+
+          <div className="flex items-start">
+            <p className="text-white text-5xl fontEL">:</p>
+          </div>
 
           {/* SECONDS */}
           <div className="flex flex-col items-center">
             <p className="text-white text-5xl font-bold">
               {String(seconds).padStart(2, "0")}
             </p>
-            <p className="text-white text-md mt-1">SECS</p>
+            <p className="text-white fontEL text-md mt-1">SECS</p>
           </div>
         </div>
       </div>
