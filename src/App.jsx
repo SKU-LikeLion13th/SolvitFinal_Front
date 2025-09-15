@@ -6,7 +6,7 @@ import Main from "./pages/Main";
 function App() {
   return (
     <Router>
-      <div className="App pt-12">
+      <div className="App ">
         <Routes>
           <Route path="/" element={<Main />} />
         </Routes>
