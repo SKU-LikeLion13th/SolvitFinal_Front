@@ -17,14 +17,22 @@ export default function Team() {
       },
       {
         id: 2,
-        imgSrc: "/assets/images/Members/yujeong.png",
-        name: "최유정",
-        department: "미디어소프트웨어학과 21학번",
-        role: "운영진",
-        task: "프론트엔드 개발",
+        imgSrc: "/assets/images/Members/minju.png",
+        name: "서민주",
+        department: "관광학과 22학번",
+        role: "파트장",
+        task: "UX/UI 기획 및 디자인",
       },
       {
         id: 3,
+        imgSrc: "/assets/images/Members/yujeong.png",
+        name: "최유정",
+        department: "미디어소프트웨어학과 21학번",
+        role: "파트장",
+        task: "프론트엔드 개발",
+      },
+      {
+        id: 4,
         imgSrc: "/assets/images/Members/ohyun.png",
         name: "권오현",
         department: "컴퓨터공학과 23학번",
@@ -32,7 +40,7 @@ export default function Team() {
         task: "백엔드 개발",
       },
       {
-        id: 4,
+        id: 5,
         imgSrc: "/assets/images/Members/hoyeon.png",
         name: "이호연",
         department: "미디어소프트웨어학과 21학번",
@@ -40,20 +48,12 @@ export default function Team() {
         task: "프론트엔드 개발",
       },
       {
-        id: 5,
+        id: 6,
         imgSrc: "/assets/images/Members/juhee.png",
         name: "노주희",
         department: "미디어소프트웨어학과 22학번",
         role: "운영진",
         task: "백엔드 개발",
-      },
-      {
-        id: 6,
-        imgSrc: "/assets/images/Members/minju.png",
-        name: "서민주",
-        department: "관광학과 22학번",
-        role: "부총학생회장",
-        task: "UX/UI 기획 및 디자인",
       },
     ],
     "제41대 솔:빛 총학생회": [
@@ -77,31 +77,33 @@ export default function Team() {
     return (
       <div
         className={`mt-6 text-white ${
-          isFewCards ? "flex justify-center " : "grid grid-cols-3 gap-3"
+          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3"
         }`}
       >
         {selectedMembers.map((member) => (
-          <div
-            key={member.id}
-            className="text-black rounded-lg bg-[#D9D9D9] text-center flex flex-col justify-center items-center w-full max-w-[180px] px-2 pt-1 pb-3"
-          >
-            {member.imgSrc && (
-              <img
-                src={member.imgSrc}
-                alt={member.name}
-                className="w-[80%] object-contain mb-3"
-              />
-            )}
-            <p className="text-[8px] fontRegular">{member.department}</p>
-            <p className="text-[11px] fontSB mt-1">
-              {member.role} {member.name}
-            </p>
-            {member.task && (
-              <>
-                <div className="w-[90%] h-[0.5px] bg-[#1880FF] my-2.5"></div>
-                <p className="text-[10px] fontMedium">{member.task}</p>
-              </>
-            )}
+          <div className="flex justify-center">
+            <div
+              key={member.id}
+              className="w-[120px] text-black rounded-lg bg-[#D9D9D9] text-center flex flex-col justify-center items-center px-2 pt-1 pb-3"
+            >
+              {member.imgSrc && (
+                <img
+                  src={member.imgSrc}
+                  alt={member.name}
+                  className="w-[80%] object-contain mb-3"
+                />
+              )}
+              <p className="text-[8px] fontRegular">{member.department}</p>
+              <p className="text-[11px] fontSB mt-1">
+                {member.role} {member.name}
+              </p>
+              {member.task && (
+                <>
+                  <div className="w-[90%] h-[0.5px] bg-[#1880FF] my-2.5"></div>
+                  <p className="text-[8px] fontMedium">{member.task}</p>
+                </>
+              )}
+            </div>
           </div>
         ))}
       </div>

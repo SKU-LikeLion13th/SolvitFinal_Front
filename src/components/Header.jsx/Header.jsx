@@ -59,9 +59,12 @@ export default function Header({
       {/* 풀스크린 메뉴 */}
       {(isMenuOpen || isClosing) && (
         <div
-          className={`fixed inset-0 bg-[#161616] z-[50] flex flex-col ${
+          className={`fixed top-0 transform -translate-x-1/2 h-screen bg-[#161616] z-[50] flex flex-col w-full max-w-[430px] min-w-[100vw] sm:min-w-[375px] ${
             isClosing ? "animate-slideUp" : "animate-slideDown"
           }`}
+          style={{
+            width: "min(430px, 100vw)",
+          }}
         >
           {/* 닫기 버튼 */}
           <div className="absolute top-12 right-6">
