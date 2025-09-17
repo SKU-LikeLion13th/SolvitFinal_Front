@@ -35,6 +35,11 @@
   src: url("/public/assets//fonts/Pretendard-Thin.otf") format("woff");
 }
 
+@font-face {
+  font-family: "PlayfairDisplay-Bold";
+  src: url("/public/assets/fonts/PlayfairDisplay-Bold.ttf");
+}
+
 .fontBlack {
   font-family: "Pretendard-Black";
 }
@@ -69,4 +74,8 @@
 
 .fontThin {
   font-family: "Pretendard-Thin";
+}
+
+.fontPlayfair {
+  font-family: "PlayfairDisplay-Bold";
 }

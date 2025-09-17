@@ -6,7 +6,7 @@ export default function BottomSheet({ targetDate }) {
   const [startY, setStartY] = useState(0);
   const [currentY, setCurrentY] = useState(0);
   const [sheetHeight, setSheetHeight] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const [days, setDays] = useState(0);
   const [hours, setHours] = useState(0);
