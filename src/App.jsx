@@ -5,6 +5,8 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 import MatchInfo from "./pages/Match/MatchInfo";
 import Match from "./pages/Match/Match";
+import MatchCheck from "./pages/Match/MatchCheck";
+import MatchFinish from "./pages/Match/MatchFinish";
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/MatchInfo" element={<MatchInfo />} />
           <Route path="/Match" element={<Match />} />
+          <Route path="/MatchCheck" element={<MatchCheck />} />
+          <Route path="/MatchFinish" element={<MatchFinish />} />
         </Routes>
       </div>
     </Router>
