@@ -4,21 +4,18 @@ import MatchLayout from '../../components/MatchLayout';
 
 export default function Match() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(null); // 선택된 학과 id (0 또는 1)
+  const [selected, setSelected] = useState(null);
 
   return (
     <MatchLayout>
       <div className="flex flex-col w-9/12 h-screen mt-[6%]">
-        {/* 질문 영역 */}
         <div className="flex flex-col text-xl fontMedium">
           <div className="text-[#fff] mb-3">1 / 5</div>
           <div className="text-[#1880FF]">축구 결승</div>
           <div className="text-[#fff]">서민주님의 우승 예측은?</div>
         </div>
 
-        {/* 학과 선택 영역 */}
         <div className="flex justify-between w-full mt-[30%]">
-          {/* 왼쪽 학과 */}
           <div
             onClick={() => setSelected(0)}
             className={`flex flex-col items-center w-[45%] rounded-xl h-[200px] cursor-pointer 
@@ -39,7 +36,6 @@ export default function Match() {
             </div>
           </div>
 
-          {/* 오른쪽 학과 */}
           <div
             onClick={() => setSelected(1)}
             className={`flex flex-col items-center w-[45%] rounded-xl h-[200px] cursor-pointer 
@@ -61,12 +57,11 @@ export default function Match() {
           </div>
         </div>
 
-        {/* 다음 버튼 */}
         <div className="flex items-end justify-center mt-[80%]">
           <button
             className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
-            onClick={() => navigate("/Match")}
-            disabled={selected === null} // 선택 안하면 비활성화
+            onClick={() => navigate("/MatchCheck")}
+            disabled={selected === null}
           >
             다음
           </button>
