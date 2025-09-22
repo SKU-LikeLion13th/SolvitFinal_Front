@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header.jsx/Header";
-import BottomSheet from "../components/BottomSheet";
+import Header from "../../components/Header.jsx/Header";
+import BottomSheet from "../../components/BottomSheet";
+import Match from "../Match/Match";
+import Match_Main from "./Match_Main";
 
 export default function Main() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ export default function Main() {
       />
       <img
         src="/assets/images/bg_RB.png"
-        className="absolute w-[50%] bottom-0 right-0"
+        className="absolute w-[50%] bottom-0 right-0 "
         alt=""
       />
 
@@ -42,13 +44,15 @@ export default function Main() {
           <br />
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
-        <button 
-          className="bg-[#0073FF] text-white text-[15px] font-bold w-[50%] rounded-xl py-1.5 mt-6"
+        <button
+          className="bg-[#0073FF] text-white text-[15px] font-bold w-[50%] rounded-2xl py-2 mt-6"
           onClick={goToLogin}
         >
           응모하러 가기
         </button>
       </div>
+
+      <Match_Main />
 
       {/* 바텀시트 */}
       <BottomSheet targetDate={targetDate} />

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MenuList from "./MenuList";
 import Team from "./MenuContent/Team";
 import Info from "./MenuContent/Info";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({
   showBack = false,
@@ -11,6 +12,8 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [activeMenu, setActiveMenu] = useState("");
+
+  const navigate = useNavigate();
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -25,16 +28,22 @@ export default function Header({
     setActiveMenu(menu);
   };
 
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="relative">
       {/* 헤더 */}
       <div className="flex justify-between px-4 py-2 items-center shadow-md z-24">
         {showBack ? (
-          <img
-            src="/assets/images/Header/Back.png"
-            className="w-[22px] h-[18px]"
-            alt="back"
-          />
+          <div onClick={goBack}>
+            <img
+              src="/assets/images/Header/Back.png"
+              className="w-[22px] h-[18px]"
+              alt="back"
+            />
+          </div>
         ) : (
           <div className="w-[22px] h-[18px]" />
         )}
@@ -67,23 +76,23 @@ export default function Header({
           }}
         >
           {/* 닫기 버튼 */}
-          <div className="absolute top-12 right-6">
+          {/* <div className="absolute top-12 right-6">
             <img
               src="/assets/images/Header/cancel.png"
               className="w-[20px] h-[20px] cursor-pointer"
               alt="close"
               onClick={closeMenu}
             />
-          </div>
+          </div> */}
 
           {/* 메뉴 내용 */}
           {!activeMenu ? (
             <MenuList onSelect={handleSelectMenu} />
           ) : activeMenu === "team" ? (
-            <Team />
-          ) : (
-            <Info />
-          )}
+            <Team onBack={() => setActiveMenu("")} /> // Back 버튼
+          ) : activeMenu === "info" ? (
+            <Info onCancel={closeMenu} /> // Cancel 버튼
+          ) : null}
         </div>
       )}
     </div>

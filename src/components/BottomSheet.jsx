@@ -137,50 +137,50 @@ export default function BottomSheet({ targetDate }) {
           마감까지 남은 시간
         </p>
 
-        <div className="flex justify-center gap-4 mt-8">
+        <div className="flex justify-center gap-4 mt-6">
           {/* DAYS */}
           <div className="flex flex-col items-center">
-            <p className="text-white text-5xl font-bold">
+            <p className="text-white text-[40px] font-bold">
               {String(days).padStart(2, "0")}
             </p>
-            <p className="text-white fontEL text-md mt-1">DAYS</p>
+            <p className="text-white fontEL text-md">DAYS</p>
           </div>
 
           {/* 구분자 */}
           <div className="flex items-start">
-            <p className="text-white text-5xl fontEL">:</p>
+            <p className="text-white text-[40px] fontEL">:</p>
           </div>
 
           {/* HOURS */}
           <div className="flex flex-col items-center">
-            <p className="text-white text-5xl font-bold">
+            <p className="text-white text-[40px] font-bold">
               {String(hours).padStart(2, "0")}
             </p>
-            <p className="text-white fontEL text-md mt-1">HOURS</p>
+            <p className="text-white fontEL text-md ">HOURS</p>
           </div>
 
           <div className="flex items-start">
-            <p className="text-white text-5xl fontEL">:</p>
+            <p className="text-white text-[40px] fontEL">:</p>
           </div>
 
           {/* MINUTES */}
           <div className="flex flex-col items-center">
-            <p className="text-white text-5xl font-bold">
+            <p className="text-white text-[40px] font-bold">
               {String(minutes).padStart(2, "0")}
             </p>
-            <p className="text-white fontEL text-md mt-1">MINS</p>
+            <p className="text-white fontEL text-md ">MINS</p>
           </div>
 
           <div className="flex items-start">
-            <p className="text-white text-5xl fontEL">:</p>
+            <p className="text-white text-[40px] fontEL">:</p>
           </div>
 
           {/* SECONDS */}
           <div className="flex flex-col items-center">
-            <p className="text-white text-5xl font-bold">
+            <p className="text-white text-[40px] font-bold">
               {String(seconds).padStart(2, "0")}
             </p>
-            <p className="text-white fontEL text-md mt-1">SECS</p>
+            <p className="text-white fontEL text-md ">SECS</p>
           </div>
         </div>
       </div>

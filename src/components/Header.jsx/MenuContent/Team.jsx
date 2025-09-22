@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function Team() {
+export default function Team({ onBack }) {
   const [activeTab, setActiveTab] = useState("SKU 멋쟁이사자처럼 13기");
   const tabs = ["SKU 멋쟁이사자처럼 13기", "제41대 솔:빛 총학생회"];
 
@@ -112,6 +112,13 @@ export default function Team() {
 
   return (
     <div className="px-4 pt-24">
+      <div className="absolute top-12 left-8 cursor-pointer" onClick={onBack}>
+        <img
+          src="/assets/images/Header/Back.png"
+          className="w-[20px] h-[16px]"
+          alt="back"
+        />
+      </div>
       <div className="text-white text-center">
         <p className="fontBold text-lg">제작에 참여한 사람들</p>
         <p className="fontRegular text-xs my-14">
