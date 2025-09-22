@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MatchLayout from '../components/MatchLayout';
 
-export default function MatchInfo() {
+export default function Login() {
   const navigate = useNavigate();
 
   return (
@@ -19,7 +19,7 @@ export default function MatchInfo() {
           </div>
           <button 
             className="flex items-center bg-[#0073FF] text-white font px-10 py-1.5 rounded-2xl"
-            onClick={() => navigate("/MatchInfo")}
+            onClick={() => navigate("/Member")}
           >
             <img
               src="/assets/images/SchoolLogo.png"

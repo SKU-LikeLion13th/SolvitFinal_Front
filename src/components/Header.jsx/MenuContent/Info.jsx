@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from 'react-router-dom';
 
 export default function Info() {
+  const navigate = useNavigate();
+  
   return (
     <div className="px-8 pt-[60px] bg-[#0D0D0D]">
       {/* 헤더 */}
@@ -18,12 +21,15 @@ export default function Info() {
           Final Gift
         </p>
         <img src="/assets/images/Header/AirPods.png" alt="" />
-        <div className="text-white text-center -mt-3">
+        <div className="-mt-3 text-center text-white">
           <p className="fontSB text-[15px]">Apple</p>
           <p className="fontLight text-[12px]">AirPods Pro 2세대</p>
         </div>
 
-        <button className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontBold text-[13px] my-12">
+        <button 
+          className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontBold text-[13px] my-12"
+          onClick={() => navigate("/MatchInfo")}
+        >
           승부예측 바로가기{"->"}
         </button>
       </div>

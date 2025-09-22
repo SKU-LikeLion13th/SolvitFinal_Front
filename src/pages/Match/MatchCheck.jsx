@@ -55,7 +55,7 @@ export default function MatchCheck() {
             className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
             onClick={() => navigate("/MatchFinish")}
           >
-            다음
+            응모하기
           </button>
         </div>
       </div>

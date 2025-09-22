@@ -59,7 +59,10 @@ export default function Match() {
 
         <div className="flex items-end justify-center mt-[80%]">
           <button
-            className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
+            className={`flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
+              ${selected === null 
+                ? 'bg-[#A3A3A3] text-[#4A4A4A] cursor-not-allowed' 
+                : 'bg-[#0073FF] text-white cursor-pointer'}`}
             onClick={() => navigate("/MatchCheck")}
             disabled={selected === null}
           >
