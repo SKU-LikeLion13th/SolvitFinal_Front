@@ -1,11 +1,21 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-export default function Info() {
+export default function Info({ onCancel }) {
   const navigate = useNavigate();
-  
+
   return (
-    <div className="px-8 pt-[60px] bg-[#0D0D0D]">
+    <div className="px-8 pt-[60px] bg-[#0D0D0D] min-h-screen overflow-y-auto">
+      <div
+        className="absolute top-12 right-6 cursor-pointer"
+        onClick={onCancel}
+      >
+        <img
+          src="/assets/images/Header/cancel.png"
+          className="w-[20px] h-[20px]"
+          alt="cancel"
+        />
+      </div>
       {/* 헤더 */}
       <div className="text-white">
         <div className="bg-white w-[65%] h-[0.5px]"></div>
@@ -26,27 +36,50 @@ export default function Info() {
           <p className="fontLight text-[12px]">AirPods Pro 2세대</p>
         </div>
 
-        <button 
+        <button
           className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontBold text-[13px] my-12"
           onClick={() => navigate("/MatchInfo")}
         >
-          승부예측 바로가기{"->"}
+          승부예측 바로가기 {"->"}
         </button>
       </div>
 
-      <div className="text-[#D0D0D0] flex flex-col items-center ">
+      {/* 안내 */}
+      <div className="text-[#AFAFAF] flex flex-col items-center pb-10">
         <div className="w-fit">
-          <p className="text-[11px] fontMedium mb-5">경품 수령 안내</p>
+          <p className="text-[11px] fontMedium mb-5 text-center">
+            경품 수령 안내
+          </p>
 
-          <div className="text-[9px] space-y-2.5 fontLight pl-2">
-            <li>상품은 학생회비 납부자에 한하여 수령하실 수 있습니다.</li>
-            <li>
-              학생회비 미납부자는 경품 수령 시 학생회비를 납부하실 수 있습니다.
-            </li>
-            <li>대리 수령은 원칙적으로 불가합니다.</li>
-            <li>
-              당첨 결과는 당첨자에 한하여 10월 2일에 문자 안내가 발송됩니다.
-            </li>
+          <div className="text-[9px] space-y-8 fontLight pl-2 text-center">
+            <div className="space-y-1.5">
+              <p className="fontMedium">1. 응모 횟수</p>
+              <li>학생회비 납부자는 승부예측 응모가 최대 2회 가능합니다.</li>
+              <li>동일한 팀으로 2회 응모시, 추첨기에 이름이 2번 들어갑니다.</li>
+            </div>
+            <div className="space-y-1.5">
+              <p className="fontMedium">2. 학생회비 미납부자 안내</p>
+              <li>
+                학생회비를 납부하지 않은 경우, 당첨되더라도 경품 수령이
+                불가합니다.
+              </li>
+              <li>
+                상품 수령 시 현장에서도 납부 가능하며, 20,000원을 지참해 주시기
+                바랍니다.
+              </li>
+              <li>
+                학생회비 납부를 희망하지 않는 경우 경품 재추첨이 이루어질
+                예정입니다.
+              </li>
+            </div>
+            <div className="space-y-1.5">
+              <p className="fontMedium">3. 수령 방식</p>
+              <li>경품은 본인만 수령 가능하며, 대리 수령은 불가합니다.</li>
+            </div>
+            <div className="space-y-1.5">
+              <p className="fontMedium">4. 당첨 결과 안내</p>
+              <li>당첨자에 한하여 10월 2일 문자 안내가 발송됩니다.</li>
+            </div>
           </div>
         </div>
       </div>
