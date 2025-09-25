@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header.jsx/Header";
+import Header from "../../components/Header/Header";
 import BottomSheet from "../../components/BottomSheet";
 import Match from "../Match/Match";
 import Match_Main from "./Match_Main";
