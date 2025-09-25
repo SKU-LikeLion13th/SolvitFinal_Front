@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Header.jsx/Header";
+import Header from "../../components/Header/Header";
 import UserPaid from "./UserPaid";
 import UserUnpaid from "./UserUnpaid";
 
@@ -34,7 +34,7 @@ export default function ViewHistory() {
     fetchStatus();
   }, []);
 
-  if (loading) return <div className="text-white p-6">Loading...</div>;
+  if (loading) return <div className="p-6 text-white">Loading...</div>;
 
   return (
     <div className="px-6 pt-[60px] bg-[#161616] min-h-screen text-white">
