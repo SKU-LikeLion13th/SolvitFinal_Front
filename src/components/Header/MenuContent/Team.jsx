@@ -9,7 +9,7 @@ export default function Team({ onBack }) {
     "SKU 멋쟁이사자처럼 13기": [
       {
         id: 1,
-        imgSrc: "/assets/images/Members/mingyu.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/mingyu.png",
         name: "한민규",
         department: "컴퓨터공학과 21학번",
         role: "대표",
@@ -17,7 +17,7 @@ export default function Team({ onBack }) {
       },
       {
         id: 2,
-        imgSrc: "/assets/images/Members/minju.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/minju.png",
         name: "서민주",
         department: "관광학과 22학번",
         role: "파트장",
@@ -25,7 +25,7 @@ export default function Team({ onBack }) {
       },
       {
         id: 3,
-        imgSrc: "/assets/images/Members/yujeong.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/yujeong.png",
         name: "최유정",
         department: "미디어소프트웨어학과 21학번",
         role: "파트장",
@@ -33,7 +33,7 @@ export default function Team({ onBack }) {
       },
       {
         id: 4,
-        imgSrc: "/assets/images/Members/ohyun.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/ohyun.png",
         name: "권오현",
         department: "컴퓨터공학과 23학번",
         role: "운영진",
@@ -41,25 +41,17 @@ export default function Team({ onBack }) {
       },
       {
         id: 5,
-        imgSrc: "/assets/images/Members/hoyeon.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/hoyeon.png",
         name: "이호연",
         department: "미디어소프트웨어학과 21학번",
         role: "운영진",
         task: "프론트엔드 개발",
       },
-      {
-        id: 6,
-        imgSrc: "/assets/images/Members/juhee.png",
-        name: "노주희",
-        department: "미디어소프트웨어학과 22학번",
-        role: "운영진",
-        task: "백엔드 개발",
-      },
     ],
     "제41대 솔:빛 총학생회": [
       {
         id: 1,
-        imgSrc: "/assets/images/Members/minju.png",
+        imgSrc: "/assets/images/Members/LikeLion13th/minju.png",
         name: "서민주",
         department: "관광학과 22학번",
         role: "부총학생회장",
@@ -77,21 +69,23 @@ export default function Team({ onBack }) {
     return (
       <div
         className={`mt-6 text-white ${
-          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3"
+          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-4 mx-3"
         }`}
       >
         {selectedMembers.map((member) => (
-          <div className="flex justify-center">
+          <div className="flex justify-center ">
             <div
               key={member.id}
-              className="w-[120px] text-black rounded-lg bg-[#D9D9D9] text-center flex flex-col justify-center items-center px-2 pt-1 pb-3"
+              className="w-[120px] h-[175px] text-black rounded-lg bg-[#F8F8F8] text-center flex flex-col justify-center items-center px-2 pt-1 pb-3"
             >
               {member.imgSrc && (
-                <img
-                  src={member.imgSrc}
-                  alt={member.name}
-                  className="w-[80%] object-contain mb-3"
-                />
+                <div className="w-full h-[90px] mb-2 flex justify-center items-center">
+                  <img
+                    src={member.imgSrc}
+                    alt={member.name}
+                    className="object-contain"
+                  />
+                </div>
               )}
               <p className="text-[8px] fontRegular">{member.department}</p>
               <p className="text-[11px] fontSB mt-1">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BottomSheet from "../../components/BottomSheet";
@@ -8,6 +8,8 @@ import Match_Main from "./Match_Main";
 export default function Main() {
   const navigate = useNavigate();
   const targetDate = new Date("2025-10-01T09:00:00");
+
+  const [isEnded, setIsEnded] = useState(false);
 
   const goToLogin = () => {
     navigate("/Login");
@@ -45,17 +47,22 @@ export default function Main() {
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
         <button
-          className="bg-[#0073FF] text-white text-[15px] font-bold w-[50%] rounded-2xl py-2 mt-6"
+          className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 ${
+            isEnded
+              ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
+              : "bg-[#0073FF] text-white"
+          }`}
           onClick={goToLogin}
+          disabled={isEnded}
         >
-          응모하러 가기
+          {isEnded ? "응모마감" : "응모하러 가기"}
         </button>
       </div>
 
       <Match_Main />
 
       {/* 바텀시트 */}
-      <BottomSheet targetDate={targetDate} />
+      <BottomSheet targetDate={targetDate} onEndChange={setIsEnded} />
     </div>
   );
 }

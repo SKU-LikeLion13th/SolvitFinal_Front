@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function BottomSheet({ targetDate }) {
+export default function BottomSheet({ targetDate, onEndChange }) {
   const sheetRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startY, setStartY] = useState(0);
@@ -13,12 +13,32 @@ export default function BottomSheet({ targetDate }) {
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
 
+  const now = new Date();
+  const openDate = new Date("2025-09-29T00:00:00");
+  const isBeforeOpen = now < openDate;
+
+  // const isEnded = days === 0 && hours === 0 && minutes === 0 && seconds === 0;
+  const isEnded =
+    !isBeforeOpen &&
+    days === 0 &&
+    hours === 0 &&
+    minutes === 0 &&
+    seconds === 0;
+
   // 실시간 디데이 업데이트
   useEffect(() => {
     const updateCountdown = () => {
       const now = new Date();
-      const diff = targetDate - now;
 
+      if (isBeforeOpen) {
+        setDays(0);
+        setHours(0);
+        setMinutes(0);
+        setSeconds(0);
+        return;
+      }
+
+      const diff = targetDate - now;
       if (diff <= 0) {
         setDays(0);
         setHours(0);
@@ -36,7 +56,7 @@ export default function BottomSheet({ targetDate }) {
     updateCountdown();
     const timer = setInterval(updateCountdown, 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, [targetDate, isBeforeOpen]);
 
   // 시트 높이 계산
   useEffect(() => {
@@ -111,6 +131,18 @@ export default function BottomSheet({ targetDate }) {
     if (!isDragging) setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const ended =
+      !isBeforeOpen &&
+      days === 0 &&
+      hours === 0 &&
+      minutes === 0 &&
+      seconds === 0;
+    if (typeof onEndChange === "function") {
+      onEndChange(ended);
+    }
+  }, [days, hours, minutes, seconds, isBeforeOpen, onEndChange]);
+
   return (
     <div
       ref={sheetRef}
@@ -133,11 +165,26 @@ export default function BottomSheet({ targetDate }) {
       </div>
 
       <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 h-full py-6">
-        <p className="text-[18px] text-center fontBold text-[#747474]">
-          마감까지 남은 시간
-        </p>
+        <div className="h-[40px] flex flex-col justify-center">
+          <p className="text-[12px] text-center fontThin text-[#c3c3c3]">
+            {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
+          </p>
+          {isBeforeOpen ? (
+            <p className="text-white text-center fontBold text-[16px] mt-1">
+              9월 30일 OPEN
+            </p>
+          ) : isEnded ? (
+            <p className="text-white text-center fontBold text-[16px] mt-1">
+              승부예측 종료
+            </p>
+          ) : (
+            <p className="text-white text-center fontBold text-[14px] mt-1">
+              마감까지 남은 시간
+            </p>
+          )}
+        </div>
 
-        <div className="flex justify-center gap-4 mt-6">
+        <div className="flex justify-center gap-4 mt-3">
           {/* DAYS */}
           <div className="flex flex-col items-center">
             <p className="text-white text-[40px] font-bold">

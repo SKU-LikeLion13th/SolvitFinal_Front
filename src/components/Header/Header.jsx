@@ -3,6 +3,8 @@ import MenuList from "./MenuList";
 import Team from "./MenuContent/Team";
 import Info from "./MenuContent/Info";
 import { useNavigate } from "react-router-dom";
+import Manager from "./MenuContent/Manager";
+import MatchHistory from "./MenuContent/MatchHistory";
 
 export default function Header({
   showBack = false,
@@ -89,9 +91,13 @@ export default function Header({
           {!activeMenu ? (
             <MenuList onSelect={handleSelectMenu} />
           ) : activeMenu === "team" ? (
-            <Team onBack={() => setActiveMenu("")} /> // Back 버튼
+            <Team onBack={() => setActiveMenu("")} />
           ) : activeMenu === "info" ? (
-            <Info onCancel={closeMenu} /> // Cancel 버튼
+            <Info onCancel={closeMenu} />
+          ) : activeMenu === "Manager" ? (
+            <Manager onBack={() => setActiveMenu("")} />
+          ) : activeMenu === "MatchHistory" ? (
+            <MatchHistory onBack={() => setActiveMenu("")} />
           ) : null}
         </div>
       )}
