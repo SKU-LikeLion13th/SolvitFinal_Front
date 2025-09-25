@@ -1,9 +1,19 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import MatchLayout from '../components/MatchLayout';
+import { API_URL } from '../utils/config';
 
 export default function Login() {
-  const navigate = useNavigate();
+
+  const handleLogin = () => {
+  const currentPath = window.location.pathname + window.location.search;
+  localStorage.setItem("redirectAfterLogin", currentPath);
+
+  const origin = window.location.origin;
+  const fullRedirect = origin + currentPath;
+  const encodedRedirect = encodeURIComponent(fullRedirect);
+
+  window.location.href = `${API_URL}/oauth2/authorization/google?state=${encodedRedirect}`;
+  };
 
   return (
     <MatchLayout>
@@ -19,7 +29,7 @@ export default function Login() {
           </div>
           <button 
             className="flex items-center bg-[#0073FF] text-white font px-10 py-1.5 rounded-2xl"
-            onClick={() => navigate("/Member")}
+            onClick={handleLogin}
           >
             <img
               src="/assets/images/SchoolLogo.png"

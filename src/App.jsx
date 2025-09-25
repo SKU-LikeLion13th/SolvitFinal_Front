@@ -8,6 +8,7 @@ import MatchInfo from "./pages/Match/MatchInfo";
 import Match from "./pages/Match/Match";
 import MatchCheck from "./pages/Match/MatchCheck";
 import MatchFinish from "./pages/Match/MatchFinish";
+import MatchHistory from './components/Header/MenuContent/MatchHistory';
 import ViewHistory from "./pages/ViewHistory/ViewHistory";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Route path="/Match" element={<Match />} />
           <Route path="/MatchCheck" element={<MatchCheck />} />
           <Route path="/MatchFinish" element={<MatchFinish />} />
+          <Route path="/MatchHistory" element={<MatchHistory />} />
           <Route path="/ViewHistory" element={<ViewHistory />} />
         </Routes>
       </div>
