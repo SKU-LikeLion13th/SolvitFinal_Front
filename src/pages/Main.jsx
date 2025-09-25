@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header.jsx/Header";
+import Header from "../components/Header/Header";
 import BottomSheet from "../components/BottomSheet";
 
 export default function Main() {
