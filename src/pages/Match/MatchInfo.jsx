@@ -20,7 +20,7 @@ export default function MatchInfo() {
           <div>4. 중복 참여는 불가하며 1인 1회 응모만 가능합니다.</div>
         </div>
 
-        <div className='flex flex-col text-[#AFAFAF] mt-[10%]'>
+        <div className='flex flex-col text-[#AFAFAF] mt-20 sm:mt-0'>
           <div className='flex text-[13px] fontSB'>경품 수령 안내</div>
 
           <div className='flex flex-col text-[10px] mt-5'>
