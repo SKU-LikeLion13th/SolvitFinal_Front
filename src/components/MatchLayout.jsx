@@ -3,11 +3,17 @@ import React from 'react';
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 
-export default function MatchLayout({ children }) {
+export default function MatchLayout({ children, onBack }) {
   const navigate = useNavigate();
 
   const goBack = () => {
-    navigate(-1);
+    if (onBack) {
+      onBack(); // 모달 닫기용 콜백
+    } else if (window.history.length > 1) {
+      navigate(-1); // 일반 페이지 뒤로가기
+    } else {
+      window.location.reload(); // 새로고침
+    }
   };
 
   return (
