@@ -22,6 +22,11 @@ export default function MatchHistory() {
     DODGEBALL: "피구"
   };
 
+  const handleBack = () => {
+    // 새로고침
+    window.location.href = window.location.pathname + window.location.search;
+  };
+
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
@@ -82,7 +87,7 @@ export default function MatchHistory() {
 
   if (loading) {
     return (
-      <MatchLayout>
+      <MatchLayout onBack={handleBack}>
         <div className="flex items-center justify-center h-screen text-white">
           불러오는 중...
         </div>
@@ -96,7 +101,7 @@ export default function MatchHistory() {
     : null; // 실제 데이터에서는 백에서 가져와야 함
 
   return (
-    <MatchLayout>
+    <MatchLayout onBack={handleBack}>
       <div className="flex flex-col w-9/12 h-screen mt-[6%]">
         <div className="flex flex-col text-xl fontSB">
           <div className="text-[#fff]">
