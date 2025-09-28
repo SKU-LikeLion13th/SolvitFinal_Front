@@ -18,15 +18,15 @@ export default function MenuList() {
     }
   }, [location]);
 
-    const handleLogout = async () => {
-      try {
-        const response = await API.post("/log/out", { withCredentials: true });
-        console.log(response.data);
-        navigate("/", { replace: true });
-      } catch (error) {
-        console.error("로그아웃 실패:", error);
-      }
-    };
+  const handleLogout = async () => {
+    try {
+      const response = await API.post("/log/out", { withCredentials: true });
+      console.log(response.data);
+      navigate("/", { replace: true });
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
+  };
 
   const animateAndNavigate = (path, animationType) => {
     setExitAnimation(animationType);
