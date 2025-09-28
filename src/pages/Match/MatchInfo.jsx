@@ -7,7 +7,7 @@ export default function MatchInfo() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
         <div className='flex flex-col'>
           <div className="flex mb-1 text-[#0073FF] fontRegular text-md">청춘열전</div>
           <div className="text-2xl text-white fontMedium">결승전 승부예측 안내</div>
@@ -20,7 +20,7 @@ export default function MatchInfo() {
           <div>4. 중복 참여는 불가하며 1인 1회 응모만 가능합니다.</div>
         </div>
 
-        <div className='flex flex-col text-[#AFAFAF] mt-20 sm:mt-0'>
+        <div className='flex flex-col text-[#AFAFAF] mt-16 sm:mt-8'>
           <div className='flex text-[13px] fontSB'>경품 수령 안내</div>
 
           <div className='flex flex-col text-[10px] mt-5'>
@@ -47,7 +47,7 @@ export default function MatchInfo() {
           </div>
         </div>
 
-        <div className='flex items-end justify-center mt-20'>
+        <div className='flex items-end justify-center mt-10 mb-10'>
           <button 
             className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
             onClick={() => navigate("/Match")}
