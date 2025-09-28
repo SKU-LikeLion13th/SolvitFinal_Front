@@ -41,9 +41,9 @@ export default function Login() {
     // OAuth state에 리다이렉트 정보 포함
     let redirectPath;
     if (fromPage === "matchhistory") {
-      redirectPath = "/MenuList/MatchHistory";
+      redirectPath = "/MatchHistory";
     } else {
-      redirectPath = "/MenuList/MatchInfo";
+      redirectPath = "/MatchInfo";
     }
 
     // 백엔드가 이 URL로 리다이렉트하도록 설정

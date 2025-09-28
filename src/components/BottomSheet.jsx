@@ -255,7 +255,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
               </div>
 
               {/* 구분자 */}
-              <div className="flex items-start pt-2">
+              <div className="flex items-start">
                 <p className="text-white text-[36px] font-light">:</p>
               </div>
 
@@ -267,7 +267,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white font-light text-sm">HOURS</p>
               </div>
 
-              <div className="flex items-start pt-2">
+              <div className="flex items-start">
                 <p className="text-white text-[36px] font-light">:</p>
               </div>
 
@@ -279,7 +279,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white font-light text-sm">MINS</p>
               </div>
 
-              <div className="flex items-start pt-2">
+              <div className="flex items-start">
                 <p className="text-white text-[36px] font-light">:</p>
               </div>
 

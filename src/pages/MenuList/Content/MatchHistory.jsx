@@ -11,7 +11,7 @@ export default function MatchHistory() {
   const [loading, setLoading] = useState(true);
   const [selectedSubmissionIndex, setSelectedSubmissionIndex] = useState(0);
 
-  const USE_MOCK_DATA = true; // 개발용 테스트 데이터 사용 여부
+  const USE_MOCK_DATA = false; // 개발용 테스트 데이터 사용 여부
   const TOTAL_TICKETS = USE_MOCK_DATA ? 2 : null; // 임시로 테스트용 응모권 수
 
   const sportTypeMap = {
@@ -30,6 +30,7 @@ export default function MatchHistory() {
     }
   };
 
+  // 유저 상태 확인
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
@@ -39,13 +40,18 @@ export default function MatchHistory() {
         setUserName(response.data.name);
       } catch (error) {
         console.error("유저 정보를 불러오는 데 실패했습니다.", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUserStatus();
   }, []);
 
+  // 로그인 유저만 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
+      if (!userName) return;
+
       try {
         if (USE_MOCK_DATA) {
           // 개발용 테스트 데이터
@@ -56,13 +62,12 @@ export default function MatchHistory() {
                 { sportType: "BASKETBALL", predictionResult: "TEAM_B" },
               ],
             },
-            // 두 번째 응모
-            // {
-            //   predictions: [
-            //     { sportType: 'SOCCER', predictionResult: 'TEAM_A' },
-            //     { sportType: 'BASKETBALL', predictionResult: 'TEAM_B' }
-            //   ]
-            // }
+            {
+              predictions: [
+                { sportType: "SOCCER", predictionResult: "TEAM_B" },
+                { sportType: "BASKETBALL", predictionResult: "TEAM_A" },
+              ],
+            },
           ]);
 
           setMatches([
@@ -113,16 +118,15 @@ export default function MatchHistory() {
         }
       } catch (error) {
         console.error("데이터 불러오기 실패:", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchData();
-  }, []);
+  }, [userName]);
 
+  // 로딩 중
   if (loading) {
     return (
-      <MatchLayout>
+      <MatchLayout onBack={handleBack}>
         <div className="flex items-center justify-center min-h-screen text-white">
           불러오는 중...
         </div>
@@ -130,6 +134,27 @@ export default function MatchHistory() {
     );
   }
 
+  // 로그인 안 했으면 로그인 안내만
+  if (!userName) {
+    return (
+      <MatchLayout onBack={handleBack}>
+        <div className="flex flex-col items-center justify-center h-screen text-white">
+          <div className="mb-4 text-lg">로그인이 필요합니다.</div>
+          <div className="mb-6 text-sm text-gray-300">
+            응모 내역 확인은 로그인 후 이용 가능합니다.
+          </div>
+          <button
+            className="px-6 py-2 bg-[#0073FF] text-white rounded-xl"
+            onClick={() => navigate("/login")}
+          >
+            로그인 하러가기
+          </button>
+        </div>
+      </MatchLayout>
+    );
+  }
+
+  // 로그인한 유저만 아래 콘텐츠 렌더링
   const currentPredictions =
     submissions[selectedSubmissionIndex]?.predictions || [];
   const remainingTickets = USE_MOCK_DATA
@@ -139,24 +164,12 @@ export default function MatchHistory() {
   return (
     <MatchLayout onBack={handleBack}>
       <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y-auto mt-[6%]">
-        <div className="flex flex-col text-xl fontSB">
-          <div className="text-[#fff]">
-            {userName ? (
-              `${userName}님의 응모내역`
-            ) : (
-              <div className="flex flex-col items-center gap-2">
-                <div>로그인이 필요합니다.</div>
-                <button
-                  className="text-sm underline"
-                  onClick={() => navigate("/login?from=matchhistory")}
-                >
-                  로그인 하러가기
-                </button>
-              </div>
-            )}
-          </div>
+        {/* 타이틀 */}
+        <div className="flex flex-col text-xl fontSB text-[#fff]">
+          {`${userName}님의 응모내역`}
         </div>
 
+        {/* 탭 (응모권 2회 이상) */}
         {USE_MOCK_DATA && TOTAL_TICKETS > 1 && (
           <div className="flex items-center justify-center w-[80%] gap-10 mt-6 mx-auto">
             {Array.from({ length: TOTAL_TICKETS }).map((_, idx) => (
@@ -176,6 +189,7 @@ export default function MatchHistory() {
           </div>
         )}
 
+        {/* 응모 내역 */}
         {submissions[selectedSubmissionIndex] ? (
           <div className="flex flex-col w-full pb-20 sm:pb-10 mt-14">
             {matches.map((match, idx) => {
@@ -191,7 +205,6 @@ export default function MatchHistory() {
                   <div className="flex text-[15.5px] fontSB">
                     {sportTypeMap[match.sportType]}
                   </div>
-
                   <div className="flex justify-between w-full mt-2 mb-3.5">
                     <div className="flex items-center gap-2 fontSB text-[14px]">
                       {match.predictions.map((p, i) => {
@@ -201,9 +214,7 @@ export default function MatchHistory() {
                         return (
                           <React.Fragment key={i}>
                             {i === 1 && (
-                              <span className="mb-10mx-1 text-[#575757]">
-                                vs
-                              </span>
+                              <span className="mx-1 text-[#575757]">vs</span>
                             )}
                             <span
                               className={
