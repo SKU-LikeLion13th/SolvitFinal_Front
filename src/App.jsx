@@ -9,6 +9,8 @@ import Match from "./pages/Match/Match";
 import MatchCheck from "./pages/Match/MatchCheck";
 import MatchFinish from "./pages/Match/MatchFinish";
 import MatchHistory from "./components/Header/MenuContent/MatchHistory";
+import AdminMain from "./pages/Admin/AdminMain";
+import AdminResult from "./pages/Admin/AdminResult";
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/MatchCheck" element={<MatchCheck />} />
           <Route path="/MatchFinish" element={<MatchFinish />} />
           <Route path="/MatchHistory" element={<MatchHistory />} />
+          <Route path="/Admin" element={<AdminMain />} />
+          <Route path="/Admin/AdminResult" element={<AdminResult />} />
         </Routes>
       </div>
     </Router>
