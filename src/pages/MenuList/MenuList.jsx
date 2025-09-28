@@ -23,7 +23,6 @@ export default function MenuList() {
       const response = await API.post("/log/out", { withCredentials: true });
       console.log(response.data);
       navigate("/", { replace: true });
-      onClose();
     } catch (error) {
       console.error("로그아웃 실패:", error);
     }
