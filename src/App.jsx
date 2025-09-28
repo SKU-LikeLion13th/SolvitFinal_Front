@@ -11,11 +11,13 @@ import MatchFinish from "./pages/Match/MatchFinish";
 import MatchHistory from "./components/Header/MenuContent/MatchHistory";
 import AdminMain from "./pages/Admin/AdminMain";
 import AdminResult from "./pages/Admin/AdminResult";
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
-      <div className="App ">
+      <ScrollToTop />
+      <div className="App">
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/Login" element={<Login />} />

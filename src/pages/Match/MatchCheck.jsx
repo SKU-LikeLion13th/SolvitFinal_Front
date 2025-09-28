@@ -77,7 +77,13 @@ export default function MatchCheck() {
       navigate("/MatchFinish");
     } catch (err) {
       console.error("응모 실패:", err);
-      alert("응모 중 오류가 발생했습니다.");
+
+      if (err.response?.status === 400) {
+        alert("이미 응모하셨습니다.");
+        navigate("/");
+      } else {
+        alert("응모 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
     } finally {
       setLoading(false);
     }
@@ -85,7 +91,7 @@ export default function MatchCheck() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
         <div className="flex flex-col text-xl fontSB">
           <div className="text-[#fff]">응모 전,</div>
           <div className="text-[#fff]">확인해 주세요!</div>
@@ -149,9 +155,9 @@ export default function MatchCheck() {
           응모 후 수정이 불가합니다.
         </div>
 
-        <div className="flex items-end justify-center mt-10">
+        <div className="flex items-end justify-center mt-10 mb-10">
           <button
-            className={`flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl ${
+            className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl ${
               loading ? "bg-[#A3A3A3] cursor-not-allowed" : "bg-[#0073FF] text-white"
             }`}
             onClick={handleSubmit}

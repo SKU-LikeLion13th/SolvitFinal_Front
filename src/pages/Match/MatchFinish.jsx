@@ -103,7 +103,7 @@ export default function MatchFinish() {
         {/* 홈으로 돌아가기 버튼 */}
         <div className={`flex items-end justify-center ${remainingTickets > 0 ? 'mt-7' : 'mt-[75%]'}`}>
           <button 
-            className={`flex justify-center fontMedium text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl ${remainingTickets > 0 ? 'bg-[#5B5B5B]' : 'bg-[#0073FF]'}`}
+            className={`z-10 flex justify-center fontMedium text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl ${remainingTickets > 0 ? 'bg-[#5B5B5B]' : 'bg-[#0073FF]'}`}
             onClick={() => navigate("/")}
           >
             홈으로 돌아가기
