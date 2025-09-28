@@ -68,7 +68,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
       const viewportHeight = window.visualViewport
         ? window.visualViewport.height
         : window.innerHeight;
-      const height = Math.max(viewportHeight * 0.28, 200); // 최소 높이 200px 보장
+      const height = Math.max(viewportHeight * 0.3, 200); // 최소 높이 200px 보장
       setSheetHeight(height);
     };
 
@@ -212,7 +212,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
       >
         {/* 드래그 핸들 및 확장된 드래그 영역 */}
         <div
-          className="flex justify-center items-start h-[70px] cursor-pointer select-none pt-4"
+          className="flex justify-center items-start h-[40px] cursor-pointer select-none pt-4"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -223,7 +223,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
         </div>
 
         {/* 시트 컨텐츠 */}
-        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-6 -mt-6">
+        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-8 mt-3">
           <div className="h-[40px] flex flex-col justify-center">
             <p className="text-[12px] text-center font-thin text-[#c3c3c3]">
               {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
@@ -244,14 +244,14 @@ export default function BottomSheet({ targetDate, onEndChange }) {
           </div>
 
           {/* 카운트다운 - 중앙 정렬 */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex items-center justify-center flex-1 -mt-3">
             <div className="flex justify-center gap-3">
               {/* DAYS */}
               <div className="flex flex-col items-center">
                 <p className="text-white text-[36px] font-bold">
                   {String(days).padStart(2, "0")}
                 </p>
-                <p className="text-white font-light text-sm">DAYS</p>
+                <p className="text-sm font-light text-white">DAYS</p>
               </div>
 
               {/* 구분자 */}
@@ -264,7 +264,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(hours).padStart(2, "0")}
                 </p>
-                <p className="text-white font-light text-sm">HOURS</p>
+                <p className="text-sm font-light text-white">HOURS</p>
               </div>
 
               <div className="flex items-start pt-2">
@@ -276,7 +276,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(minutes).padStart(2, "0")}
                 </p>
-                <p className="text-white font-light text-sm">MINS</p>
+                <p className="text-sm font-light text-white">MINS</p>
               </div>
 
               <div className="flex items-start pt-2">
@@ -288,7 +288,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(seconds).padStart(2, "0")}
                 </p>
-                <p className="text-white font-light text-sm">SECS</p>
+                <p className="text-sm font-light text-white">SECS</p>
               </div>
             </div>
           </div>

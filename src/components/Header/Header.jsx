@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MenuList from "./MenuList";
 import Team from "./MenuContent/Team";
 import Info from "./MenuContent/Info";
@@ -17,26 +17,6 @@ export default function Header({
   const [activeMenu, setActiveMenu] = useState("");
 
   const navigate = useNavigate();
-
-  // 메뉴가 열릴 때 body 스크롤 방지
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = "hidden";
-      document.body.style.position = "fixed";
-      document.body.style.width = "100%";
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-    }
-
-    // cleanup
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.position = "";
-      document.body.style.width = "";
-    };
-  }, [isMenuOpen]);
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -92,15 +72,14 @@ export default function Header({
         )}
       </div>
 
-      {/* 풀스크린 메뉴 - 모바일 스크롤 방지 */}
+      {/* 풀스크린 메뉴 */}
       {(isMenuOpen || isClosing) && (
         <div
-          className={`fixed inset-0 w-full h-full bg-[#161616] z-[50] flex flex-col ${
+          className={`fixed top-0 transform -translate-x-1/2 h-screen bg-[#161616] z-[50] flex flex-col w-full max-w-[430px] min-w-[100vw] sm:min-w-[375px] ${
             isClosing ? "animate-slideUp" : "animate-slideDown"
           }`}
           style={{
-            touchAction: "none", // 터치 스크롤 방지
-            overscrollBehavior: "none", // 오버스크롤 방지
+            width: "min(430px, 100vw)",
           }}
         >
           {/* 메뉴 내용 */}

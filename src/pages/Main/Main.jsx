@@ -2,20 +2,21 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BottomSheet from "../../components/BottomSheet";
-import API from "../../utils/axios"; // axios 경로 맞춰주세요
+import API from "../../utils/axios";
 import Match_Main from "./Match_Main";
 
 export default function Main() {
   const navigate = useNavigate();
   const targetDate = new Date("2025-10-01T09:00:00");
-
   const [isEnded, setIsEnded] = useState(false);
 
   const goToLogin = async () => {
     try {
-      // 로그인 안 된 상태면 바로 로그인 페이지로 이동
+      // 로그인 상태 확인
       const statusRes = await API.get("/log/status", { withCredentials: true });
-      if (!statusRes.data?.name) {
+
+      // 로그인 안 되어 있으면 로그인 페이지로 이동
+      if (!statusRes?.data?.name) {
         navigate("/Login");
         return;
       }
@@ -29,16 +30,27 @@ export default function Main() {
         return;
       }
 
-      // 이미 응모 완료 여부 판단 (전체 경기 예측이 존재하면 이미 응모)
-      if (submissions.length > 0) {
+      if (submissions && submissions.length > 0) {
         alert("이미 응모했습니다.");
         return;
       }
 
-      // 문제 없으면 Match 페이지로 이동
+      // 응모 가능 시 Match 페이지로 이동
       navigate("/Match");
+
     } catch (error) {
       console.error(error);
+
+      // axios 에러 구조를 안전하게 체크
+      const status = error?.response?.status;
+
+      // 로그인 안 되어 있거나 권한 없는 경우
+      if (!status || status === 401 || status === 403) {
+        navigate("/Login");
+        return;
+      }
+
+      // 기타 에러
       alert("오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -52,19 +64,21 @@ export default function Main() {
       />
       <img
         src="/assets/images/bg_RB.png"
-        className="absolute w-[50%] bottom-0 right-0 "
+        className="absolute w-[50%] bottom-0 right-0"
         alt=""
       />
 
       <div className="absolute w-full top-6">
         <Header showMenu={true} />
       </div>
+
       <div className="px-4 mt-16 text-center">
         <div className="text-2xl font-bold text-[#0073FF]">청춘열전</div>
         <div className="mt-1 text-3xl font-bold text-white">
           결승전 승부예측
         </div>
       </div>
+
       <div className="px-4 pb-20 mt-6 text-center">
         <div className="flex justify-center">
           <img src="/assets/images/Main.png" alt="" className="w-[70%]" />
@@ -89,7 +103,6 @@ export default function Main() {
 
       <Match_Main />
 
-      {/* 바텀시트 */}
       <BottomSheet targetDate={targetDate} onEndChange={setIsEnded} />
     </div>
   );
