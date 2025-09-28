@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import MatchLayout from '../components/MatchLayout';
-import API from '../utils/axios'; // axios instance 사용
+import API from '../utils/axios';
 import { API_URL } from '../utils/config';
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // 이미 로그인 상태라면 바로 Match로 이동
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const response = await API.get('/log/status', { withCredentials: true });
         if (response.data && response.data.name) {
-          // 로그인 되어 있으면 Match로 이동
-          navigate('/Match');
+          navigate('/MatchInfo', { replace: true });
         }
       } catch (error) {
         console.log('로그인 상태가 아닙니다.', error);
@@ -25,13 +24,32 @@ export default function Login() {
   }, [navigate]);
 
   const handleLogin = () => {
-    const currentPath = window.location.pathname + window.location.search;
-    localStorage.setItem("redirectAfterLogin", currentPath);
+    // URL에서 from 파라미터 확인
+    const urlParams = new URLSearchParams(window.location.search);
+    const fromPage = urlParams.get('from');
+    
+    console.log('로그인 시작, fromPage:', fromPage);
 
-    const origin = window.location.origin;
-    const fullRedirect = origin + currentPath;
-    const encodedRedirect = encodeURIComponent(fullRedirect);
+    // MatchHistory에서 왔다면 여러 곳에 저장
+    if (fromPage === 'matchhistory') {
+      sessionStorage.setItem('loginFromPage', 'matchhistory');
+      localStorage.setItem('loginFromPage', 'matchhistory');
+      console.log('여러 곳에 matchhistory 저장');
+    }
 
+    // OAuth state에 리다이렉트 정보 포함
+    let redirectPath;
+    if (fromPage === 'matchhistory') {
+      redirectPath = '/MatchHistory';
+    } else {
+      redirectPath = '/MatchInfo';
+    }
+    
+    // 백엔드가 이 URL로 리다이렉트하도록 설정
+    const redirectUrl = `${window.location.origin}${redirectPath}`;
+    const encodedRedirect = encodeURIComponent(redirectUrl);
+
+    console.log('OAuth로 이동, 최종 리다이렉트:', redirectPath);
     window.location.href = `${API_URL}/oauth2/authorization/google?state=${encodedRedirect}`;
   };
 

@@ -1,16 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import API from '../../utils/axios';
 
 export default function MenuList({ onSelect, onClose }) {
   const navigate = useNavigate();
 
   const goHomeAndCloseMenu = () => {
     navigate("/");
-    onClose(); // 메뉴를 닫음
+    onClose();
+  };
+
+  const handleLogout = async () => {
+    try {
+      const response = await API.post("/log/out", { withCredentials: true });
+      console.log(response.data);
+      navigate("/", { replace: true });
+      onClose(); 
+    } catch (error) {
+      console.error("로그아웃 실패:", error);
+    }
   };
 
   return (
-    <div className="h-full ">
+    <div className="h-full">
       <div className="px-6 py-12">
         <img
           src="/assets/images/Header/Back.png"
@@ -43,6 +55,12 @@ export default function MenuList({ onSelect, onClose }) {
           onClick={() => onSelect("MatchHistory")}
         >
           응모내역 확인
+        </div>
+        <div
+          className="flex text-white text-[14px] fontMedium cursor-pointer"
+          onClick={handleLogout}
+        >
+          - Log Out -
         </div>
       </div>
     </div>

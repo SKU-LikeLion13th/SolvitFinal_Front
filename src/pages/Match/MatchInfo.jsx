@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MatchLayout from '../../components/MatchLayout';
 
 export default function MatchInfo() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const loginFromPage = sessionStorage.getItem('loginFromPage');
+    
+    if (loginFromPage === 'matchhistory') {
+      console.log('MatchHistory에서 로그인했으므로 MatchHistory로 리다이렉트');
+      sessionStorage.removeItem('loginFromPage');
+      
+      setTimeout(() => {
+        navigate('/MatchHistory', { replace: true });
+      }, 100);
+    }
+  }, []);
 
   return (
     <MatchLayout>
