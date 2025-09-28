@@ -105,7 +105,7 @@ export default function MatchHistory() {
 
   return (
     <MatchLayout onBack={handleBack}>
-      <div className="flex flex-col w-9/12 min-h-[calc(100vh-60px)] overflow-y-auto mt-[6%]">
+      <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y-auto mt-[6%]">
         <div className="flex flex-col text-xl fontSB">
           <div className="text-[#fff]">
             {userName ? (
@@ -173,8 +173,8 @@ export default function MatchHistory() {
             })}
           </div>
         ) : (
-          <div className='flex flex-col items-center h-full mt-10'>
-            <div className="flex items-center text-[#DADADA] fontSB text-[13px] my-[60%]">
+          <div className='flex flex-col items-center h-full'>
+            <div className="flex items-center text-[#DADADA] fontSB text-[13px] py-[60%]">
               {submissions.length === 0
                 ? '응모 내역이 없습니다.'
                 : remainingTickets > 0
@@ -183,7 +183,7 @@ export default function MatchHistory() {
             </div>
             {remainingTickets > 0 && (
               <button
-                className="z-10 flex mb-20 w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
+                className="z-10 flex mb-10 w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
                 onClick={() => navigate('/Match')}
               >
                 {TOTAL_TICKETS > 1 ? '남은 응모권 사용' : '응모하러 가기'}

@@ -8,34 +8,32 @@ export default function MatchLayout({ children, onBack }) {
 
   const goBack = () => {
     if (onBack) {
-      onBack(); // 모달 닫기용 콜백
+      onBack();
     } else if (window.history.length > 1) {
-      navigate(-1); // 일반 페이지 뒤로가기
+      navigate(-1);
     } else {
-      window.location.reload(); // 새로고침
+      window.location.reload();
     }
   };
 
   return (
-    <div className="relative flex flex-col w-full min-h-[calc(100vh-60px)] text-white">
-      <div className='overflow-y-auto'>
-        <div className="z-10 flex items-center p-6">
-          <FaArrowLeft 
-            className="text-white text-[25px] cursor-pointer" 
-            onClick={goBack} 
-          />
-        </div>
-
-        <div className="flex flex-col items-center w-full">
-          {children}
-        </div>
-
-        <img
-          src="/assets/images/bg_LB.png"
-          className="absolute w-[50%] bottom-0 left-0"
-          alt="bg_LB"
+    <div className="relative flex flex-col w-full min-h-screen text-white">
+      <div className="z-10 flex items-center p-6">
+        <FaArrowLeft
+          className="text-white text-[25px] cursor-pointer"
+          onClick={goBack}
         />
       </div>
+
+      <div className="flex flex-col items-center flex-1 w-full overflow-y-auto">
+        {children}
+      </div>
+
+      <img
+        src="/assets/images/bg_LB.png"
+        className="absolute w-[50%] bottom-0 left-0 pointer-events-none"
+        alt="bg_LB"
+      />
     </div>
   );
 }
