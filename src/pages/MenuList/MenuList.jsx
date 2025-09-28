@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import API from "../../utils/axios";
 
 export default function MenuList() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,15 +18,15 @@ export default function MenuList() {
     }
   }, [location]);
 
-  const handleLogout = async () => {
-    try {
-      // API 호출 로직
-      console.log("로그아웃 처리");
-      // navigate("/", { replace: true });
-    } catch (error) {
-      console.error("로그아웃 실패:", error);
-    }
-  };
+    const handleLogout = async () => {
+      try {
+        const response = await API.post("/log/out", { withCredentials: true });
+        console.log(response.data);
+        navigate("/", { replace: true });
+      } catch (error) {
+        console.error("로그아웃 실패:", error);
+      }
+    };
 
   const animateAndNavigate = (path, animationType) => {
     setExitAnimation(animationType);
