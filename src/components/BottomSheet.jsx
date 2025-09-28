@@ -68,7 +68,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
       const viewportHeight = window.visualViewport
         ? window.visualViewport.height
         : window.innerHeight;
-      const height = Math.max(viewportHeight * 0.28, 200); // 최소 높이 200px 보장
+      const height = Math.max(viewportHeight * 0.3, 200); // 최소 높이 200px 보장
       setSheetHeight(height);
     };
 
@@ -212,7 +212,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
       >
         {/* 드래그 핸들 및 확장된 드래그 영역 */}
         <div
-          className="flex justify-center items-start h-[70px] cursor-pointer select-none pt-4"
+          className="flex justify-center items-start h-[40px] cursor-pointer select-none pt-4"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -223,7 +223,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
         </div>
 
         {/* 시트 컨텐츠 */}
-        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-8 -mt-6">
+        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-8 mt-3">
           <div className="h-[40px] flex flex-col justify-center">
             <p className="text-[12px] text-center font-thin text-[#c3c3c3]">
               {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
