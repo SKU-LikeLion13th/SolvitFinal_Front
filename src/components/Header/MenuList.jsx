@@ -10,7 +10,7 @@ export default function MenuList({ onSelect, onClose }) {
   };
 
   return (
-    <div className=" h-full ">
+    <div className="h-full ">
       <div className="px-6 py-12">
         <img
           src="/assets/images/Header/Back.png"
@@ -19,7 +19,7 @@ export default function MenuList({ onSelect, onClose }) {
           onClick={goHomeAndCloseMenu}
         />
       </div>
-      <div className="flex flex-col items-center h-screen justify-center space-y-6 text-lg fontSB -mt-28">
+      <div className="flex flex-col items-center justify-center h-screen space-y-6 text-lg fontSB -mt-28">
         <div
           className="cursor-pointer bg-white w-[55%] text-center rounded-full py-1.5"
           onClick={() => onSelect("Manager")}

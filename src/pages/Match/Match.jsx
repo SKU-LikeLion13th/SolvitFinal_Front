@@ -37,7 +37,7 @@ export default function Match() {
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
-        const response = await API.get(`/log/status`);
+        const response = await API.get('/log/status', { withCredentials: true });
         setUserName(response.data.name);
       } catch (error) {
         console.error('유저 정보를 불러오는 데 실패했습니다.', error);
@@ -46,7 +46,7 @@ export default function Match() {
 
     const fetchPredictions = async () => {
       try {
-        const res = await API.get(`/prediction/statistics`);
+        const res = await API.get(`/prediction/statistics`, { withCredentials: true });
         setMatches(res.data);
       } catch (error) {
         console.error('예측 정보를 불러오는 데 실패했습니다.', error);
@@ -87,7 +87,7 @@ export default function Match() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
         {matches.length > 0 ? (
           <>
             <div className="flex flex-col text-xl fontMedium">
@@ -123,7 +123,7 @@ export default function Match() {
               ))}
             </div>
 
-            <div className="flex items-end justify-center mt-[50%] sm:mt-[70%] mb-10">
+            <div className="flex items-end justify-center mt-[60%] sm:mt-[80%] mb-10">
               <button
                 className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
                   ${selected === null 
