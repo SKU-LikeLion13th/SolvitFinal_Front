@@ -63,25 +63,23 @@ export default function Info() {
         `}
       </style>
       <div
-        className={`px-8 pt-[60px] bg-[#0D0D0D] min-h-screen overflow-y-auto ${
+        className={`px-8 pt-12 bg-[#0D0D0D] min-h-screen overflow-y-auto ${
           exitAnimation ? `animate-${exitAnimation}` : ""
         }`}
       >
-        <div
-          className="absolute cursor-pointer top-12 right-6"
-          onClick={onCancel}
-        >
-          <img
-            src="/assets/images/Header/cancel.png"
-            className="w-[20px] h-[20px]"
-            alt="cancel"
-          />
-        </div>
-
         {/* 헤더 */}
         <div className="text-white">
-          <div className="bg-white w-[65%] h-[0.5px]"></div>
-          <p className="fontRegular text-[12px] py-2 pl-2">
+          <div className="flex justify-between items-center">
+            <div className="bg-white w-[65%] h-[0.5px]"></div>
+            <div className="cursor-pointer flex justify-end" onClick={onCancel}>
+              <img
+                src="/assets/images/Header/cancel.png"
+                className="w-[20px] h-[20px]"
+                alt="cancel"
+              />
+            </div>
+          </div>
+          <p className="fontRegular text-[12px] pb-2 pl-2">
             2025 영암체전 승부예측 경품
           </p>
           <div className="bg-white w-full h-[0.5px]"></div>
