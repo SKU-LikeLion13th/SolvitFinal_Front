@@ -87,13 +87,13 @@ export default function Team({ onBack }) {
                   />
                 </div>
               )}
-              <p className="text-[8px] fontRegular">{member.department}</p>
+              <p className="text-[7px] fontRegular">{member.department}</p>
               <p className="text-[11px] fontSB mt-1">
                 {member.role} {member.name}
               </p>
               {member.task && (
                 <>
-                  <div className="w-[90%] h-[0.5px] bg-[#1880FF] my-2.5"></div>
+                  <div className="w-[80%] h-[1px] bg-[#1880FF] my-2.5"></div>
                   <p className="text-[8px] fontMedium">{member.task}</p>
                 </>
               )}
@@ -127,8 +127,10 @@ export default function Team({ onBack }) {
         {tabs.map((tab) => (
           <div key={tab} className="flex flex-col items-center">
             <button
-              className={`fontMedium text-sm ${
-                activeTab === tab ? "text-white" : "text-gray-400"
+              className={` text-sm ${
+                activeTab === tab
+                  ? "text-white fontBold"
+                  : "text-gray-400 fontLight"
               }`}
               onClick={() => setActiveTab(tab)}
             >

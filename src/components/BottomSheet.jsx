@@ -61,7 +61,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
   // 시트 높이 계산
   useEffect(() => {
     const updateHeight = () => {
-      const height = window.innerHeight * 0.3;
+      const height = window.innerHeight * 0.28;
       setSheetHeight(height);
     };
     updateHeight();
@@ -164,7 +164,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
         <div className="w-16 h-1.5 bg-gray-500 rounded-full"></div>
       </div>
 
-      <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 h-full py-6">
+      <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 h-[80%] py-6">
         <div className="h-[40px] flex flex-col justify-center">
           <p className="text-[12px] text-center fontThin text-[#c3c3c3]">
             {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
