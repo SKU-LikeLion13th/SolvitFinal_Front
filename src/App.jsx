@@ -9,11 +9,13 @@ import Match from "./pages/Match/Match";
 import MatchCheck from "./pages/Match/MatchCheck";
 import MatchFinish from "./pages/Match/MatchFinish";
 import MatchHistory from "./components/Header/MenuContent/MatchHistory";
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
-      <div className="App ">
+      <ScrollToTop />
+      <div className="App">
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/Login" element={<Login />} />

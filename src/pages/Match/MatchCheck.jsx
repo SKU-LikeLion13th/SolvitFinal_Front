@@ -91,7 +91,7 @@ export default function MatchCheck() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
         <div className="flex flex-col text-xl fontSB">
           <div className="text-[#fff]">응모 전,</div>
           <div className="text-[#fff]">확인해 주세요!</div>
@@ -155,7 +155,7 @@ export default function MatchCheck() {
           응모 후 수정이 불가합니다.
         </div>
 
-        <div className="flex items-end justify-center mt-10">
+        <div className="flex items-end justify-center mt-10 mb-10">
           <button
             className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl ${
               loading ? "bg-[#A3A3A3] cursor-not-allowed" : "bg-[#0073FF] text-white"

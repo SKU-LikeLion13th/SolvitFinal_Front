@@ -98,7 +98,7 @@ export default function Match() {
               </div>
             </div>
 
-            <div className="flex justify-between w-full mt-[30%]">
+            <div className="flex justify-between w-full mt-[50%]">
               {matches[currentMatch].predictions.map((prediction, idx) => (
                 <div
                   key={idx}
@@ -123,9 +123,9 @@ export default function Match() {
               ))}
             </div>
 
-            <div className="flex items-end justify-center mt-[80%]">
+            <div className="flex items-end justify-center mt-[50%] sm:mt-[70%] mb-10">
               <button
-                className={`flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
+                className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
                   ${selected === null 
                     ? 'bg-[#A3A3A3] text-[#4A4A4A] cursor-not-allowed' 
                     : 'bg-[#0073FF] text-white cursor-pointer'}`}
