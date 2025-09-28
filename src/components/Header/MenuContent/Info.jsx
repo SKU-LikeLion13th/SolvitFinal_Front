@@ -1,13 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API from "../../../utils/axios";
 
 export default function Info({ onCancel }) {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserStatus = async () => {
+      try {
+        const response = await API.get("/log/status", { withCredentials: true });
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("유저 정보를 불러오는 데 실패했습니다.", error);
+        setUserInfo(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserStatus();
+  }, []);
+
+  const handleNavigate = () => {
+    if (userInfo) {
+      navigate("/MatchInfo");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <div className="px-8 pt-[60px] bg-[#0D0D0D] min-h-screen overflow-y-auto">
       <div
-        className="absolute top-12 right-6 cursor-pointer"
+        className="absolute cursor-pointer top-12 right-6"
         onClick={onCancel}
       >
         <img
@@ -16,6 +42,7 @@ export default function Info({ onCancel }) {
           alt="cancel"
         />
       </div>
+
       {/* 헤더 */}
       <div className="text-white">
         <div className="bg-white w-[65%] h-[0.5px]"></div>
@@ -38,9 +65,10 @@ export default function Info({ onCancel }) {
 
         <button
           className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontBold text-[13px] my-12"
-          onClick={() => navigate("/MatchInfo")}
+          onClick={handleNavigate}
+          disabled={loading} // 로딩 중 클릭 방지
         >
-          승부예측 바로가기 {"->"}
+          {loading ? "불러오는 중..." : "승부예측 바로가기 →"}
         </button>
       </div>
 
