@@ -147,77 +147,79 @@ export default function Match_Main() {
           const barDirection = isTeamBWinner && !isBeforeGame ? "flex-row" : "";
 
           return (
-            <div key={idx} className="flex flex-col items-center w-full">
-              <p className="text-white font-bold text-[16px] mb-1">
-                {getSportTypeInKorean(game.sportType)}
-                <span
-                  className={`text-white font-bold text-[16px] mb-1 ${
-                    isTeamAWinner || isTeamBWinner ? "text-[#FF5900]" : ""
-                  }`}
-                >
-                  {isBeforeGame ? "" : " 경기종료"}
-                </span>
-              </p>
+            <div className="">
+              <div key={idx} className="flex flex-col items-center w-full pb-3">
+                <p className="text-white font-bold text-[16px] mb-3">
+                  {getSportTypeInKorean(game.sportType)}
+                  <span
+                    className={`text-white font-bold text-[16px] mb-1 ${
+                      isTeamAWinner || isTeamBWinner ? "text-[#FF5900]" : ""
+                    }`}
+                  >
+                    {isBeforeGame ? "" : " 경기종료"}
+                  </span>
+                </p>
 
-              {/* 팀 이름 */}
-              <div className="flex items-center w-full justify-center mb-2 relative">
-                <div
-                  className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamAClass}`}
-                >
-                  {!isBeforeGame && isTeamAWinner && (
-                    <img
-                      src="/assets/images/Win.png"
-                      alt="winner"
-                      className="absolute top-1 left-1 w-4 h-4"
-                    />
-                  )}
-                  TEAM A
-                </div>
-
-                <div className="text-white text-[16px] mx-3">VS</div>
-
-                <div
-                  className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamBClass}`}
-                >
-                  {!isBeforeGame && isTeamBWinner && (
-                    <img
-                      src="/assets/images/Win.png"
-                      alt="winner"
-                      className="absolute top-1 left-1 w-4 h-4"
-                    />
-                  )}
-                  TEAM B
-                </div>
-              </div>
-
-              {/* 퍼센트 바 */}
-              <div className="flex items-center w-[85%] mt-3 space-x-2">
-                <span className="text-white text-[10px] w-6 text-right">
-                  {game.predictions[0].percentage}%
-                </span>
-
-                <div
-                  className={`flex-1 h-2 rounded-full overflow-hidden flex ${barDirection} bg-[#959595]`}
-                >
+                {/* 팀 이름 */}
+                <div className="flex items-center w-full justify-center mb-2 relative">
                   <div
-                    className="h-full"
-                    style={{
-                      width: `${game.predictions[0].percentage}%`,
-                      backgroundColor: teamABarColor,
-                    }}
-                  />
+                    className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamAClass}`}
+                  >
+                    {!isBeforeGame && isTeamAWinner && (
+                      <img
+                        src="/assets/images/Win.png"
+                        alt="winner"
+                        className="absolute top-1 left-1 w-4 h-4"
+                      />
+                    )}
+                    TEAM A
+                  </div>
+
+                  <div className="text-white text-[16px] mx-3">VS</div>
+
                   <div
-                    className="h-full"
-                    style={{
-                      width: `${game.predictions[1].percentage}%`,
-                      backgroundColor: teamBBarColor,
-                    }}
-                  />
+                    className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamBClass}`}
+                  >
+                    {!isBeforeGame && isTeamBWinner && (
+                      <img
+                        src="/assets/images/Win.png"
+                        alt="winner"
+                        className="absolute top-1 left-1 w-4 h-4"
+                      />
+                    )}
+                    TEAM B
+                  </div>
                 </div>
 
-                <span className="text-white text-[10px] w-6 text-left">
-                  {game.predictions[1].percentage}%
-                </span>
+                {/* 퍼센트 바 */}
+                <div className="flex items-center w-[85%] mt-3 space-x-2">
+                  <span className="text-white text-[10px] w-6 text-right">
+                    {game.predictions[0].percentage}%
+                  </span>
+
+                  <div
+                    className={`flex-1 h-2 rounded-full overflow-hidden flex ${barDirection} bg-[#959595]`}
+                  >
+                    <div
+                      className="h-full"
+                      style={{
+                        width: `${game.predictions[0].percentage}%`,
+                        backgroundColor: teamABarColor,
+                      }}
+                    />
+                    <div
+                      className="h-full"
+                      style={{
+                        width: `${game.predictions[1].percentage}%`,
+                        backgroundColor: teamBBarColor,
+                      }}
+                    />
+                  </div>
+
+                  <span className="text-white text-[10px] w-6 text-left">
+                    {game.predictions[1].percentage}%
+                  </span>
+                </div>
               </div>
             </div>
           );

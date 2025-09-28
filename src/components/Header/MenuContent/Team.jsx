@@ -69,14 +69,14 @@ export default function Team({ onBack }) {
     return (
       <div
         className={`mt-6 text-white ${
-          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-4 mx-3"
+          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3"
         }`}
       >
         {selectedMembers.map((member) => (
-          <div className="flex justify-center ">
+          <div className="flex justify-center w-full">
             <div
               key={member.id}
-              className="w-[120px] h-[175px] text-black rounded-lg bg-[#F8F8F8] text-center flex flex-col justify-center items-center px-2 pt-1 pb-3"
+              className="h-[170px] w-[100px] text-black rounded-lg bg-[#F8F8F8] text-center flex flex-col justify-center items-center px-2 pt-1 pb-3"
             >
               {member.imgSrc && (
                 <div className="w-full h-[90px] mb-2 flex justify-center items-center">
@@ -88,7 +88,7 @@ export default function Team({ onBack }) {
                 </div>
               )}
               <p className="text-[7px] fontRegular">{member.department}</p>
-              <p className="text-[11px] fontSB mt-1">
+              <p className="text-[10px] fontSB mt-1">
                 {member.role} {member.name}
               </p>
               {member.task && (
@@ -105,7 +105,7 @@ export default function Team({ onBack }) {
   };
 
   return (
-    <div className="px-4 pt-24">
+    <div className="px-4 pt-24 overflow-y-auto pb-8">
       <div className="absolute top-12 left-8 cursor-pointer" onClick={onBack}>
         <img
           src="/assets/images/Header/Back.png"

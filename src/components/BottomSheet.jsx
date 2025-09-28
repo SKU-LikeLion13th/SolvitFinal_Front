@@ -17,7 +17,6 @@ export default function BottomSheet({ targetDate, onEndChange }) {
   const openDate = new Date("2025-09-29T00:00:00");
   const isBeforeOpen = now < openDate;
 
-  // const isEnded = days === 0 && hours === 0 && minutes === 0 && seconds === 0;
   const isEnded =
     !isBeforeOpen &&
     days === 0 &&
@@ -58,20 +57,59 @@ export default function BottomSheet({ targetDate, onEndChange }) {
     return () => clearInterval(timer);
   }, [targetDate, isBeforeOpen]);
 
-  // 시트 높이 계산
+  // 시트 높이 계산 - 사파리 URL 바 대응
   useEffect(() => {
     const updateHeight = () => {
-      const height = window.innerHeight * 0.28;
+      // 사파리의 동적 뷰포트를 고려한 높이 계산
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+      // 실제 가시 뷰포트 높이 사용 (visualViewport API 활용)
+      const viewportHeight = window.visualViewport
+        ? window.visualViewport.height
+        : window.innerHeight;
+      const height = Math.max(viewportHeight * 0.28, 200); // 최소 높이 200px 보장
       setSheetHeight(height);
     };
+
     updateHeight();
+
+    // 다양한 이벤트에 대응
     window.addEventListener("resize", updateHeight);
-    return () => window.removeEventListener("resize", updateHeight);
+    window.addEventListener("orientationchange", updateHeight);
+
+    // visualViewport API 지원 브라우저 (사파리 13+)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", updateHeight);
+    }
+
+    // 사파리에서 스크롤 시 URL 바 변화 감지
+    let ticking = false;
+    const handleViewportChange = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateHeight();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleViewportChange);
+
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+      window.removeEventListener("orientationchange", updateHeight);
+      window.removeEventListener("scroll", handleViewportChange);
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", updateHeight);
+      }
+    };
   }, []);
 
   const getTranslateY = () => {
-    if (isDragging) return currentY;
-    return isOpen ? 0 : sheetHeight - 40;
+    if (isDragging) return Math.max(0, currentY);
+    return isOpen ? 0 : sheetHeight - 70;
   };
 
   const handleStart = (clientY) => {
@@ -84,17 +122,16 @@ export default function BottomSheet({ targetDate, onEndChange }) {
     if (!isDragging) return;
     const deltaY = clientY - startY;
     let newY = currentY + deltaY;
-    newY = Math.max(-20, Math.min(sheetHeight - 70, newY));
+    newY = Math.max(0, Math.min(sheetHeight - 70, newY));
     setCurrentY(newY);
   };
 
   const handleEnd = () => {
     if (!isDragging) return;
     setIsDragging(false);
-    const threshold = (sheetHeight - 60) / 2;
+    const threshold = (sheetHeight - 70) / 2;
     const shouldOpen = currentY < threshold;
     setIsOpen(shouldOpen);
-    setCurrentY(shouldOpen ? 0 : sheetHeight - 60);
   };
 
   const onTouchStart = (e) => {
@@ -144,93 +181,119 @@ export default function BottomSheet({ targetDate, onEndChange }) {
   }, [days, hours, minutes, seconds, isBeforeOpen, onEndChange]);
 
   return (
-    <div
-      ref={sheetRef}
-      className="fixed bottom-0 w-full z-20 max-w-[430px] flex flex-col"
-      style={{
-        height: `${sheetHeight}px`,
-        transform: `translateY(${getTranslateY()}px)`,
-        transition: isDragging ? "none" : "transform 0.3s ease-out",
-      }}
-    >
+    <>
+      {/* CSS 변수 설정을 위한 스타일 태그 */}
+      <style jsx>{`
+        :root {
+          --vh: 1vh;
+        }
+
+        .bottom-sheet {
+          bottom: max(env(safe-area-inset-bottom), 0px);
+          /* iOS PWA에서 home indicator 영역 고려 */
+        }
+
+        @supports (height: 100dvh) {
+          .bottom-sheet {
+            /* dvh 지원 브라우저에서는 동적 뷰포트 높이 사용 */
+            bottom: 0;
+          }
+        }
+      `}</style>
+
       <div
-        className="flex justify-center items-center h-[44px] cursor-pointer select-none"
-        onTouchStart={onTouchStart}
-        onTouchMove={onTouchMove}
-        onTouchEnd={onTouchEnd}
-        onMouseDown={onMouseDown}
-        onClick={toggleSheet}
+        ref={sheetRef}
+        className="fixed left-0 right-0 w-full z-20 max-w-[430px] mx-auto flex flex-col bg-transparent bottom-sheet"
+        style={{
+          height: `${sheetHeight}px`,
+          transform: `translateY(${getTranslateY()}px)`,
+          transition: isDragging ? "none" : "transform 0.3s ease-out",
+        }}
       >
-        <div className="w-16 h-1.5 bg-gray-500 rounded-full"></div>
-      </div>
-
-      <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 h-[80%] py-6">
-        <div className="h-[40px] flex flex-col justify-center">
-          <p className="text-[12px] text-center fontThin text-[#c3c3c3]">
-            {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
-          </p>
-          {isBeforeOpen ? (
-            <p className="text-white text-center fontBold text-[16px] mt-1">
-              9월 30일 OPEN
-            </p>
-          ) : isEnded ? (
-            <p className="text-white text-center fontBold text-[16px] mt-1">
-              승부예측 종료
-            </p>
-          ) : (
-            <p className="text-white text-center fontBold text-[14px] mt-1">
-              마감까지 남은 시간
-            </p>
-          )}
+        {/* 드래그 핸들 및 확장된 드래그 영역 */}
+        <div
+          className="flex justify-center items-start h-[70px] cursor-pointer select-none pt-4"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+          onMouseDown={onMouseDown}
+          onClick={toggleSheet}
+        >
+          <div className="w-16 h-1.5 bg-gray-400 rounded-full"></div>
         </div>
 
-        <div className="flex justify-center gap-4 mt-3">
-          {/* DAYS */}
-          <div className="flex flex-col items-center">
-            <p className="text-white text-[40px] font-bold">
-              {String(days).padStart(2, "0")}
+        {/* 시트 컨텐츠 */}
+        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-6 -mt-6">
+          <div className="h-[40px] flex flex-col justify-center">
+            <p className="text-[12px] text-center font-thin text-[#c3c3c3]">
+              {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
             </p>
-            <p className="text-white fontEL text-md">DAYS</p>
+            {isBeforeOpen ? (
+              <p className="text-white text-center font-bold text-[16px] mt-1">
+                9월 30일 OPEN
+              </p>
+            ) : isEnded ? (
+              <p className="text-white text-center font-bold text-[16px] mt-1">
+                승부예측 종료
+              </p>
+            ) : (
+              <p className="text-white text-center font-bold text-[14px] mt-1">
+                마감까지 남은 시간
+              </p>
+            )}
           </div>
 
-          {/* 구분자 */}
-          <div className="flex items-start">
-            <p className="text-white text-[40px] fontEL">:</p>
-          </div>
+          {/* 카운트다운 - 중앙 정렬 */}
+          <div className="flex-1 flex justify-center">
+            <div className="flex justify-center gap-3">
+              {/* DAYS */}
+              <div className="flex flex-col items-center">
+                <p className="text-white text-[36px] font-bold">
+                  {String(days).padStart(2, "0")}
+                </p>
+                <p className="text-white font-light text-sm">DAYS</p>
+              </div>
 
-          {/* HOURS */}
-          <div className="flex flex-col items-center">
-            <p className="text-white text-[40px] font-bold">
-              {String(hours).padStart(2, "0")}
-            </p>
-            <p className="text-white fontEL text-md ">HOURS</p>
-          </div>
+              {/* 구분자 */}
+              <div className="flex items-start pt-2">
+                <p className="text-white text-[36px] font-light">:</p>
+              </div>
 
-          <div className="flex items-start">
-            <p className="text-white text-[40px] fontEL">:</p>
-          </div>
+              {/* HOURS */}
+              <div className="flex flex-col items-center">
+                <p className="text-white text-[36px] font-bold">
+                  {String(hours).padStart(2, "0")}
+                </p>
+                <p className="text-white font-light text-sm">HOURS</p>
+              </div>
 
-          {/* MINUTES */}
-          <div className="flex flex-col items-center">
-            <p className="text-white text-[40px] font-bold">
-              {String(minutes).padStart(2, "0")}
-            </p>
-            <p className="text-white fontEL text-md ">MINS</p>
-          </div>
+              <div className="flex items-start pt-2">
+                <p className="text-white text-[36px] font-light">:</p>
+              </div>
 
-          <div className="flex items-start">
-            <p className="text-white text-[40px] fontEL">:</p>
-          </div>
+              {/* MINUTES */}
+              <div className="flex flex-col items-center">
+                <p className="text-white text-[36px] font-bold">
+                  {String(minutes).padStart(2, "0")}
+                </p>
+                <p className="text-white font-light text-sm">MINS</p>
+              </div>
 
-          {/* SECONDS */}
-          <div className="flex flex-col items-center">
-            <p className="text-white text-[40px] font-bold">
-              {String(seconds).padStart(2, "0")}
-            </p>
-            <p className="text-white fontEL text-md ">SECS</p>
+              <div className="flex items-start pt-2">
+                <p className="text-white text-[36px] font-light">:</p>
+              </div>
+
+              {/* SECONDS */}
+              <div className="flex flex-col items-center">
+                <p className="text-white text-[36px] font-bold">
+                  {String(seconds).padStart(2, "0")}
+                </p>
+                <p className="text-white font-light text-sm">SECS</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

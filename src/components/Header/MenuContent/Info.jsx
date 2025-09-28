@@ -54,31 +54,35 @@ export default function Info({ onCancel }) {
           <div className="text-[9px] space-y-8 fontLight pl-2 text-center">
             <div className="space-y-1.5">
               <p className="fontMedium">1. 응모 횟수</p>
-              <li>학생회비 납부자는 승부예측 응모가 최대 2회 가능합니다.</li>
-              <li>동일한 팀으로 2회 응모시, 추첨기에 이름이 2번 들어갑니다.</li>
+              <div>
+                • 학생회비 납부자는 승부예측 응모가 최대 2회 가능합니다.
+              </div>
+              <div>
+                • 동일한 팀으로 2회 응모시, 추첨기에 이름이 2번 들어갑니다.
+              </div>
             </div>
             <div className="space-y-1.5">
               <p className="fontMedium">2. 학생회비 미납부자 안내</p>
-              <li>
-                학생회비를 납부하지 않은 경우, 당첨되더라도 경품 수령이
+              <div>
+                • 학생회비를 납부하지 않은 경우, 당첨되더라도 경품 수령이
                 불가합니다.
-              </li>
-              <li>
-                상품 수령 시 현장에서도 납부 가능하며, 20,000원을 지참해 주시기
-                바랍니다.
-              </li>
-              <li>
-                학생회비 납부를 희망하지 않는 경우 경품 재추첨이 이루어질
+              </div>
+              <div>
+                • 상품 수령 시 현장에서도 납부 가능하며, 20,000원을 지참해
+                주시기 바랍니다.
+              </div>
+              <div>
+                • 학생회비 납부를 희망하지 않는 경우 경품 재추첨이 이루어질
                 예정입니다.
-              </li>
+              </div>
             </div>
             <div className="space-y-1.5">
               <p className="fontMedium">3. 수령 방식</p>
-              <li>경품은 본인만 수령 가능하며, 대리 수령은 불가합니다.</li>
+              <div>• 경품은 본인만 수령 가능하며, 대리 수령은 불가합니다.</div>
             </div>
             <div className="space-y-1.5">
               <p className="fontMedium">4. 당첨 결과 안내</p>
-              <li>당첨자에 한하여 10월 2일 문자 안내가 발송됩니다.</li>
+              <div>• 당첨자에 한하여 10월 2일 문자 안내가 발송됩니다.</div>
             </div>
           </div>
         </div>

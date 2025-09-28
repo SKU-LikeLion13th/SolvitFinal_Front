@@ -1,145 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import MatchLayout from '../../components/MatchLayout';
-import API from '../../utils/axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
+import BottomSheet from "../../components/BottomSheet";
+import Match_Main from "../Main/Match_Main";
 
-export default function Match() {
+export default function Main() {
   const navigate = useNavigate();
-  const [selected, setSelected] = useState(null);
-  const location = useLocation();
-  const [userName, setUserName] = useState('');
-  const [matches, setMatches] = useState([]);
-  const [currentMatch, setCurrentMatch] = useState(0);
-  const [allPredictions, setAllPredictions] = useState([]);
+  const targetDate = new Date("2025-10-01T09:00:00");
 
-  const sportTypeMap = {
-    SOCCER: "축구",
-    BASKETBALL: "농구",
-    FOOT_VOLLEY: "족구",
-    KICK_BASEBALL: "발야구",
-    DODGEBALL: "피구"
-  };
+  const [isEnded, setIsEnded] = useState(false);
 
-  useEffect(() => {
-    if (location.state?.editIndex !== undefined && location.state.existingPredictions) {
-      setAllPredictions(location.state.existingPredictions);
-      setCurrentMatch(location.state.editIndex);
-
-      setSelected(
-        matches[location.state.editIndex]?.predictions.findIndex(
-          p => p.predictionResult === location.state.existingPredictions[location.state.editIndex].predictionResult
-        ) ?? null
-      );
-    }
-  }, [location.state, matches]);
-
-
-  useEffect(() => {
-    const fetchUserStatus = async () => {
-      try {
-        const response = await API.get(`/log/status`);
-        setUserName(response.data.name);
-      } catch (error) {
-        console.error('유저 정보를 불러오는 데 실패했습니다.', error);
-      }
-    };
-
-    const fetchPredictions = async () => {
-      try {
-        const res = await API.get(`/prediction/statistics`);
-        setMatches(res.data);
-      } catch (error) {
-        console.error('예측 정보를 불러오는 데 실패했습니다.', error);
-      }
-    };
-
-    fetchUserStatus();
-    fetchPredictions();
-  }, []);
-
-  const handleNext = () => {
-    if (selected === null) return;
-
-    const currentPrediction = {
-      sportType: matches[currentMatch].sportType,
-      predictionResult: matches[currentMatch].predictions[selected].predictionResult
-    };
-
-    const updatedPredictions = [...allPredictions];
-    updatedPredictions[currentMatch] = currentPrediction;
-
-    // editIndex가 있는 경우 => 해당 경기만 수정 후 바로 MatchCheck로
-    if (location.state?.editIndex !== undefined) {
-      navigate("/MatchCheck", { state: { predictions: updatedPredictions } });
-      return;
-    }
-
-    // 기존 전체 선택 로직
-    setAllPredictions(updatedPredictions);
-
-    if (currentMatch < matches.length - 1) {
-      setSelected(null);
-      setCurrentMatch(currentMatch + 1);
-    } else {
-      navigate("/MatchCheck", { state: { predictions: updatedPredictions } });
-    }
+  const goToLogin = () => {
+    navigate("/Login");
   };
 
   return (
-    <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
-        {matches.length > 0 ? (
-          <>
-            <div className="flex flex-col text-xl fontMedium">
-              <div className="text-[#fff] mb-3">{`${currentMatch + 1} / ${matches.length}`}</div>
-              <div className="text-[#1880FF]">{sportTypeMap[matches[currentMatch].sportType]} 결승</div>
-              <div className="text-[#fff]">
-                {userName ? `${userName}님의 우승 예측은?` : '불러오는 중...'}
-              </div>
-            </div>
+    <div className="relative min-h-screen pt-12 overflow-hidden">
+      <img
+        src="/assets/images/bg_LT.png"
+        className="absolute w-[50%] top-12 left-0"
+        alt=""
+      />
+      <img
+        src="/assets/images/bg_RB.png"
+        className="absolute w-[50%] bottom-0 right-0 "
+        alt=""
+      />
 
-            <div className="flex justify-between w-full mt-[50%]">
-              {matches[currentMatch].predictions.map((prediction, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setSelected(idx)}
-                  className={`flex flex-col items-center w-[45%] rounded-xl h-[200px] cursor-pointer 
-                    ${selected === idx ? 'bg-[#0073FF]' : 'bg-[#D9D9D9]'}`}
-                >
-                  <div className="flex items-center justify-center w-full h-full">
-                    <img
-                      src="/assets/images/SchoolLogo.png"
-                      className="w-[50%]"
-                      alt="class"
-                    />
-                  </div>
-                  <div
-                    className={`flex items-end mb-5 fontMedium 
-                      ${selected === idx ? 'text-[#fff]' : 'text-[#000]'}`}
-                  >
-                    {prediction.predictionResult}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-end justify-center mt-[50%] sm:mt-[70%] mb-10">
-              <button
-                className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
-                  ${selected === null 
-                    ? 'bg-[#A3A3A3] text-[#4A4A4A] cursor-not-allowed' 
-                    : 'bg-[#0073FF] text-white cursor-pointer'}`}
-                onClick={handleNext}
-                disabled={selected === null}
-              >
-                다음
-              </button>
-            </div>
-          </>
-        ) : (
-          <div className="text-white">불러오는 중...</div>
-        )}
+      <div className="absolute w-full top-12">
+        <Header showMenu={true} />
       </div>
-    </MatchLayout>
+
+      {/* 스크롤 가능한 메인 콘텐츠 영역 - 바텀시트 높이만큼 패딩 추가 */}
+      <div className="pb-[30vh] overflow-y-auto h-full">
+        <div className="px-4 mt-16 text-center">
+          <div className="text-2xl font-bold text-[#0073FF]">청춘열전</div>
+          <div className="mt-1 text-3xl font-bold text-white">
+            결승전 승부예측
+          </div>
+        </div>
+        <div className="px-4 pb-20 mt-6 text-center">
+          <div className="flex justify-center">
+            <img src="/assets/images/Main.png" alt="" className="w-[70%]" />
+          </div>
+          <p className="text-white text-[11px] font-semibold mt-2">
+            성결대학교 재학생이라면?
+            <br />
+            승부예측 응모에 참여하고 상품 받아가자!
+          </p>
+          <button
+            className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 ${
+              isEnded
+                ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
+                : "bg-[#0073FF] text-white"
+            }`}
+            onClick={goToLogin}
+            disabled={isEnded}
+          >
+            {isEnded ? "응모마감" : "응모하러 가기"}
+          </button>
+        </div>
+
+        <Match_Main />
+      </div>
+
+      {/* 바텀시트 */}
+      <BottomSheet targetDate={targetDate} onEndChange={setIsEnded} />
+    </div>
   );
 }
