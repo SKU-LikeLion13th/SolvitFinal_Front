@@ -34,7 +34,7 @@ export default function Login() {
 
     let redirectPath;
     if (fromPage === "matchhistory") {
-      redirectPath = "/MatchHistory";
+      redirectPath = "/MenuList/MatchHistory";
     } else {
       redirectPath = "/MatchInfo";
     }

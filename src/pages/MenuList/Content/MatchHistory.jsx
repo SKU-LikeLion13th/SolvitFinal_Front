@@ -23,11 +23,7 @@ export default function MatchHistory() {
   };
 
   const handleBack = () => {
-    if (document.referrer && document.referrer !== window.location.href) {
-      navigate(-1);
-    } else {
-      window.location.href = window.location.pathname + window.location.search;
-    }
+    navigate('/MenuList', { replace: true });
   };
 
   // 유저 상태 확인
