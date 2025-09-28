@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import API from '../../utils/axios';
+import API from "../../utils/axios";
 
 export default function MenuList({ onSelect, onClose }) {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export default function MenuList({ onSelect, onClose }) {
       const response = await API.post("/log/out", { withCredentials: true });
       console.log(response.data);
       navigate("/", { replace: true });
-      onClose(); 
+      onClose();
     } catch (error) {
       console.error("로그아웃 실패:", error);
     }
@@ -23,7 +23,7 @@ export default function MenuList({ onSelect, onClose }) {
 
   return (
     <div className="h-full">
-      <div className="px-6 py-12">
+      <div className="px-8 py-12">
         <img
           src="/assets/images/Header/Back.png"
           className="w-[22px] h-[18px] cursor-pointer"
