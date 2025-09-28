@@ -69,7 +69,7 @@ export default function Team({ onBack }) {
     return (
       <div
         className={`mt-6 text-white ${
-          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3"
+          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3 mx-4"
         }`}
       >
         {selectedMembers.map((member) => (
@@ -105,17 +105,17 @@ export default function Team({ onBack }) {
   };
 
   return (
-    <div className="px-4 pt-24 overflow-y-auto pb-8">
-      <div className="absolute top-12 left-8 cursor-pointer" onClick={onBack}>
+    <div className="px-4 pt-24 pb-8 overflow-y-auto">
+      <div className="absolute cursor-pointer top-12 left-8" onClick={onBack}>
         <img
           src="/assets/images/Header/Back.png"
           className="w-[20px] h-[16px]"
           alt="back"
         />
       </div>
-      <div className="text-white text-center">
-        <p className="fontBold text-lg">제작에 참여한 사람들</p>
-        <p className="fontRegular text-xs my-14">
+      <div className="text-center text-white">
+        <p className="text-lg fontBold">제작에 참여한 사람들</p>
+        <p className="text-xs fontRegular my-14">
           제41대 빛을 찾아 나아가는 솔:빛 총학생회와
           <br />
           성결대학교 멋쟁이사자처럼 13기가 함께 제작하였습니다.

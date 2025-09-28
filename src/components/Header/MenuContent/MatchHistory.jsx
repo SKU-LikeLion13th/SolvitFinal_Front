@@ -23,7 +23,11 @@ export default function MatchHistory() {
   };
 
   const handleBack = () => {
-    window.location.href = window.location.pathname + window.location.search;
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      window.location.href = window.location.pathname + window.location.search;
+    }
   };
 
   useEffect(() => {
@@ -111,7 +115,7 @@ export default function MatchHistory() {
                 <div>로그인이 필요합니다.</div>
                 <button
                   className="text-sm underline"
-                  onClick={() => navigate('/login')}
+                  onClick={() => navigate('/login?from=matchhistory')}
                 >
                   로그인 하러가기
                 </button>
