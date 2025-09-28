@@ -223,7 +223,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
         </div>
 
         {/* 시트 컨텐츠 */}
-        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-6 -mt-6">
+        <div className="bg-[#000000] rounded-t-[40px] shadow-2xl flex flex-col px-6 flex-1 py-8 -mt-6">
           <div className="h-[40px] flex flex-col justify-center">
             <p className="text-[12px] text-center font-thin text-[#c3c3c3]">
               {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
@@ -244,7 +244,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
           </div>
 
           {/* 카운트다운 - 중앙 정렬 */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-center items-center -mt-3">
             <div className="flex justify-center gap-3">
               {/* DAYS */}
               <div className="flex flex-col items-center">

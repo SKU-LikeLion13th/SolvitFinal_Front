@@ -69,7 +69,7 @@ export default function Team({ onBack }) {
     return (
       <div
         className={`mt-6 text-white ${
-          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3 mx-4"
+          isFewCards ? "flex justify-center" : "grid grid-cols-3 gap-3 mx-6"
         }`}
       >
         {selectedMembers.map((member) => (
