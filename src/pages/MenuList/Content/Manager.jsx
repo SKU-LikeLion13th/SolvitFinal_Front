@@ -188,17 +188,14 @@ export default function Manager() {
           }
         `}
       </style>
-      <div className="px-4 pt-24 min-h-screen overflow-y-auto">
+      <div className="px-4 min-h-screen overflow-y-auto">
         <div
           className={`min-h-screen bg-[#161616] ${
             exitAnimation ? `animate-${exitAnimation}` : ""
           }`}
         >
           {/* 뒤로가기 버튼 */}
-          <div
-            className="absolute top-12 left-8 cursor-pointer"
-            onClick={() => onBack()}
-          >
+          <div className="cursor-pointer px-4 py-12" onClick={() => onBack()}>
             <img
               src="/assets/images/Header/Back.png"
               className="w-[20px] h-[16px]"
