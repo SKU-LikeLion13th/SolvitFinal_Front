@@ -95,7 +95,7 @@ export default function Header({
       {/* 풀스크린 메뉴 - 모바일 스크롤 방지 */}
       {(isMenuOpen || isClosing) && (
         <div
-          className={`fixed inset-0 w-full h-full bg-[#161616] z-[50] flex flex-col ${
+          className={`fixed inset-0 h-full sm:w-[430px] sm:min-w-[375px] sm:max-w-[500px] w-screen lg:left-[37.4%] sm:left-[21.8%] bg-[#161616] z-[50] flex flex-col ${
             isClosing ? "animate-slideUp" : "animate-slideDown"
           }`}
           style={{

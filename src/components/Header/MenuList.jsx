@@ -22,7 +22,7 @@ export default function MenuList({ onSelect, onClose }) {
   };
 
   return (
-    <div className="h-full">
+    <div className="h-full ">
       <div className="px-8 py-12">
         <img
           src="/assets/images/Header/Back.png"
