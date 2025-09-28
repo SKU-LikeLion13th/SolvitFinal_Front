@@ -23,7 +23,7 @@ export default function MatchHistory() {
   };
 
   const handleBack = () => {
-    if (window.history.length > 1) {
+    if (document.referrer && document.referrer !== window.location.href) {
       navigate(-1);
     } else {
       window.location.href = window.location.pathname + window.location.search;

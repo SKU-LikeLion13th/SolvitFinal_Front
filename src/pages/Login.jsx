@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import MatchLayout from '../components/MatchLayout';
 import API from '../utils/axios';
 import { API_URL } from '../utils/config';
 
 export default function Login() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const checkLoginStatus = async () => {

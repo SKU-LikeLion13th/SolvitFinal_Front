@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BottomSheet from "../../components/BottomSheet";
-import Match from "../Match/Match";
+import API from "../../utils/axios"; // axios 경로 맞춰주세요
 import Match_Main from "./Match_Main";
 
 export default function Main() {
@@ -11,8 +11,36 @@ export default function Main() {
 
   const [isEnded, setIsEnded] = useState(false);
 
-  const goToLogin = () => {
-    navigate("/Login");
+  const goToLogin = async () => {
+    try {
+      // 로그인 안 된 상태면 바로 로그인 페이지로 이동
+      const statusRes = await API.get("/log/status", { withCredentials: true });
+      if (!statusRes.data?.name) {
+        navigate("/Login");
+        return;
+      }
+
+      // 응모 정보 조회
+      const submissionRes = await API.get("/students/submission/info", { withCredentials: true });
+      const { remainingTickets, submissions } = submissionRes.data;
+
+      if (remainingTickets === 0) {
+        alert("응모권이 없습니다.");
+        return;
+      }
+
+      // 이미 응모 완료 여부 판단 (전체 경기 예측이 존재하면 이미 응모)
+      if (submissions.length > 0) {
+        alert("이미 응모했습니다.");
+        return;
+      }
+
+      // 문제 없으면 Match 페이지로 이동
+      navigate("/Match");
+    } catch (error) {
+      console.error(error);
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
