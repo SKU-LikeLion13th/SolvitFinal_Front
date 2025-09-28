@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuList from "./MenuList";
 import Team from "./MenuContent/Team";
 import Info from "./MenuContent/Info";
@@ -10,39 +10,29 @@ export default function Header({
   showBack = false,
   showMenu = false,
   showCancel = false,
-  onBackClick = null,
 }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
-  const [activeMenu, setActiveMenu] = useState("");
-
   const navigate = useNavigate();
-
-  const closeMenu = () => {
-    setIsClosing(true);
-    setTimeout(() => {
-      setIsMenuOpen(false);
-      setIsClosing(false);
-      setActiveMenu("");
-    }, 300);
-  };
-
-  const handleSelectMenu = (menu) => {
-    setActiveMenu(menu);
-  };
 
   const goBack = () => {
     if (onBackClick) {
-      onBackClick(); // 커스텀 뒤로가기 함수가 있으면 실행
+      onBackClick();
     } else {
-      navigate(-1); // 없으면 기본 브라우저 뒤로가기
+      navigate(-1);
     }
+  };
+
+  const goMenuList = () => {
+    navigate("/MenuList");
+  };
+
+  const goHome = () => {
+    navigate("/");
   };
 
   return (
     <div className="relative">
       {/* 헤더 */}
-      <div className="flex items-center justify-between px-4 py-2 shadow-md z-24">
+      <div className="flex items-center justify-between p-6 shadow-md z-24">
         {showBack ? (
           <div onClick={goBack}>
             <img
@@ -65,37 +55,13 @@ export default function Header({
             src="/assets/images/Header/menu.png"
             className="w-[24px] h-[17px] cursor-pointer"
             alt="menu"
-            onClick={() => setIsMenuOpen(true)}
+            // onClick={() => setIsMenuOpen(true)}
+            onClick={() => goMenuList()}
           />
         ) : (
           <div className="w-[24px] h-[17px]" />
         )}
       </div>
-
-      {/* 풀스크린 메뉴 */}
-      {(isMenuOpen || isClosing) && (
-        <div
-          className={`fixed top-0 transform -translate-x-1/2 h-screen bg-[#161616] z-[50] flex flex-col w-full max-w-[430px] min-w-[100vw] sm:min-w-[375px] ${
-            isClosing ? "animate-slideUp" : "animate-slideDown"
-          }`}
-          style={{
-            width: "min(430px, 100vw)",
-          }}
-        >
-          {/* 메뉴 내용 */}
-          {!activeMenu ? (
-            <MenuList onSelect={handleSelectMenu} onClose={closeMenu} />
-          ) : activeMenu === "team" ? (
-            <Team onBack={() => setActiveMenu("")} />
-          ) : activeMenu === "info" ? (
-            <Info onCancel={closeMenu} />
-          ) : activeMenu === "Manager" ? (
-            <Manager onBack={() => setActiveMenu("")} />
-          ) : activeMenu === "MatchHistory" ? (
-            <MatchHistory onBack={() => setActiveMenu("")} />
-          ) : null}
-        </div>
-      )}
     </div>
   );
 }

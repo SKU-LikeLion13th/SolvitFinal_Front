@@ -244,14 +244,14 @@ export default function BottomSheet({ targetDate, onEndChange }) {
           </div>
 
           {/* 카운트다운 - 중앙 정렬 */}
-          <div className="flex items-center justify-center flex-1 -mt-3">
+          <div className="flex-1 flex justify-center items-center -mt-3">
             <div className="flex justify-center gap-3">
               {/* DAYS */}
               <div className="flex flex-col items-center">
                 <p className="text-white text-[36px] font-bold">
                   {String(days).padStart(2, "0")}
                 </p>
-                <p className="text-sm font-light text-white">DAYS</p>
+                <p className="text-white font-light text-sm">DAYS</p>
               </div>
 
               {/* 구분자 */}
@@ -264,7 +264,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(hours).padStart(2, "0")}
                 </p>
-                <p className="text-sm font-light text-white">HOURS</p>
+                <p className="text-white font-light text-sm">HOURS</p>
               </div>
 
               <div className="flex items-start pt-2">
@@ -276,7 +276,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(minutes).padStart(2, "0")}
                 </p>
-                <p className="text-sm font-light text-white">MINS</p>
+                <p className="text-white font-light text-sm">MINS</p>
               </div>
 
               <div className="flex items-start pt-2">
@@ -288,7 +288,7 @@ export default function BottomSheet({ targetDate, onEndChange }) {
                 <p className="text-white text-[36px] font-bold">
                   {String(seconds).padStart(2, "0")}
                 </p>
-                <p className="text-sm font-light text-white">SECS</p>
+                <p className="text-white font-light text-sm">SECS</p>
               </div>
             </div>
           </div>
