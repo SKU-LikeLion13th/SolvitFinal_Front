@@ -10,6 +10,7 @@ export default function Header({
   showBack = false,
   showMenu = false,
   showCancel = false,
+  onBackClick = null,
 }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -31,7 +32,11 @@ export default function Header({
   };
 
   const goBack = () => {
-    navigate(-1);
+    if (onBackClick) {
+      onBackClick(); // 커스텀 뒤로가기 함수가 있으면 실행
+    } else {
+      navigate(-1); // 없으면 기본 브라우저 뒤로가기
+    }
   };
 
   return (
@@ -42,7 +47,7 @@ export default function Header({
           <div onClick={goBack}>
             <img
               src="/assets/images/Header/Back.png"
-              className="w-[22px] h-[18px]"
+              className="w-[22px] h-[18px] cursor-pointer"
               alt="back"
             />
           </div>
@@ -77,19 +82,9 @@ export default function Header({
             width: "min(430px, 100vw)",
           }}
         >
-          {/* 닫기 버튼 */}
-          {/* <div className="absolute top-12 right-6">
-            <img
-              src="/assets/images/Header/cancel.png"
-              className="w-[20px] h-[20px] cursor-pointer"
-              alt="close"
-              onClick={closeMenu}
-            />
-          </div> */}
-
           {/* 메뉴 내용 */}
           {!activeMenu ? (
-            <MenuList onSelect={handleSelectMenu} />
+            <MenuList onSelect={handleSelectMenu} onClose={closeMenu} />
           ) : activeMenu === "team" ? (
             <Team onBack={() => setActiveMenu("")} />
           ) : activeMenu === "info" ? (
