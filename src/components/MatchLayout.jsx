@@ -1,7 +1,7 @@
 // MatchLayout.jsx
-import React from 'react';
+import React from "react";
 import { FaArrowLeft } from "react-icons/fa6";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function MatchLayout({ children, onBack }) {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ export default function MatchLayout({ children, onBack }) {
 
   return (
     <div className="relative flex flex-col w-full min-h-screen text-white">
-      <div className="z-10 flex items-center p-6">
+      <div className="z-10 flex items-center px-8 py-12">
         <FaArrowLeft
           className="text-white text-[25px] cursor-pointer"
           onClick={goBack}

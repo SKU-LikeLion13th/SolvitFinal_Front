@@ -8,10 +8,16 @@ import MatchInfo from "./pages/Match/MatchInfo";
 import Match from "./pages/Match/Match";
 import MatchCheck from "./pages/Match/MatchCheck";
 import MatchFinish from "./pages/Match/MatchFinish";
-import MatchHistory from "./components/Header/MenuContent/MatchHistory";
+// import MatchHistory from "./components/Header/MenuContent/MatchHistory";
 import AdminMain from "./pages/Admin/AdminMain";
 import AdminResult from "./pages/Admin/AdminResult";
-import ScrollToTop from './components/ScrollToTop';
+import ScrollToTop from "./components/ScrollToTop";
+import MenuList from "./pages/MenuList/MenuList";
+
+import Info from "./pages/MenuList/Content/Info";
+import Manager from "./pages/MenuList/Content/Manager";
+import Team from "./pages/MenuList/Content/Team";
+import MatchHistory from "./pages/MenuList/Content/MatchHistory";
 
 function App() {
   return (
@@ -26,7 +32,12 @@ function App() {
           <Route path="/Match" element={<Match />} />
           <Route path="/MatchCheck" element={<MatchCheck />} />
           <Route path="/MatchFinish" element={<MatchFinish />} />
-          <Route path="/MatchHistory" element={<MatchHistory />} />
+          {/* <Route path="/MatchHistory" element={<MatchHistory />} /> */}
+          <Route path="/MenuList" element={<MenuList />} />
+          <Route path="/MenuList/Info" element={<Info />} />
+          <Route path="/MenuList/Team" element={<Team />} />
+          <Route path="/MenuList/Manager" element={<Manager />} />
+          <Route path="/MenuList/MatchHistory" element={<MatchHistory />} />
           <Route path="/Admin" element={<AdminMain />} />
           <Route path="/Admin/AdminResult" element={<AdminResult />} />
         </Routes>

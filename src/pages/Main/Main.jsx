@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import BottomSheet from "../../components/BottomSheet";
-import API from "../../utils/axios"; // axios 경로 맞춰주세요
+import API from "../../utils/axios";
 import Match_Main from "./Match_Main";
 
 export default function Main() {
@@ -10,6 +10,11 @@ export default function Main() {
   const targetDate = new Date("2025-10-01T09:00:00");
 
   const [isEnded, setIsEnded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const goToLogin = async () => {
     try {
@@ -21,7 +26,9 @@ export default function Main() {
       }
 
       // 응모 정보 조회
-      const submissionRes = await API.get("/students/submission/info", { withCredentials: true });
+      const submissionRes = await API.get("/students/submission/info", {
+        withCredentials: true,
+      });
       const { remainingTickets, submissions } = submissionRes.data;
 
       if (remainingTickets === 0) {
@@ -47,27 +54,55 @@ export default function Main() {
     <div className="relative min-h-screen pt-12 overflow-hidden">
       <img
         src="/assets/images/bg_LT.png"
-        className="absolute w-[50%] top-0 left-0"
+        className={`absolute w-[50%] top-0 left-0 transition-all duration-1000 ease-out ${
+          isLoaded
+            ? "translate-x-0 translate-y-0 opacity-100"
+            : "-translate-x-full -translate-y-full opacity-0"
+        }`}
         alt=""
       />
       <img
         src="/assets/images/bg_RB.png"
-        className="absolute w-[50%] bottom-0 right-0 "
+        className={`absolute w-[50%] bottom-0 right-0 transition-all duration-1000 ease-out ${
+          isLoaded
+            ? "translate-x-0 translate-y-0 opacity-100"
+            : "translate-x-full translate-y-full opacity-0"
+        }`}
         alt=""
       />
 
-      <div className="absolute w-full top-6">
+      <div
+        className={`absolute w-full top-6 transition-all duration-800 ease-out delay-200 ${
+          isLoaded ? "translate-y-0 opacity-100" : "-translate-y-8 opacity-0"
+        }`}
+      >
         <Header showMenu={true} />
       </div>
-      <div className="px-4 mt-16 text-center">
-        <div className="text-2xl font-bold text-[#0073FF]">청춘열전</div>
+      <div
+        className={`px-4 mt-16 text-center transition-all duration-800 ease-out delay-300 ${
+          isLoaded ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
+        }`}
+      >
+        <div className="text-2xl font-bold text-[#0073FF] animate-pulse">
+          청춘열전
+        </div>
         <div className="mt-1 text-3xl font-bold text-white">
           결승전 승부예측
         </div>
       </div>
-      <div className="px-4 pb-20 mt-6 text-center">
+      <div
+        className={`px-4 pb-20 mt-6 text-center transition-all duration-800 ease-out delay-500 ${
+          isLoaded ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+        }`}
+      >
         <div className="flex justify-center">
-          <img src="/assets/images/Main.png" alt="" className="w-[70%]" />
+          <img
+            src="/assets/images/Main.png"
+            alt=""
+            className={`w-[70%] transition-transform duration-1000 ease-out delay-700 ${
+              isLoaded ? "scale-100" : "scale-75"
+            } hover:scale-105`}
+          />
         </div>
         <p className="text-white text-[11px] font-semibold mt-2">
           성결대학교 재학생이라면?
@@ -75,10 +110,10 @@ export default function Main() {
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
         <button
-          className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 ${
+          className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 transition-all duration-300 ease-out transform hover:scale-105 active:scale-95 ${
             isEnded
               ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
-              : "bg-[#0073FF] text-white"
+              : "bg-[#0073FF] text-white hover:bg-[#0056CC] hover:shadow-lg"
           }`}
           onClick={goToLogin}
           disabled={isEnded}
@@ -87,7 +122,13 @@ export default function Main() {
         </button>
       </div>
 
-      <Match_Main />
+      <div
+        className={`transition-all duration-800 ease-out delay-900 ${
+          isLoaded ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
+        }`}
+      >
+        <Match_Main />
+      </div>
 
       {/* 바텀시트 */}
       <BottomSheet targetDate={targetDate} onEndChange={setIsEnded} />
