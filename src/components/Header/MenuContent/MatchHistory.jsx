@@ -5,13 +5,13 @@ import API from '../../../utils/axios';
 
 export default function MatchHistory() {
   const navigate = useNavigate();
-  const [submissions, setSubmissions] = useState([]); // 전체 회차
+  const [submissions, setSubmissions] = useState([]);
   const [matches, setMatches] = useState([]);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
   const [selectedSubmissionIndex, setSelectedSubmissionIndex] = useState(0);
 
-  const USE_MOCK_DATA = false; // 개발용 테스트 데이터 사용 여부
+  const USE_MOCK_DATA = true; // 개발용 테스트 데이터 사용 여부
   const TOTAL_TICKETS = USE_MOCK_DATA ? 2 : null; // 임시로 테스트용 응모권 수
 
   const sportTypeMap = {
@@ -23,14 +23,13 @@ export default function MatchHistory() {
   };
 
   const handleBack = () => {
-    // 새로고침
     window.location.href = window.location.pathname + window.location.search;
   };
 
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
-        const response = await API.get('/log/status');
+        const response = await API.get('/log/status', { withCredentials: true });
         setUserName(response.data.name);
       } catch (error) {
         console.error('유저 정보를 불러오는 데 실패했습니다.', error);
@@ -88,7 +87,7 @@ export default function MatchHistory() {
   if (loading) {
     return (
       <MatchLayout onBack={handleBack}>
-        <div className="flex items-center justify-center h-screen text-white">
+        <div className="flex items-center justify-center min-h-screen text-white">
           불러오는 중...
         </div>
       </MatchLayout>
@@ -102,10 +101,22 @@ export default function MatchHistory() {
 
   return (
     <MatchLayout onBack={handleBack}>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-[calc(100vh-60px)] overflow-y-auto mt-[6%]">
         <div className="flex flex-col text-xl fontSB">
           <div className="text-[#fff]">
-            {userName ? `${userName}님의 응모내역` : '불러오는 중...'}
+            {userName ? (
+              `${userName}님의 응모내역`
+            ) : (
+              <div className="flex flex-col items-center gap-2">
+                <div>로그인이 필요합니다.</div>
+                <button
+                  className="text-sm underline"
+                  onClick={() => navigate('/login')}
+                >
+                  로그인 하러가기
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -128,7 +139,7 @@ export default function MatchHistory() {
         )}
 
         {submissions[selectedSubmissionIndex] ? (
-          <div className="flex flex-col w-full mt-14">
+          <div className="flex flex-col w-full pb-20 sm:pb-10 mt-14">
             {matches.map((match, idx) => {
               const userPrediction = currentPredictions.find(
                 p => p.sportType === match.sportType
@@ -139,27 +150,18 @@ export default function MatchHistory() {
                   <div className="flex text-[15.5px] fontSB">{sportTypeMap[match.sportType]}</div>
 
                   <div className='flex justify-between w-full mt-2 mb-3.5'>
-                    <div className="flex items-center fontSB text-[14px]">
+                    <div className="flex items-center gap-2 fontSB text-[14px]">
                       {match.predictions.map((p, i) => {
                         const isSelected = p.predictionResult === userPrediction?.predictionResult;
                         return (
                           <React.Fragment key={i}>
-                            {i === 1 && <span className="mx-1 text-[#575757]">vs</span>}
+                            {i === 1 && <span className="mb-10mx-1 text-[#575757]">vs</span>}
                             <span className={isSelected ? 'text-[#1880FF]' : 'text-[#575757]'}>
                               {p.predictionResult}
                             </span>
                           </React.Fragment>
                         );
                       })}
-                    </div>
-
-                    <div
-                      className="flex items-center w-fit text-[9.5px] border-[0.5px] border-[#575757] rounded-[4px] px-2 py-0.5 cursor-pointer"
-                      onClick={() => navigate("/Match", {
-                        state: { editIndex: idx, existingPredictions: currentPredictions }
-                      })}
-                    >
-                      수정하기
                     </div>
                   </div>
                 </div>
@@ -168,7 +170,7 @@ export default function MatchHistory() {
           </div>
         ) : (
           <div className='flex flex-col items-center h-full mt-10'>
-            <div className="flex items-center text-[#DADADA] fontSB text-[13px] h-[75%] mb-4">
+            <div className="flex items-center text-[#DADADA] fontSB text-[13px] my-[60%]">
               {submissions.length === 0
                 ? '응모 내역이 없습니다.'
                 : remainingTickets > 0
@@ -177,7 +179,7 @@ export default function MatchHistory() {
             </div>
             {remainingTickets > 0 && (
               <button
-                className="flex w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
+                className="z-10 flex mb-20 w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
                 onClick={() => navigate('/Match')}
               >
                 {TOTAL_TICKETS > 1 ? '남은 응모권 사용' : '응모하러 가기'}

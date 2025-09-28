@@ -38,7 +38,7 @@ export default function Member() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
         <div className="flex flex-col">
           <div className="flex mb-1 text-[#0073FF] fontRegular text-md">
             청춘열전
@@ -101,7 +101,7 @@ export default function Member() {
             />
           </div>
 
-          <div className="flex items-end justify-center mt-[25%] w-full">
+          <div className="flex items-end justify-center mt-[25%] mb-10 w-full">
             <button
               type="submit"
               className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[70%] py-2 rounded-2xl"

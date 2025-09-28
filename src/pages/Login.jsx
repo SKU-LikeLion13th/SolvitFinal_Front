@@ -1,23 +1,43 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MatchLayout from '../components/MatchLayout';
+import API from '../utils/axios'; // axios instance 사용
 import { API_URL } from '../utils/config';
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  // 이미 로그인 상태라면 바로 Match로 이동
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await API.get('/log/status', { withCredentials: true });
+        if (response.data && response.data.name) {
+          // 로그인 되어 있으면 Match로 이동
+          navigate('/Match');
+        }
+      } catch (error) {
+        console.log('로그인 상태가 아닙니다.', error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
 
   const handleLogin = () => {
-  const currentPath = window.location.pathname + window.location.search;
-  localStorage.setItem("redirectAfterLogin", currentPath);
+    const currentPath = window.location.pathname + window.location.search;
+    localStorage.setItem("redirectAfterLogin", currentPath);
 
-  const origin = window.location.origin;
-  const fullRedirect = origin + currentPath;
-  const encodedRedirect = encodeURIComponent(fullRedirect);
+    const origin = window.location.origin;
+    const fullRedirect = origin + currentPath;
+    const encodedRedirect = encodeURIComponent(fullRedirect);
 
-  window.location.href = `${API_URL}/oauth2/authorization/google?state=${encodedRedirect}`;
+    window.location.href = `${API_URL}/oauth2/authorization/google?state=${encodedRedirect}`;
   };
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-full h-screen items-centers">
+      <div className="flex flex-col items-center w-full h-screen">
         <div className="flex flex-col items-center mt-[5%] mb-[50%]">
           <div className="text-[#0073FF] text-[20px] fontMedium">청춘열전</div>
           <div className="text-2xl text-white sm:text-3xl fontSB">결승전 승부예측</div>
