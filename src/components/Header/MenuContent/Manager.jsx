@@ -198,8 +198,10 @@ export default function Manager({ onBack }) {
                   />
                 </div>
               )}
-              <p className="text-[7px] fontRegular">{member.department}</p>
-              <p className="text-[10px] fontSB mt-1">
+              <p className="text-[7px] fontRegular text-[#161616]">
+                {member.department}
+              </p>
+              <p className="text-[10px] fontSB mt-1 text-[#161616]">
                 {member.role} {member.name}
               </p>
               {member.task && (

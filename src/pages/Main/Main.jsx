@@ -19,7 +19,7 @@ export default function Main() {
     <div className="relative min-h-screen pt-12 overflow-hidden">
       <img
         src="/assets/images/bg_LT.png"
-        className="absolute w-[50%] top-12 left-0"
+        className="absolute w-[50%] top-0 left-0"
         alt=""
       />
       <img
