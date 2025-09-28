@@ -28,7 +28,7 @@ export default function Main() {
         alt=""
       />
 
-      <div className="absolute w-full top-12">
+      <div className="absolute w-full top-6">
         <Header showMenu={true} />
       </div>
       <div className="px-4 mt-16 text-center">

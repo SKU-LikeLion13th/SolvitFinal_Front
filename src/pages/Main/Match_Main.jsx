@@ -87,7 +87,7 @@ export default function Match_Main() {
   }
 
   return (
-    <div className="px-4 mb-12">
+    <div className="px-4 mb-20">
       <div className="flex flex-col items-center space-y-2.5">
         <p className="text-[#1880FF] text-[13px] font-semibold">
           지금 바로 참여해 보세요!
