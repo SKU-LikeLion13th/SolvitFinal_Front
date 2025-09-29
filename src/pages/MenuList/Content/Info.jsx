@@ -69,9 +69,9 @@ export default function Info() {
       >
         {/* 헤더 */}
         <div className="text-white">
-          <div className="flex justify-between items-center">
+          <div className="flex items-center justify-between">
             <div className="bg-white w-[65%] h-[0.5px]"></div>
-            <div className="cursor-pointer flex justify-end" onClick={onCancel}>
+            <div className="flex justify-end cursor-pointer" onClick={onCancel}>
               <img
                 src="/assets/images/Header/cancel.png"
                 className="w-[20px] h-[20px]"
@@ -79,8 +79,8 @@ export default function Info() {
               />
             </div>
           </div>
-          <p className="fontRegular text-[12px] pb-2 pl-2">
-            2025 영암체전 승부예측 경품
+          <p className="fontRegular text-[11px] pb-2 pl-2">
+            <span className="tracking-wider">2025</span> 영암체전 승부예측 경품
           </p>
           <div className="bg-white w-full h-[0.5px]"></div>
         </div>
@@ -97,7 +97,7 @@ export default function Info() {
           </div>
 
           <button
-            className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontBold text-[13px] my-12"
+            className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontSB text-[13px] my-12"
             onClick={handleNavigate}
             disabled={loading} // 로딩 중 클릭 방지
           >

@@ -83,12 +83,12 @@ export default function MatchHistory() {
     return (
       <MatchLayout onBack={handleBack}>
         <div className="flex flex-col items-center justify-center text-white history">
-          <div className="mb-4 text-lg">로그인이 필요합니다.</div>
-          <div className="mb-6 text-sm text-gray-300">
+          <div className="mb-4 text-lg fontMedium">로그인이 필요합니다.</div>
+          <div className="mb-6 text-sm text-gray-300 fontRegular">
             응모 내역 확인은 로그인 후 이용 가능합니다.
           </div>
           <button
-            className="px-6 py-2 bg-[#0073FF] text-white rounded-xl"
+            className="px-6 py-2 bg-[#0073FF] text-white fontSB rounded-xl"
             onClick={() => navigate('/login')}
           >
             로그인 하러가기

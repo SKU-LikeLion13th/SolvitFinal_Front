@@ -72,9 +72,9 @@ export default function Main() {
         <Header showMenu={true} />
       </div>
 
-      <div className="px-4 mt-16 text-center">
-        <div className="text-2xl font-bold text-[#0073FF]">청춘열전</div>
-        <div className="mt-1 text-3xl font-bold text-white">
+      <div className="px-4 mt-10 text-center">
+        <div className="text-[22.5px] fontMedium text-[#0073FF]">청춘열전</div>
+        <div className="text-[27px] text-white fontMedium">
           결승전 승부예측
         </div>
       </div>
@@ -83,13 +83,13 @@ export default function Main() {
         <div className="flex justify-center">
           <img src="/assets/images/Main.png" alt="" className="w-[70%]" />
         </div>
-        <p className="text-white text-[11px] font-semibold mt-2">
+        <p className="text-white text-[11px] fontMedium mt-2">
           성결대학교 재학생이라면?
           <br />
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
         <button
-          className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 ${
+          className={`text-[15px] fontSB w-[65%] rounded-2xl py-2 mt-6 ${
             isEnded
               ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
               : "bg-[#0073FF] text-white"
