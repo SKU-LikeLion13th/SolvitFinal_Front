@@ -1,12 +1,14 @@
+// src/pages/Match/History/MatchHistory.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API from '../../../utils/axios';
 import MatchLayout from '../../../components/MatchLayout';
+import { matches as predefinedMatches } from '../../../constants/matches';
 
 export default function MatchHistory() {
   const navigate = useNavigate();
   const [submissions, setSubmissions] = useState([]);
-  const [matches, setMatches] = useState([]);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
   const [totalTickets, setTotalTickets] = useState(0);
@@ -44,30 +46,23 @@ export default function MatchHistory() {
     fetchUserStatus();
   }, []);
 
-  // 응모 내역 및 경기 정보 불러오기
+  // 응모 내역 불러오기
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSubmissions = async () => {
       if (!userName) return;
-
       try {
-        const [submissionRes, matchesRes] = await Promise.all([
-          API.get('/students/submission/info', { withCredentials: true }),
-          API.get('/prediction/statistics')
-        ]);
-
+        const submissionRes = await API.get('/students/submission/info', { withCredentials: true });
         const submissionsData = submissionRes.data.submissions || [];
         setSubmissions(submissionsData);
         setTotalTickets(submissionRes.data.totalTickets || submissionsData.length || 0);
         setRemainingTickets(submissionRes.data.remainingTickets || 0);
-        setMatches(matchesRes.data || []);
       } catch (error) {
-        console.error('데이터 불러오기 실패:', error);
+        console.error('응모 내역 불러오기 실패:', error);
       }
     };
-    fetchData();
+    fetchSubmissions();
   }, [userName]);
 
-  // 로딩 중
   if (loading) {
     return (
       <MatchLayout onBack={handleBack}>
@@ -78,7 +73,6 @@ export default function MatchHistory() {
     );
   }
 
-  // 로그인 안 했으면 안내
   if (!userName) {
     return (
       <MatchLayout onBack={handleBack}>
@@ -98,7 +92,6 @@ export default function MatchHistory() {
     );
   }
 
-  // 선택한 응모 내역
   const currentPredictions = submissions[selectedSubmissionIndex]?.predictions || [];
 
   return (
@@ -109,7 +102,7 @@ export default function MatchHistory() {
           {`${userName}님의 응모내역`}
         </div>
 
-        {/* 탭 (응모권 2회 이상) */}
+        {/* 탭 (응모권 여러 장) */}
         {totalTickets > 1 && (
           <div className="flex items-center justify-center w-[80%] gap-10 mt-6 mx-auto">
             {Array.from({ length: totalTickets }).map((_, idx) => (
@@ -131,7 +124,7 @@ export default function MatchHistory() {
         {/* 응모 내역 */}
         {submissions[selectedSubmissionIndex] ? (
           <div className="flex flex-col w-full pb-20 sm:pb-10 mt-14">
-            {matches.map((match, idx) => {
+            {predefinedMatches.map((match, idx) => {
               const userPrediction = currentPredictions.find(
                 p => p.sportType === match.sportType
               );
@@ -140,16 +133,17 @@ export default function MatchHistory() {
                 <div key={idx} className="flex flex-col border-y-[1px] border-[#222222] py-4">
                   <div className="flex text-[15.5px] fontSB">{sportTypeMap[match.sportType]}</div>
                   <div className='flex justify-between w-full mt-2 mb-3.5'>
-                    <div className="flex items-center gap-2 fontSB text-[14px]">
+                    <div className="flex items-center gap-4 fontSB text-[14px]">
                       {match.predictions.map((p, i) => {
                         const isSelected = p.predictionResult === userPrediction?.predictionResult;
                         return (
-                          <React.Fragment key={i}>
-                            {i === 1 && <span className="mx-1 text-[#575757]">vs</span>}
+                          <div key={i} className="flex items-center gap-1">
+                            {/* 학과 이름 */}
                             <span className={isSelected ? 'text-[#1880FF]' : 'text-[#575757]'}>
-                              {p.predictionResult}
+                              {p.teamName}
                             </span>
-                          </React.Fragment>
+                            {i === 0 && <span className="mx-1 text-[#575757]">vs</span>}
+                          </div>
                         );
                       })}
                     </div>
