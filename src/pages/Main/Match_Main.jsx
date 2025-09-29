@@ -90,7 +90,7 @@ export default function Match_Main() {
 
           const teamAClass = isBeforeGame
             ? game.predictions[0].percentage === game.predictions[1].percentage
-              ? "bg-[#3D3E5A] text-white"
+              ? "bg-[#2C2C2C] text-white"
               : game.predictions[0].percentage > game.predictions[1].percentage
               ? "bg-[#0073FF] text-white"
               : "bg-[#3D3E5A] text-white"
@@ -100,7 +100,7 @@ export default function Match_Main() {
 
           const teamBClass = isBeforeGame
             ? game.predictions[0].percentage === game.predictions[1].percentage
-              ? "bg-[#3D3E5A] text-white"
+              ? "bg-[#2C2C2C] text-white"
               : game.predictions[1].percentage > game.predictions[0].percentage
               ? "bg-[#0073FF] text-white"
               : "bg-[#3D3E5A] text-white"
