@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useAnimation } from 'framer-motion';
 import MatchLayout from '../../components/MatchLayout';
 import API from '../../utils/axios';
+import { matches as predefinedMatches } from '../../constants/matches'; // 공용 matches import
 
 export default function MatchFinish() {
   const navigate = useNavigate();
@@ -39,82 +40,71 @@ export default function MatchFinish() {
     fetchSubmission();
   }, []);
 
-  // IntersectionObserver로 슬라이더가 화면에 들어올 때 애니메이션 트리거
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
       { threshold: 0.2 }
     );
 
     const currentSliderRef = sliderRef.current;
-    if (currentSliderRef) {
-      observer.observe(currentSliderRef);
-    }
+    if (currentSliderRef) observer.observe(currentSliderRef);
 
     return () => {
-      if (currentSliderRef) {
-        observer.unobserve(currentSliderRef);
-      }
+      if (currentSliderRef) observer.unobserve(currentSliderRef);
     };
-  }, [loading]); // 로딩이 완료된 후 ref를 관찰하도록 의존성 배열에 loading 추가
+  }, [loading]);
 
-  // 슬라이더 자동 애니메이션 (Framer Motion)
   useEffect(() => {
     if (!submission?.predictions || !isVisible) return;
 
     const totalCards = submission.predictions.length;
-    // 무한 루프를 위해 애니메이션을 설정합니다.
     const animateSlider = async () => {
-        // x값을 계속해서 감소시켜 왼쪽으로 이동하게 합니다.
-        // 50%는 카드 하나의 너비, totalCards는 전체 카드의 수입니다.
         await controls.start({
             x: `-${50 * totalCards}%`,
-            transition: {
-                duration: totalCards * 2, // 전체 카드를 한 번 순회하는 시간
-                ease: "linear",
-            }
+            transition: { duration: totalCards * 2, ease: "linear" }
         });
-        // 애니메이션이 끝나면 즉시 x 위치를 0으로 리셋합니다.
-        // duration: 0으로 설정하여 사용자가 눈치채지 못하게 합니다.
         controls.set({ x: 0 });
-        // 재귀적으로 함수를 호출하여 무한 반복을 구현합니다.
         animateSlider();
     };
 
     animateSlider();
-
   }, [submission, controls, isVisible]);
 
-  if (loading) {
-    return (
-      <MatchLayout>
-        <div className="flex items-center justify-center h-screen text-white">
-          불러오는 중...
-        </div>
-      </MatchLayout>
-    );
-  }
+  if (loading) return (
+    <MatchLayout>
+      <div className="flex items-center justify-center h-screen text-white">
+        불러오는 중...
+      </div>
+    </MatchLayout>
+  );
 
-  // 예측 데이터가 없을 경우를 위한 처리
-  if (!submission || submission.predictions.length === 0) {
-    return (
-      <MatchLayout>
-        <div className="flex flex-col items-center justify-center h-screen text-white">
-          <div className="mb-4 text-2xl fontMedium">응모 내역이 없습니다.</div>
-          <button 
-            className="z-10 flex justify-center fontMedium text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
-            onClick={() => navigate("/")}
-          >
-            홈으로 돌아가기
-          </button>
-        </div>
-      </MatchLayout>
-    );
-  }
+  if (!submission || submission.predictions.length === 0) return (
+    <MatchLayout>
+      <div className="flex flex-col items-center justify-center h-screen text-white">
+        <div className="mb-4 text-2xl fontMedium">응모 내역이 없습니다.</div>
+        <button 
+          className="z-10 flex justify-center fontMedium text-sm items-center bg-[#0073FF] text-white w-[60%] py-2 rounded-2xl"
+          onClick={() => navigate("/")}
+        >
+          홈으로 돌아가기
+        </button>
+      </div>
+    </MatchLayout>
+  );
+
+  // ✅ matches와 연결하여 학과 이름 표시
+  const mergedPredictions = predefinedMatches.map((match) => {
+    const userPick = submission.predictions.find(p => p.sportType === match.sportType);
+    const selectedTeam = match.predictions.find(p => p.predictionResult === userPick?.predictionResult);
+    return {
+      sportType: match.sportType,
+      TEAM_A: match.predictions[0].teamName,
+      TEAM_B: match.predictions[1].teamName,
+      userPick: selectedTeam?.teamName || null
+    };
+  });
 
   return (
     <MatchLayout>
@@ -125,9 +115,7 @@ export default function MatchFinish() {
         </div>
 
         <div className='matchfinish'>
-          <div className='flex justify-center text-white fontSB'>
-            응모가 완료되었습니다.
-          </div>
+          <div className='flex justify-center text-white fontSB'>응모가 완료되었습니다.</div>
 
           {remainingTickets > 0 && (
             <div className='flex items-end justify-center mt-1.5'>
@@ -140,30 +128,34 @@ export default function MatchFinish() {
           <div ref={sliderRef} className="relative w-full mt-10 overflow-hidden">
             <motion.div
               animate={controls}
-              className="flex gap-5"
+              className="flex gap-5 slide"
             >
-              {[...submission.predictions, ...submission.predictions].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: (idx % submission.predictions.length) * 0.1 }}
-                  className="flex flex-col items-center rounded-xl slide h-[180px] cursor-pointer bg-[#D9D9D9] flex-shrink-0"
-                >
-                  <div className="flex items-center justify-center w-full h-full">
-                    <img
-                      src="/assets/images/SchoolLogo.png"
-                      className="w-[45%]"
-                      alt="class"
-                    />
+            {[...mergedPredictions, ...mergedPredictions].map((item, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: (idx % mergedPredictions.length) * 0.1 }}
+                className="flex flex-col items-center w-full rounded-xl h-[200px] cursor-pointer bg-[#D9D9D9] flex-shrink-0"
+              >
+                <div className="flex items-center justify-center w-full h-full">
+                  <img
+                    src={predefinedMatches.find(m => m.sportType === item.sportType)
+                                .predictions.find(p => p.teamName === item.userPick)?.image || "/assets/images/SchoolLogo.png"}
+                    className="w-[50%]"
+                    alt={item.userPick}
+                  />
+                </div>
+                <div className="text-[#000] text-[13px] fontSB">{sportTypeMap[item.sportType]}</div>
+                <div className="flex flex-col items-center fontSB text-[15px]">
+                  <div className="flex flex-col items-center mb-5 fontSB text-[15px]">
+                    <div className="text-[#000000]">{item.userPick}</div>
                   </div>
-                  <div className="text-[#000] text-[13px] fontSB">{sportTypeMap[item.sportType]}</div>
-                  <div className="flex items-end mb-5 fontSB text-[15px] text-[#000]">{item.predictionResult}</div>
-                </motion.div>
+                </div>
+              </motion.div>
               ))}
             </motion.div>
           </div>
-
         </div>
 
         <div className='flex flex-col items-center'>
