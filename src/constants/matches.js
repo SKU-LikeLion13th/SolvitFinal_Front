@@ -2,14 +2,14 @@ export const matches = [
   {
     sportType: "BASKETBALL",
     predictions: [
-      { predictionResult: "TEAM_A", teamName: "관광학과", image: "/assets/images/Department/SchoolLogo.png" },
+      { predictionResult: "TEAM_A", teamName: "관광학과", image: "/assets/images/Department/tourism.png" },
       { predictionResult: "TEAM_B", teamName: "체육교육과", image: "/assets/images/Department/sport.png" },
     ],
   },
   {
     sportType: "DODGEBALL",
     predictions: [
-      { predictionResult: "TEAM_A", teamName: "기독교교육상담학과", image: "/assets/images/Department/SchoolLogo.png" },
+      { predictionResult: "TEAM_A", teamName: "기독교교육상담학과", image: "/assets/images/Department/christian.png" },
       { predictionResult: "TEAM_B", teamName: "행정학부", image: "/assets/images/Department/policy.png" },
     ],
   },
