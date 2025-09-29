@@ -18,14 +18,14 @@ export default function MatchLayout({ children, onBack }) {
 
   return (
     <div className="relative flex flex-col w-full min-h-screen text-white">
-      <div className="z-10 flex items-center px-8 py-12">
+      <div className="z-10 flex items-center px-8 py-7">
         <FaArrowLeft
           className="text-white text-[25px] cursor-pointer"
           onClick={goBack}
         />
       </div>
 
-      <div className="flex flex-col items-center flex-1 w-full overflow-y-auto">
+      <div className="flex flex-col items-center w-full">
         {children}
       </div>
 

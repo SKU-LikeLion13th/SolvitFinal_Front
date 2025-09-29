@@ -104,7 +104,7 @@ export default function Member() {
           <div className="flex items-end justify-center mt-[25%] mb-10 w-full">
             <button
               type="submit"
-              className="flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[70%] py-2 rounded-2xl"
+              className="z-10 flex justify-center fontSB text-sm items-center bg-[#0073FF] text-white w-[70%] py-2 rounded-2xl"
             >
               다음
             </button>

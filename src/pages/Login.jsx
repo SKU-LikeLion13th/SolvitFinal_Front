@@ -9,43 +9,61 @@ export default function Login() {
   const location = useLocation();
 
   // 로그인 상태 체크
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        const response = await API.get("/log/status", {
-          withCredentials: true,
-        });
-        if (response.data && response.data.name) {
-          // 이미 로그인 상태라면 redirect
-          const redirectPath = location.state?.from || "/MenuList/MatchInfo";
-          navigate(redirectPath, { replace: true });
-        }
-      } catch (error) {
-        console.log("로그인 상태가 아닙니다.", error);
-      }
-    };
+    useEffect(() => {
+      const checkLoginStatus = async () => {
+        try {
+          const response = await API.get("/log/status", { withCredentials: true });
 
-    checkLoginStatus();
-  }, [navigate, location.state]);
+          if (response.data?.name) {
+            // 로그인 상태라면 응모권 체크
+            const submissionRes = await API.get("/students/submission/info", { withCredentials: true });
+            const { remainingTickets } = submissionRes.data;
+
+            if (remainingTickets === 0) {
+              setTimeout(() => {
+                window.alert("응모권이 없습니다.");
+                navigate("/", { replace: true });
+              }, 50);
+              return;
+            }
+
+            // 응모권 있으면 원래 가던 페이지로 이동
+            const fromPage =
+              location.state?.from ||
+              new URLSearchParams(window.location.search).get("from");
+
+            let redirectPath;
+            if (fromPage === "matchhistory") {
+              redirectPath = "/MenuList/MatchHistory";
+            } else {
+              redirectPath = "/MenuList/MatchInfo"; // 기본 이동
+            }
+
+            navigate(redirectPath, { replace: true });
+          }
+        } catch (error) {
+          console.log("로그인 상태가 아닙니다.", error);
+        }
+      };
+
+      checkLoginStatus();
+    }, [navigate, location]);
 
   const handleLogin = () => {
-    // location.state.from 또는 URL query에서 from 확인
-    const fromPage = location.state?.from || new URLSearchParams(window.location.search).get("from");
+    const fromPage =
+      location.state?.from || new URLSearchParams(window.location.search).get("from");
 
     let redirectPath;
     if (fromPage === "matchhistory") {
       redirectPath = "/MenuList/MatchHistory";
     } else {
-      redirectPath = "/MatchInfo";
+      redirectPath = "/";
     }
 
-    // OAuth state에 리다이렉트 정보 포함
     const redirectUrl = `${window.location.origin}${redirectPath}`;
     const encodedRedirect = encodeURIComponent(redirectUrl);
 
-    console.log("OAuth로 이동, 최종 리다이렉트:", redirectPath);
-
-    // 백엔드 OAuth 호출
+    // OAuth 로그인
     window.location.href = `${API_URL}/oauth2/authorization/google?state=${encodedRedirect}`;
   };
 

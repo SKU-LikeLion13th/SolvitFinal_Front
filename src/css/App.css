@@ -62,3 +62,69 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+
+@media (max-height: 670px) {
+  .match {
+    margin-top: 5.5rem;
+    margin-bottom: 5.5rem;
+  }
+}
+
+@media (min-height: 671px) and (max-height: 1024px) {
+  .match {
+    margin-top: 8rem;
+    margin-bottom: 8rem;
+  }
+}
+
+@media (min-height: 1025px) {
+  .match {
+    margin-top: 15rem;
+    margin-bottom: 15rem;
+  }
+}
+
+@media (max-height: 670px) {
+  .matchfinish {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+  }
+}
+@media (max-height: 670px) {
+  .matchticket {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-height: 671px) and (max-height: 1024px) {
+  .matchfinish {
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+  }
+}
+
+@media (min-height: 1025px) {
+  .matchfinish {
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+  }
+}
+
+@media (max-height: 670px) {
+  .text {
+    font-size: 12px;
+  }
+}
+
+@media (min-height: 671px) and (max-height: 1024px) {
+  .text {
+    font-size: 13px;
+  }
+}
+
+@media (min-height: 1025px) {
+  .text {
+    font-size: 13px;
+  }
+}
