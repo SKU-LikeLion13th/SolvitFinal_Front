@@ -60,49 +60,44 @@ export default function BottomSheet({ targetDate, onEndChange }) {
   // 시트 높이 계산 - 사파리 URL 바 대응
   useEffect(() => {
     const updateHeight = () => {
-      // 사파리의 동적 뷰포트를 고려한 높이 계산
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      // iOS 사파리의 실제 가시 뷰포트 높이를 정확하게 가져오기
+      let viewportHeight;
 
-      // 실제 가시 뷰포트 높이 사용 (visualViewport API 활용)
-      const viewportHeight = window.visualViewport
-        ? window.visualViewport.height
-        : window.innerHeight;
-      const height = Math.max(viewportHeight * 0.3, 200); // 최소 높이 200px 보장
+      if (window.visualViewport) {
+        // visualViewport.height는 키보드, URL 바 등을 제외한 실제 보이는 영역
+        viewportHeight = window.visualViewport.height;
+      } else {
+        // fallback
+        viewportHeight = window.innerHeight;
+      }
+
+      // 시트 높이를 뷰포트의 30%로 설정하되, 최소 200px 보장
+      const height = Math.max(viewportHeight * 0.3, 200);
       setSheetHeight(height);
     };
 
+    // 초기 설정
     updateHeight();
 
-    // 다양한 이벤트에 대응
+    // 약간의 딜레이 후 한 번 더 실행 (iOS 렌더링 타이밍 이슈 대응)
+    setTimeout(updateHeight, 100);
+    setTimeout(updateHeight, 300);
+
+    // 이벤트 리스너
     window.addEventListener("resize", updateHeight);
     window.addEventListener("orientationchange", updateHeight);
 
-    // visualViewport API 지원 브라우저 (사파리 13+)
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", updateHeight);
+      window.visualViewport.addEventListener("scroll", updateHeight);
     }
-
-    // 사파리에서 스크롤 시 URL 바 변화 감지
-    let ticking = false;
-    const handleViewportChange = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          updateHeight();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleViewportChange);
 
     return () => {
       window.removeEventListener("resize", updateHeight);
       window.removeEventListener("orientationchange", updateHeight);
-      window.removeEventListener("scroll", handleViewportChange);
       if (window.visualViewport) {
         window.visualViewport.removeEventListener("resize", updateHeight);
+        window.visualViewport.removeEventListener("scroll", updateHeight);
       }
     };
   }, []);
