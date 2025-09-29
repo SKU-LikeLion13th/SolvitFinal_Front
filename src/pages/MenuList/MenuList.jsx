@@ -70,8 +70,14 @@ export default function MenuList() {
   const goInfo = () => animateAndNavigate("/MenuList/Info", "slideLeft");
   const goTeam = () => animateAndNavigate("/MenuList/Team", "slideLeft");
   const goManager = () => animateAndNavigate("/MenuList/Manager", "slideLeft");
-  const goMatchHistory = () =>
+  const goMatchHistory = () => {
+    if (!userName) {
+      alert("로그인 후 조회 가능합니다.");
+      return; // 이동 막기
+    }
     animateAndNavigate("/MenuList/MatchHistory", "slideLeft");
+  };
+
   const goHome = () => animateAndNavigate("/", "slideUp");
 
   const shouldAnimate = !location.state?.fromSubmenu;
