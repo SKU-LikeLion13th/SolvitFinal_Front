@@ -15,12 +15,12 @@ const SPORT_CONFIG = {
     type: "BASKETBALL",
     name: "농구",
   },
-  DODGE_BALL: {
-    type: "DODGE_BALL",
+  DODGEBALL: {
+    type: "DODGEBALL",
     name: "피구",
   },
-  KICKBALL: {
-    type: "KICKBALL",
+  KICK_BASEBALL: {
+    type: "KICK_BASEBALL",
     name: "발야구",
   },
 };
@@ -63,13 +63,13 @@ export default function AdminMain() {
         </div>
         <div
           className="bg-[#5E5E5E] w-[70%] text-center rounded-3xl py-3 cursor-pointer hover:bg-[#6E6E6E] transition-colors"
-          onClick={() => handleNavigate(SPORT_CONFIG.DODGE_BALL.type)}
+          onClick={() => handleNavigate(SPORT_CONFIG.DODGEBALL.type)}
         >
           <p>피구 우승 학부(과) 선택하기</p>
         </div>
         <div
           className="bg-[#5E5E5E] w-[70%] text-center rounded-3xl py-3 cursor-pointer hover:bg-[#6E6E6E] transition-colors"
-          onClick={() => handleNavigate(SPORT_CONFIG.KICKBALL.type)}
+          onClick={() => handleNavigate(SPORT_CONFIG.KICK_BASEBALL.type)}
         >
           <p>발야구 우승 학부(과) 선택하기</p>
         </div>
