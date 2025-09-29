@@ -140,7 +140,7 @@ export default function Team() {
         }`}
       >
         <div className="pb-8 overflow-y-auto">
-          <div className="px-8 py-12 cursor-pointer" onClick={goBack}>
+          <div className="px-8 pb-12 pt-8 cursor-pointer" onClick={goBack}>
             <img
               src="/assets/images/Header/Back.png"
               className="w-[20px] h-[16px]"
@@ -149,7 +149,7 @@ export default function Team() {
           </div>
           <div className="text-center text-white ">
             <p className="text-lg fontSB">사이트 제작에 참여한 사람들</p>
-            <p className="my-12 text-xs fontRegular">
+            <p className="mt-10 mb-12 text-xs fontRegular">
               제41대 빛을 찾아 나아가는 솔:빛 총학생회와
               <br />
               성결대학교 멋쟁이사자처럼 13기가 함께 제작하였습니다.

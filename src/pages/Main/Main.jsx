@@ -176,10 +176,9 @@ export default function Main() {
         alt=""
       />
 
-      <div className="absolute w-full top-6">
+      <div className="absolute w-full top-2">
         <Header showMenu={true} />
       </div>
-
 
       <div
         className={`px-4 mt-16 text-center ${
@@ -187,9 +186,7 @@ export default function Main() {
         }`}
       >
         <div className="text-2xl fontBold text-[#0073FF]">청춘열전</div>
-        <div className="mt-1 text-3xl fontBold text-white">
-          결승전 승부예측
-        </div>
+        <div className="mt-1 text-3xl fontBold text-white">결승전 승부예측</div>
       </div>
 
       <div className="px-4 pb-20 mt-6 text-center">
@@ -211,9 +208,7 @@ export default function Main() {
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
         <button
-
           className={`text-[15px] fontSB w-[65%] rounded-2xl py-2 mt-6 transition-all duration-300 ${
-
             isEnded
               ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
               : "bg-[#0073FF] text-white hover:bg-[#0062D6] active:scale-95"
