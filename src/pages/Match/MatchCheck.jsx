@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MatchLayout from '../../components/MatchLayout';
 import API from '../../utils/axios';
+import { matches as predefinedMatches } from "../../constants/matches"; // ✅ 공용 matches import
 
 export default function MatchCheck() {
   const navigate = useNavigate();
   const location = useLocation();
   const [predictions, setPredictions] = useState([]);
-  const [matches, setMatches] = useState([]);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -34,19 +34,13 @@ export default function MatchCheck() {
   useEffect(() => {
     if (location.state?.predictions) {
       setPredictions(location.state.predictions);
-      API.get('/prediction/statistics').then(res => setMatches(res.data));
     } else {
       const fetchData = async () => {
         try {
-          const [submissionRes, matchesRes] = await Promise.all([
-            API.get('/students/submission/info'),
-            API.get('/prediction/statistics')
-          ]);
-
+          const submissionRes = await API.get('/students/submission/info');
           if (submissionRes.data.submissions?.length > 0) {
             setPredictions(submissionRes.data.submissions[0].predictions);
           }
-          setMatches(matchesRes.data);
         } catch (error) {
           console.error('데이터 불러오기 실패:', error);
         }
@@ -66,7 +60,7 @@ export default function MatchCheck() {
       const payload = {
         predictionRequestList: predictions.map(p => ({
           sportType: p.sportType,
-          predictionResult: p.predictionResult,
+          predictionResult: p.predictionResult, // ✅ TEAM_A / TEAM_B 값
         })),
       };
 
@@ -102,9 +96,9 @@ export default function MatchCheck() {
             {userName ? `${userName}님이 선택한 우승학과` : '불러오는 중...'}
           </div>
 
-          {matches.length > 0 && predictions.length > 0 ? (
+          {predefinedMatches.length > 0 && predictions.length > 0 ? (
             <div className="flex flex-col w-full">
-              {matches.map((match, idx) => {
+              {predefinedMatches.map((match, idx) => {
                 const userPrediction = predictions.find(
                   p => p.sportType === match.sportType
                 );
@@ -121,7 +115,7 @@ export default function MatchCheck() {
                             <React.Fragment key={i}>
                               {i === 1 && <span className="mx-1 text-[#575757]">vs</span>}
                               <span className={isSelected ? 'text-[#1880FF]' : 'text-[#575757]'}>
-                                {p.predictionResult}
+                                {p.teamName} {/* ✅ 학과명 표시 */}
                               </span>
                             </React.Fragment>
                           );
