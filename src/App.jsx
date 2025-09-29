@@ -8,7 +8,6 @@ import MatchInfo from "./pages/Match/MatchInfo";
 import Match from "./pages/Match/Match";
 import MatchCheck from "./pages/Match/MatchCheck";
 import MatchFinish from "./pages/Match/MatchFinish";
-// import MatchHistory from "./components/Header/MenuContent/MatchHistory";
 
 import AdminMain from "./pages/Admin/AdminMain";
 import AdminResult from "./pages/Admin/AdminResult";
@@ -20,6 +19,8 @@ import Info from "./pages/MenuList/Content/Info";
 import Manager from "./pages/MenuList/Content/Manager";
 import Team from "./pages/MenuList/Content/Team";
 import MatchHistory from "./pages/MenuList/Content/MatchHistory";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -34,14 +35,29 @@ function App() {
           <Route path="/Match" element={<Match />} />
           <Route path="/MatchCheck" element={<MatchCheck />} />
           <Route path="/MatchFinish" element={<MatchFinish />} />
-          {/* <Route path="/MatchHistory" element={<MatchHistory />} /> */}
           <Route path="/MenuList" element={<MenuList />} />
           <Route path="/MenuList/Info" element={<Info />} />
           <Route path="/MenuList/Team" element={<Team />} />
           <Route path="/MenuList/Manager" element={<Manager />} />
           <Route path="/MenuList/MatchHistory" element={<MatchHistory />} />
-          <Route path="/Admin" element={<AdminMain />} />
-          <Route path="/Admin/AdminResult" element={<AdminResult />} />
+
+          {/* 관리자 전용 라우트 */}
+          <Route
+            path="/Admin"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminMain />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Admin/AdminResult"
+            element={
+              <ProtectedRoute requireAdmin={true}>
+                <AdminResult />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </div>
     </Router>
