@@ -1,46 +1,36 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import API from "../../utils/axios";
+import { matches as predefinedMatches } from "../../constants/matches"; // ✅ matches import
 
 const SPORT_CONFIG = {
-  SOCCER: {
-    type: "SOCCER",
-    name: "축구",
-  },
-  FOOT_VOLLEY: {
-    type: "FOOT_VOLLEY",
-    name: "족구",
-  },
-  BASKETBALL: {
-    type: "BASKETBALL",
-    name: "농구",
-  },
-  DODGE_BALL: {
-    type: "DODGE_BALL",
-    name: "피구",
-  },
-  KICKBALL: {
-    type: "KICKBALL",
-    name: "발야구",
-  },
+  SOCCER: { type: "SOCCER", name: "축구" },
+  FOOT_VOLLEY: { type: "FOOT_VOLLEY", name: "족구" },
+  BASKETBALL: { type: "BASKETBALL", name: "농구" },
+  DODGEBALL: { type: "DODGEBALL", name: "피구" },
+  KICKBALL: { type: "KICKBALL", name: "발야구" },
 };
 
 export default function AdminResult() {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // AdminMain에서 전달받은 sportType
   const { sportType } = location.state || {};
 
-  const [selectedTeam, setSelectedTeam] = useState(null); // 'TEAM_A' or 'TEAM_B'
+  const [selectedTeam, setSelectedTeam] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // 현재 종목 정보
   const sportInfo =
     Object.values(SPORT_CONFIG).find((s) => s.type === sportType) ||
     SPORT_CONFIG.SOCCER;
+
+  // 해당 종목 팀 정보 가져오기
+  const teamInfo =
+    predefinedMatches.find((m) => m.sportType === sportType)?.predictions || [];
+
+  const teamAName = teamInfo[0]?.teamName || "TEAM A";
+  const teamBName = teamInfo[1]?.teamName || "TEAM B";
 
   const goHome = () => {
     navigate("/admin");
@@ -62,20 +52,14 @@ export default function AdminResult() {
     setError(null);
 
     try {
-      const response = await API.post("/admin/prediction/grade", {
+      await API.post("/admin/prediction/grade", {
         sportType: sportType,
         predictionResult: selectedTeam,
       });
 
-      console.log("Success:", response.data);
       setSuccess(true);
-
-      // 성공 시 2초 후 메인으로 이동
-      setTimeout(() => {
-        navigate("/admin");
-      }, 2000);
+      setTimeout(() => navigate("/admin"), 2000);
     } catch (err) {
-      console.error("Error:", err);
       setError(
         err.response?.data?.message || "저장에 실패했습니다. 다시 시도해주세요."
       );
@@ -109,7 +93,7 @@ export default function AdminResult() {
             }`}
             onClick={() => handleTeamSelect("TEAM_A")}
           >
-            팀 A
+            {teamAName}
           </div>
           <div
             className={`w-[140px] h-[200px] rounded-xl cursor-pointer flex items-center justify-center text-lg font-bold transition-all ${
@@ -119,18 +103,16 @@ export default function AdminResult() {
             }`}
             onClick={() => handleTeamSelect("TEAM_B")}
           >
-            팀 B
+            {teamBName}
           </div>
         </div>
 
-        {/* 에러 메시지 */}
         {error && (
           <div className="flex justify-center mt-4">
             <p className="text-red-500 text-sm">{error}</p>
           </div>
         )}
 
-        {/* 성공 메시지 */}
         {success && (
           <div className="flex justify-center mt-4">
             <p className="text-sm">저장되었습니다! 메인으로 이동합니다</p>
