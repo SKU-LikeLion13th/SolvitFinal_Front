@@ -16,50 +16,44 @@ export default function Main() {
   }, []);
 
   const goToLogin = async () => {
-    try {
-      // 로그인 상태 확인
-      const statusRes = await API.get("/log/status", { withCredentials: true });
+  try {
+    // 로그인 상태 확인
+    const statusRes = await API.get("/log/status", { withCredentials: true });
 
-      // 로그인 안 되어 있으면 로그인 페이지로 이동
-      if (!statusRes?.data?.name) {
-        navigate("/Login");
-        return;
-      }
-
-      // 응모 정보 조회
-      const submissionRes = await API.get("/students/submission/info", {
-        withCredentials: true,
-      });
-      const { remainingTickets, submissions } = submissionRes.data;
-
-      if (remainingTickets === 0) {
-        alert("응모권이 없습니다.");
-        return;
-      }
-
-      if (submissions && submissions.length > 0) {
-        alert("이미 응모했습니다.");
-        return;
-      }
-
-      // 응모 가능 시 Match 페이지로 이동
-      navigate("/Match");
-    } catch (error) {
-      console.error(error);
-
-      // axios 에러 구조를 안전하게 체크
-      const status = error?.response?.status;
-
-      // 로그인 안 되어 있거나 권한 없는 경우
-      if (!status || status === 401 || status === 403) {
-        navigate("/Login");
-        return;
-      }
-
-      // 기타 에러
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    // 로그인 안 되어 있으면 로그인 페이지로 이동
+    if (!statusRes?.data?.name) {
+      navigate("/Login");
+      return;
     }
-  };
+
+    // 응모 정보 조회
+    const submissionRes = await API.get("/students/submission/info", {
+      withCredentials: true,
+    });
+    const { remainingTickets } = submissionRes.data;
+
+    // 남은 티켓이 0이면 응모 불가
+    if (!remainingTickets || remainingTickets <= 0) {
+      alert("응모권이 없습니다.");
+      return;
+    }
+
+    // 남은 티켓이 1장 이상이면 응모 가능
+    navigate("/Match");
+  } catch (error) {
+    console.error(error);
+
+    const status = error?.response?.status;
+
+    if (!status || status === 401 || status === 403) {
+      navigate("/Login");
+      return;
+    }
+
+    alert("오류가 발생했습니다. 다시 시도해주세요.");
+  }
+};
+
 
   return (
     <div className="relative min-h-screen pt-12 overflow-hidden">
@@ -186,7 +180,7 @@ export default function Main() {
         }`}
       >
         <div className="text-2xl fontBold text-[#0073FF]">청춘열전</div>
-        <div className="mt-1 text-3xl fontBold text-white">결승전 승부예측</div>
+        <div className="mt-1 text-3xl text-white fontBold">결승전 승부예측</div>
       </div>
 
       <div className="px-4 pb-20 mt-6 text-center">

@@ -94,10 +94,10 @@ export default function Match() {
                   key={idx}
                   onClick={() => setSelected(idx)}
                   className={`flex flex-col items-center w-[45%] rounded-xl h-[200px] cursor-pointer 
-                    ${selected === idx ? 'bg-[#0073FF]' : 'bg-[#D9D9D9]'}`}
+                    ${selected === idx ? 'bg-[#0073FF]' : 'bg-[#fff]'}`}
                 >
                   <div className="flex items-center justify-center w-full h-full">
-                    <img src="/assets/images/SchoolLogo.png" className="w-[50%]" alt="class" />
+                    <img src={prediction.image} className="w-[50%]" alt={prediction.teamName} />
                   </div>
                   <div className={`flex items-end mb-5 fontMedium ${selected === idx ? 'text-[#fff]' : 'text-[#000]'}`}>
                     {prediction.teamName}

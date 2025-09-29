@@ -153,8 +153,8 @@ export default function MatchHistory() {
             })}
           </div>
         ) : (
-          <div className='flex flex-col items-center'>
-            <div className="flex items-center text-[#DADADA] fontSB text-[13px] history">
+          <div className='flex flex-col items-center h-screen'>
+            <div className="flex items-center match text-[#DADADA] fontSB text-[13px] history">
               {submissions.length === 0
                 ? '응모 내역이 없습니다.'
                 : remainingTickets > 0
