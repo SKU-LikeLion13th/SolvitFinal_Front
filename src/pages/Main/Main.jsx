@@ -180,13 +180,14 @@ export default function Main() {
         <Header showMenu={true} />
       </div>
 
+
       <div
         className={`px-4 mt-16 text-center ${
           isVisible ? "animate-fadeInDown delay-200" : "opacity-0"
         }`}
       >
-        <div className="text-2xl font-bold text-[#0073FF]">청춘열전</div>
-        <div className="mt-1 text-3xl font-bold text-white">
+        <div className="text-2xl fontBold text-[#0073FF]">청춘열전</div>
+        <div className="mt-1 text-3xl fontBold text-white">
           결승전 승부예측
         </div>
       </div>
@@ -199,8 +200,9 @@ export default function Main() {
         >
           <img src="/assets/images/Main.png" alt="" className="w-[70%]" />
         </div>
+
         <p
-          className={`text-white text-[11px] font-semibold mt-2 ${
+          className={`text-white text-[11px] fontSB mt-2 ${
             isVisible ? "animate-fadeInUp delay-400" : "opacity-0"
           }`}
         >
@@ -209,7 +211,9 @@ export default function Main() {
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
         <button
-          className={`text-[15px] font-bold w-[65%] rounded-2xl py-2 mt-6 transition-all duration-300 ${
+
+          className={`text-[15px] fontSB w-[65%] rounded-2xl py-2 mt-6 transition-all duration-300 ${
+
             isEnded
               ? "bg-[#A9A9A9] cursor-not-allowed text-[#3C3C3C]"
               : "bg-[#0073FF] text-white hover:bg-[#0062D6] active:scale-95"

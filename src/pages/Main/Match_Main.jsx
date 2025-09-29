@@ -63,7 +63,7 @@ export default function Match_Main() {
   // 로딩 상태
   if (loading) {
     return (
-      <div className="px-4 mb-12 flex justify-center items-center h-64">
+      <div className="flex items-center justify-center h-64 px-4 mb-12">
         <div className="text-white text-[16px]">데이터 로딩 중...</div>
       </div>
     );
@@ -72,7 +72,7 @@ export default function Match_Main() {
   // 에러 상태
   if (error) {
     return (
-      <div className="px-4 mb-12 flex flex-col justify-center items-center h-64">
+      <div className="flex flex-col items-center justify-center h-64 px-4 mb-12">
         <div className="text-red-500 text-[16px] mb-4">
           데이터를 불러오는 중 오류가 발생했습니다.
         </div>
@@ -92,7 +92,7 @@ export default function Match_Main() {
         <p className="text-[#1880FF] text-[13px] fontSB">
           지금 바로 참여해 보세요!
         </p>
-        <p className="text-white text-[18px] fontBold">실시간 승부 예측</p>
+        <p className="text-white text-[18px] fontSB">실시간 승부 예측</p>
       </div>
 
       <div className="mt-12 space-y-6">
@@ -149,7 +149,7 @@ export default function Match_Main() {
           return (
             <div className="">
               <div key={idx} className="flex flex-col items-center w-full pb-4">
-                <p className="text-white fontBold text-[16px] mb-3">
+                <p className="text-white fontSB text-[16px] mb-3">
                   {getSportTypeInKorean(game.sportType)}
                   <span
                     className={`text-white fontBold text-[16px] mb-1 ${
@@ -161,15 +161,15 @@ export default function Match_Main() {
                 </p>
 
                 {/* 팀 이름 */}
-                <div className="flex items-center w-full justify-center mb-2 relative">
+                <div className="relative flex items-center justify-center w-full mb-2">
                   <div
-                    className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamAClass}`}
+                    className={`relative fontMedium text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamAClass}`}
                   >
                     {!isBeforeGame && isTeamAWinner && (
                       <img
                         src="/assets/images/Win.png"
                         alt="winner"
-                        className="absolute top-1 left-1 w-4 h-4"
+                        className="absolute w-4 h-4 top-1 left-1"
                       />
                     )}
                     TEAM A
@@ -184,7 +184,7 @@ export default function Match_Main() {
                       <img
                         src="/assets/images/Win.png"
                         alt="winner"
-                        className="absolute top-1 left-1 w-4 h-4"
+                        className="absolute w-4 h-4 top-1 left-1"
                       />
                     )}
                     TEAM B

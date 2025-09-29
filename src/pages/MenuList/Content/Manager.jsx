@@ -188,14 +188,14 @@ export default function Manager() {
           }
         `}
       </style>
-      <div className="px-4 min-h-screen overflow-y-auto">
+      <div className="min-h-screen px-4 overflow-y-auto">
         <div
           className={`min-h-screen bg-[#161616] ${
             exitAnimation ? `animate-${exitAnimation}` : ""
           }`}
         >
           {/* 뒤로가기 버튼 */}
-          <div className="cursor-pointer px-4 py-12" onClick={() => onBack()}>
+          <div className="px-4 py-12 cursor-pointer" onClick={() => onBack()}>
             <img
               src="/assets/images/Header/Back.png"
               className="w-[20px] h-[16px]"
@@ -204,17 +204,17 @@ export default function Manager() {
           </div>
 
           {/* 2025 영암체전 기획자 */}
-          <div className="text-white text-center">
-            <p className="fontBold text-lg">2025 영암체전 기획자</p>
-            <p className="fontLight text-[10px] my-14">
-              2025 영암체전의 성공적인 개최를 위해 헌신과 노력을 아끼지 않은
+          <div className="text-center text-white">
+            <p className="text-lg fontSB"><span className="tracking-widest">2025</span> 영암체전 기획자</p>
+            <p className="fontLight text-[10px] my-12">
+              <span className="tracking-widest">2025</span> 영암체전의 성공적인 개최를 위해 헌신과 노력을 아끼지 않은
               <br />
               제41대 솔:빛 총학생회 임원들을 소개합니다.
             </p>
           </div>
 
           {/* Map */}
-          <div className="mt-6 text-white grid grid-cols-3 gap-3 px-3">
+          <div className="grid grid-cols-3 gap-3 px-3 mt-6 text-white">
             {members.map((member) => (
               <div className="flex justify-center">
                 <div
@@ -252,7 +252,7 @@ export default function Manager() {
           </div>
 
           {/* 한 해 동안 어쩌구 */}
-          <div className="text-white space-y-6 fontMedium text-[9px] text-[#EBEBEB] my-16 px-3">
+          <div className="space-y-6 fontMedium text-[9px] text-[#EBEBEB] my-16 px-3">
             <p className="leading-[19px]">
               한 해 동안 2025 영암체전을 비롯한 다양한 행사에 함께해 주신 <br />
               학우 여러분께 진심으로 감사드립니다.
