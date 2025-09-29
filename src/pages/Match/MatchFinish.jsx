@@ -7,7 +7,7 @@ import API from '../../utils/axios';
 export default function MatchFinish() {
   const navigate = useNavigate();
   const [submission, setSubmission] = useState(null);
-  const [remainingTickets, setRemainingTickets] = useState(1);
+  const [remainingTickets, setRemainingTickets] = useState(0);
   const [loading, setLoading] = useState(true);
 
   const sportTypeMap = {
