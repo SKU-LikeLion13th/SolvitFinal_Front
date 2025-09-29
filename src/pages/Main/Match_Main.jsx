@@ -151,13 +151,13 @@ export default function Match_Main() {
               <div key={idx} className="flex flex-col items-center w-full pb-4">
                 <p className="text-white fontSB text-[16px] mb-3">
                   {getSportTypeInKorean(game.sportType)}
-                  <span
-                    className={`text-white fontBold text-[16px] mb-1 ${
-                      isTeamAWinner || isTeamBWinner ? "text-[#FF5900]" : ""
-                    }`}
-                  >
-                    {isBeforeGame ? "" : " 경기종료"}
-                  </span>
+                  {isBeforeGame ? (
+                    ""
+                  ) : (
+                    <span className="text-[#FF5900] fontBold text-[16px] mb-1">
+                      {" 경기종료"}
+                    </span>
+                  )}
                 </p>
 
                 {/* 팀 이름 */}

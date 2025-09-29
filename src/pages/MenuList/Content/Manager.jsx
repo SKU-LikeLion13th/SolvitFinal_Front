@@ -195,7 +195,10 @@ export default function Manager() {
           }`}
         >
           {/* 뒤로가기 버튼 */}
-          <div className="px-4 py-12 cursor-pointer" onClick={() => onBack()}>
+          <div
+            className="px-4 pb-12 pt-8 cursor-pointer"
+            onClick={() => onBack()}
+          >
             <img
               src="/assets/images/Header/Back.png"
               className="w-[20px] h-[16px]"
@@ -205,9 +208,12 @@ export default function Manager() {
 
           {/* 2025 영암체전 기획자 */}
           <div className="text-center text-white">
-            <p className="text-lg fontSB"><span className="tracking-widest">2025</span> 영암체전 기획자</p>
-            <p className="fontLight text-[10px] my-12">
-              <span className="tracking-widest">2025</span> 영암체전의 성공적인 개최를 위해 헌신과 노력을 아끼지 않은
+            <p className="text-lg fontSB">
+              <span className="tracking-widest">2025</span> 영암체전 기획자
+            </p>
+            <p className="fontLight text-[10px] mt-8 mb-12">
+              <span className="tracking-widest">2025</span> 영암체전의 성공적인
+              개최를 위해 헌신과 노력을 아끼지 않은
               <br />
               제41대 솔:빛 총학생회 임원들을 소개합니다.
             </p>

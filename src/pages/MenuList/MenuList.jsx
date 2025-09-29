@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import API from '../../utils/axios';
+import API from "../../utils/axios";
 import { API_URL } from "../../utils/config";
 
 export default function MenuList() {
@@ -34,7 +34,8 @@ export default function MenuList() {
   // 로그인 처리 (OAuth)
   const handleLogin = () => {
     const fromPage =
-      location.state?.from || new URLSearchParams(window.location.search).get("from");
+      location.state?.from ||
+      new URLSearchParams(window.location.search).get("from");
 
     let redirectPath;
     if (fromPage === "matchhistory") {
@@ -195,7 +196,7 @@ export default function MenuList() {
         }`}
       >
         <div className="h-full">
-          <div className="px-8 py-12">
+          <div className="px-8 pb-12 py-8">
             <div className="cursor-pointer" onClick={goHome}>
               <img
                 src="/assets/images/Header/Back.png"
@@ -229,14 +230,16 @@ export default function MenuList() {
             >
               응모내역 확인
             </div>
-            
+
             {/* 로그인 여부에 따라 버튼 분기 */}
             {userName ? (
               <div
                 className="flex text-white text-[13px] fontMedium cursor-pointer hover:text-gray-300 transition-colors"
                 onClick={handleLogout}
               >
-                {userName}님 <span className="text-[#808080] mx-1 fontRegular">|</span> LOGOUT
+                {userName}님{" "}
+                <span className="text-[#808080] mx-1 fontRegular">|</span>{" "}
+                LOGOUT
               </div>
             ) : (
               <div
