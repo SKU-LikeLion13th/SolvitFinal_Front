@@ -32,7 +32,7 @@ export default function Header({
   return (
     <div className="relative">
       {/* 헤더 */}
-      <div className="flex items-center justify-between p-6 shadow-md z-24">
+      <div className="flex items-center justify-between p-6 z-24">
         {showBack ? (
           <div onClick={goBack}>
             <img
