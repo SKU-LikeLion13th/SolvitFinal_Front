@@ -89,13 +89,13 @@ export default function Match_Main() {
   return (
     <div className="px-4 mb-20">
       <div className="flex flex-col items-center space-y-2.5">
-        <p className="text-[#1880FF] text-[13px] font-semibold">
+        <p className="text-[#1880FF] text-[13px] fontSB">
           지금 바로 참여해 보세요!
         </p>
-        <p className="text-white text-[18px] font-bold">실시간 승부 예측</p>
+        <p className="text-white text-[18px] fontBold">실시간 승부 예측</p>
       </div>
 
-      <div className="mt-8 space-y-6">
+      <div className="mt-12 space-y-6">
         {games.map((game, idx) => {
           const isBeforeGame = game.gameResult === "BEFORE_THE_GAME";
           const isTeamAWinner = game.gameResult === "TEAM_A";
@@ -148,11 +148,11 @@ export default function Match_Main() {
 
           return (
             <div className="">
-              <div key={idx} className="flex flex-col items-center w-full pb-3">
-                <p className="text-white font-bold text-[16px] mb-3">
+              <div key={idx} className="flex flex-col items-center w-full pb-4">
+                <p className="text-white fontBold text-[16px] mb-3">
                   {getSportTypeInKorean(game.sportType)}
                   <span
-                    className={`text-white font-bold text-[16px] mb-1 ${
+                    className={`text-white fontBold text-[16px] mb-1 ${
                       isTeamAWinner || isTeamBWinner ? "text-[#FF5900]" : ""
                     }`}
                   >
@@ -175,7 +175,7 @@ export default function Match_Main() {
                     TEAM A
                   </div>
 
-                  <div className="text-white text-[16px] mx-3">VS</div>
+                  <div className="text-white fontBold text-[13px] mx-4">VS</div>
 
                   <div
                     className={`relative text-[10px] text-center py-5 w-[105px] rounded-[8px] ${teamBClass}`}

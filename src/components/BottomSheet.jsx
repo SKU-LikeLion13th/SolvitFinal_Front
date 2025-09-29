@@ -224,22 +224,22 @@ export default function BottomSheet({ targetDate, onEndChange }) {
               {isBeforeOpen ? "" : !isEnded ? "10월 1일 오전 9시 종료" : ""}
             </p>
             {isBeforeOpen ? (
-              <p className="text-white text-center font-bold text-[16px] mt-1">
+              <p className="text-white text-center font-bold text-[16px] mt-0.5">
                 9월 30일 OPEN
               </p>
             ) : isEnded ? (
-              <p className="text-white text-center font-bold text-[16px] mt-1">
+              <p className="text-white text-center font-bold text-[16px] mt-0.5">
                 승부예측 종료
               </p>
             ) : (
-              <p className="text-white text-center font-bold text-[14px] mt-1">
+              <p className="text-white text-center font-bold text-[14px] mt-0.5">
                 마감까지 남은 시간
               </p>
             )}
           </div>
 
           {/* 카운트다운 - 중앙 정렬 */}
-          <div className="flex-1 flex justify-center items-center -mt-3">
+          <div className="flex-1 flex justify-center items-center mt-1">
             <div className="flex justify-center gap-3">
               {/* DAYS */}
               <div className="flex flex-col items-center">

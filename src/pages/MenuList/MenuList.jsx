@@ -167,27 +167,27 @@ export default function MenuList() {
               />
             </div>
           </div>
-          <div className="flex flex-col items-center justify-center h-screen space-y-6 text-lg fontSB -mt-28">
+          <div className="flex flex-col items-center justify-center text-[15px] h-screen space-y-6 -mt-28">
             <div
-              className="cursor-pointer bg-white w-[55%] text-center rounded-full py-1.5 hover:bg-gray-100 transition-colors"
+              className="cursor-pointer text-[#121212] fontBold bg-white w-[55%] text-center rounded-full py-2 hover:bg-gray-100 transition-colors"
               onClick={goManager}
             >
               영암체전 기획자
             </div>
             <div
-              className="cursor-pointer bg-white w-[55%] text-center rounded-full py-1.5 hover:bg-gray-100 transition-colors"
+              className="cursor-pointer text-[#121212] fontBold bg-white w-[55%] text-center rounded-full py-2 hover:bg-gray-100 transition-colors"
               onClick={goTeam}
             >
               웹사이트 제작자
             </div>
             <div
-              className="cursor-pointer bg-white w-[55%] text-center rounded-full py-1.5 hover:bg-gray-100 transition-colors"
+              className="cursor-pointer text-[#121212] fontBold bg-white w-[55%] text-center rounded-full py-2 hover:bg-gray-100 transition-colors"
               onClick={goInfo}
             >
               승부예측 상품안내
             </div>
             <div
-              className="cursor-pointer bg-white w-[55%] text-center rounded-full py-1.5 hover:bg-gray-100 transition-colors"
+              className="cursor-pointer text-[#121212] fontBold bg-white w-[55%] text-center rounded-full py-2 hover:bg-gray-100 transition-colors"
               onClick={goMatchHistory}
             >
               응모내역 확인
