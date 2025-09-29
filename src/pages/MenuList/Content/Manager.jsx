@@ -21,8 +21,8 @@ export default function Manager() {
       department: "경영학과 20학번",
       role: "총학생회장",
       task: "행사 총관리",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "90px",
+      imgHeight: "90px",
       marginTop: "-10px",
     },
     {
@@ -32,8 +32,8 @@ export default function Manager() {
       department: "관광학과 22학번",
       role: "부총학생회장",
       task: "행사 총관리",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "80px",
+      imgHeight: "80px",
     },
     {
       id: 3,
@@ -52,8 +52,8 @@ export default function Manager() {
       department: "글로벌물류학과 23학번",
       role: "총무부장",
       task: "예산 집행 및 물품 관리",
-      imgWidth: "75px",
-      imgHeight: "85px",
+      imgWidth: "66px",
+      imgHeight: "80px",
     },
     {
       id: 5,
@@ -72,8 +72,8 @@ export default function Manager() {
       department: "경영학과 23학번",
       role: "사업기획국장",
       task: "프로그램 관리 및 큐시트 제작",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "85px",
+      imgHeight: "85px",
     },
     {
       id: 7,
@@ -82,8 +82,8 @@ export default function Manager() {
       department: "경영학과 23학번",
       role: "연대사업국장",
       task: "행정 관리 및 MC",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "80px",
+      imgHeight: "80px",
     },
     {
       id: 8,
@@ -102,8 +102,8 @@ export default function Manager() {
       department: "경영학과 21학번",
       role: "문화홍보국장",
       task: "홍보 콘텐츠 제작",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "90px",
+      imgHeight: "90px",
     },
     {
       id: 10,
@@ -112,8 +112,8 @@ export default function Manager() {
       department: "뷰티디자인학과 25학번",
       role: "문화홍보부장",
       task: "홍보 콘텐츠 제작",
-      imgWidth: "75px",
-      imgHeight: "80px",
+      imgWidth: "60px",
+      imgHeight: "70px",
     },
     {
       id: 11,
@@ -122,8 +122,8 @@ export default function Manager() {
       department: "관광학과 23학번",
       role: "대외협력국장",
       task: "업체 미팅 · 대진표 및 행사 협력",
-      imgWidth: "75px",
-      imgHeight: "80px",
+      imgWidth: "60px",
+      imgHeight: "70px",
     },
     {
       id: 12,
@@ -132,8 +132,8 @@ export default function Manager() {
       department: "행정학부 25학번",
       role: "대외협력부장",
       task: "업체 미팅 · 대진표 및 행사 협력",
-      imgWidth: "80px",
-      imgHeight: "80px",
+      imgWidth: "70px",
+      imgHeight: "70px",
     },
     {
       id: 13,
@@ -142,8 +142,8 @@ export default function Manager() {
       department: "관광학과 24학번",
       role: "안전시설국장",
       task: "행사 안전 관리 · 경기 운영 총괄",
-      imgWidth: "75px",
-      imgHeight: "80px",
+      imgWidth: "60px",
+      imgHeight: "75px",
     },
     {
       id: 14,
@@ -152,8 +152,8 @@ export default function Manager() {
       department: "산업경영공학과 22학번",
       role: "안전시설국장",
       task: "행사 안전 관리 · 경기 운영 총괄",
-      imgWidth: "90px",
-      imgHeight: "90px",
+      imgWidth: "70px",
+      imgHeight: "70px",
     },
 
     {
@@ -163,8 +163,8 @@ export default function Manager() {
       department: "기독교교육상담학과 25학번",
       role: "안전시설부장",
       task: "행사 안전 관리 · 경기 운영 총괄",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "70px",
+      imgHeight: "70px",
     },
   ];
 
