@@ -13,9 +13,6 @@ export default function MatchHistory() {
   const [remainingTickets, setRemainingTickets] = useState(0);
   const [selectedSubmissionIndex, setSelectedSubmissionIndex] = useState(0);
 
-  const USE_MOCK_DATA = false; // 개발용 테스트 데이터 사용 여부
-  const TOTAL_TICKETS = USE_MOCK_DATA ? 2 : null; // 임시로 테스트용 응모권 수
-
   const sportTypeMap = {
     SOCCER: "축구",
     BASKETBALL: "농구",
@@ -47,6 +44,7 @@ export default function MatchHistory() {
     fetchUserStatus();
   }, []);
 
+  // 응모 내역 및 경기 정보 불러오기
   useEffect(() => {
     const fetchData = async () => {
       if (!userName) return;
@@ -57,8 +55,9 @@ export default function MatchHistory() {
           API.get('/prediction/statistics')
         ]);
 
-        setSubmissions(submissionRes.data.submissions || []);
-        setTotalTickets(submissionRes.data.totalTickets || 0);
+        const submissionsData = submissionRes.data.submissions || [];
+        setSubmissions(submissionsData);
+        setTotalTickets(submissionRes.data.totalTickets || submissionsData.length || 0);
         setRemainingTickets(submissionRes.data.remainingTickets || 0);
         setMatches(matchesRes.data || []);
       } catch (error) {
@@ -72,18 +71,18 @@ export default function MatchHistory() {
   if (loading) {
     return (
       <MatchLayout onBack={handleBack}>
-        <div className="flex items-center justify-center h-screen text-white">
+        <div className="flex items-center justify-center text-white history">
           불러오는 중...
         </div>
       </MatchLayout>
     );
   }
 
-  // 로그인 안 했으면 로그인 안내만
+  // 로그인 안 했으면 안내
   if (!userName) {
     return (
       <MatchLayout onBack={handleBack}>
-        <div className="flex flex-col items-center justify-center h-screen text-white">
+        <div className="flex flex-col items-center justify-center text-white history">
           <div className="mb-4 text-lg">로그인이 필요합니다.</div>
           <div className="mb-6 text-sm text-gray-300">
             응모 내역 확인은 로그인 후 이용 가능합니다.
@@ -99,12 +98,12 @@ export default function MatchHistory() {
     );
   }
 
-  // 로그인한 유저만 아래 콘텐츠 렌더링
+  // 선택한 응모 내역
   const currentPredictions = submissions[selectedSubmissionIndex]?.predictions || [];
 
   return (
     <MatchLayout onBack={handleBack}>
-      <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y mt-[6%]">
+      <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y-auto mt-[6%]">
         {/* 타이틀 */}
         <div className="flex flex-col text-xl fontSB text-[#fff]">
           {`${userName}님의 응모내역`}
@@ -160,20 +159,20 @@ export default function MatchHistory() {
             })}
           </div>
         ) : (
-          <div className='flex flex-col items-center h-full'>
-            <div className="flex items-center text-[#DADADA] fontSB text-[13px] py-[60%]">
+          <div className='flex flex-col items-center'>
+            <div className="flex items-center text-[#DADADA] fontSB text-[13px] history">
               {submissions.length === 0
                 ? '응모 내역이 없습니다.'
                 : remainingTickets > 0
                 ? `응모권이 ${remainingTickets}장 남아있습니다.`
-                : ''}
+                : '응모권이 없습니다.'}
             </div>
             {remainingTickets > 0 && (
               <button
                 className="z-10 flex mb-10 w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
                 onClick={() => navigate('/Match')}
               >
-                {TOTAL_TICKETS > 1 ? '남은 응모권 사용' : '응모하러 가기'}
+                {remainingTickets > 1 ? '남은 응모권 사용' : '응모하러 가기'}
               </button>
             )}
           </div>
