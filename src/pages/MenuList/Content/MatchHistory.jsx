@@ -72,7 +72,7 @@ export default function MatchHistory() {
   if (loading) {
     return (
       <MatchLayout onBack={handleBack}>
-        <div className="flex items-center justify-center min-h-screen text-white">
+        <div className="flex items-center justify-center h-screen text-white">
           불러오는 중...
         </div>
       </MatchLayout>
@@ -104,7 +104,7 @@ export default function MatchHistory() {
 
   return (
     <MatchLayout onBack={handleBack}>
-      <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y-auto">
+      <div className="flex flex-col w-9/12 max-h-[calc(100vh-6%)] overflow-y mt-[6%]">
         {/* 타이틀 */}
         <div className="flex flex-col text-xl fontSB text-[#fff]">
           {`${userName}님의 응모내역`}

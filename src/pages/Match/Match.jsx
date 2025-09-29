@@ -87,18 +87,19 @@ export default function Match() {
 
   return (
     <MatchLayout>
-      <div className="flex flex-col w-9/12 min-h-screen mt-[6%]">
+      <div className="flex flex-col w-9/12 min-h-screen">
         {matches.length > 0 ? (
           <>
-            <div className="flex flex-col text-xl fontMedium">
-              <div className="text-[#fff] mb-3">{`${currentMatch + 1} / ${matches.length}`}</div>
+            <div className="flex flex-col mb-4 text-xl fontMedium">
+              <div className="text-[#fff]">{`${currentMatch + 1} / ${matches.length}`}</div>
               <div className="text-[#1880FF]">{sportTypeMap[matches[currentMatch].sportType]} 결승</div>
               <div className="text-[#fff]">
                 {userName ? `${userName}님의 우승 예측은?` : '불러오는 중...'}
               </div>
             </div>
 
-            <div className="flex justify-between w-full mt-[50%]">
+            {/* 예측 카드 */}
+            <div className="flex items-center justify-between match">
               {matches[currentMatch].predictions.map((prediction, idx) => (
                 <div
                   key={idx}
@@ -123,9 +124,10 @@ export default function Match() {
               ))}
             </div>
 
-            <div className="flex items-end justify-center mt-[60%] sm:mt-[80%] mb-10">
+            {/* 다음 버튼 */}
+            <div className="flex justify-center mt-6 mb-10">
               <button
-                className={`z-10 flex justify-center fontSB text-sm items-center w-[60%] py-2 rounded-2xl
+                className={`w-[60%] py-2 rounded-2xl fontSB text-sm
                   ${selected === null 
                     ? 'bg-[#A3A3A3] text-[#4A4A4A] cursor-not-allowed' 
                     : 'bg-[#0073FF] text-white cursor-pointer'}`}
@@ -137,7 +139,9 @@ export default function Match() {
             </div>
           </>
         ) : (
-          <div className="text-white">불러오는 중...</div>
+          <div className="flex items-center justify-center flex-1 text-white">
+            불러오는 중...
+          </div>
         )}
       </div>
     </MatchLayout>
