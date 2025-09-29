@@ -7,8 +7,8 @@ const SPORT_CONFIG = {
   SOCCER: { type: "SOCCER", name: "축구" },
   FOOT_VOLLEY: { type: "FOOT_VOLLEY", name: "족구" },
   BASKETBALL: { type: "BASKETBALL", name: "농구" },
-  DODGEBALL: { type: "DODGEBALL", name: "피구" },
-  KICKBALL: { type: "KICKBALL", name: "발야구" },
+  DODGEBALL: { type: "DODGEBALL", name: "피구" }, // matches와 동일
+  KICK_BASEBALL: { type: "KICK_BASEBALL", name: "발야구" }, // matches와 동일
 };
 
 export default function AdminResult() {
@@ -86,7 +86,7 @@ export default function AdminResult() {
 
         <div className="flex justify-center space-x-4 mt-20">
           <div
-            className={`w-[140px] h-[200px] rounded-xl cursor-pointer flex items-center justify-center text-lg font-bold transition-all ${
+            className={`w-[140px] h-[200px] rounded-xl cursor-pointer flex items-center justify-center text-[13px] fontBold transition-all ${
               selectedTeam === "TEAM_A"
                 ? "bg-blue-500 text-white scale-105 shadow-lg"
                 : "bg-[#D9D9D9] text-black hover:bg-[#C9C9C9]"
@@ -96,7 +96,7 @@ export default function AdminResult() {
             {teamAName}
           </div>
           <div
-            className={`w-[140px] h-[200px] rounded-xl cursor-pointer flex items-center justify-center text-lg font-bold transition-all ${
+            className={`w-[140px] h-[200px] rounded-xl cursor-pointer flex items-center justify-center text-[13px] fontBold transition-all ${
               selectedTeam === "TEAM_B"
                 ? "bg-red-500 text-white scale-105 shadow-lg"
                 : "bg-[#D9D9D9] text-black hover:bg-[#C9C9C9]"
