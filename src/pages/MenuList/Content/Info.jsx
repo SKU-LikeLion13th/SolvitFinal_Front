@@ -7,6 +7,9 @@ export default function Info() {
   const [userInfo, setUserInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [exitAnimation, setExitAnimation] = useState("");
+  const [isClosed, setIsClosed] = useState(false); // 응모 마감 여부
+
+  const targetDate = new Date("2025-10-01T09:00:00");
 
   const onCancel = () => {
     setExitAnimation("slideUp");
@@ -17,6 +20,7 @@ export default function Info() {
     }, 400);
   };
 
+  // 유저 상태 확인
   useEffect(() => {
     const fetchUserStatus = async () => {
       try {
@@ -34,7 +38,24 @@ export default function Info() {
     fetchUserStatus();
   }, []);
 
+  // 응모 마감 체크 (실시간으로 체크 가능)
+  useEffect(() => {
+    const checkDeadline = () => {
+      const now = new Date();
+      setIsClosed(now >= targetDate);
+    };
+
+    checkDeadline(); // 컴포넌트 마운트 시 한 번 체크
+    const interval = setInterval(checkDeadline, 1000); // 1초마다 체크
+
+    return () => clearInterval(interval); // 언마운트 시 클린업
+  }, []);
+
   const handleNavigate = () => {
+    if (isClosed) {
+      alert("승부예측이 마감되었습니다.");
+      return;
+    }
     if (userInfo) {
       navigate("/MatchInfo");
     } else {
@@ -57,7 +78,7 @@ export default function Info() {
             }
           }
 
-        .animate-slideUp {
+          .animate-slideUp {
             animation: slideUp 0.6s ease-in forwards;
           }
         `}
@@ -97,11 +118,19 @@ export default function Info() {
           </div>
 
           <button
-            className="bg-[#0073FF] w-[60%] py-2 rounded-2xl text-white fontSB text-[13px] my-12"
+            className={`w-[60%] py-2 rounded-2xl text-[13px] my-12 fontSB ${
+              isClosed
+                ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+                : "bg-[#0073FF] text-white"
+            }`}
             onClick={handleNavigate}
-            disabled={loading} // 로딩 중 클릭 방지
+            disabled={loading || isClosed}
           >
-            {loading ? "불러오는 중..." : "승부예측 바로가기 →"}
+            {loading
+              ? "불러오는 중..."
+              : isClosed
+              ? "응모가 마감되었습니다"
+              : "승부예측 바로가기 →"}
           </button>
         </div>
 
