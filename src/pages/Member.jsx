@@ -9,6 +9,7 @@ export default function Member() {
     name: "",
     studentId: "",
     major: "",
+    phoneNum: "",
   });
 
   const handleChange = (e) => {
@@ -21,18 +22,29 @@ export default function Member() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("https://final.sku-sku.com/students/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify(form),
-    });
+    // ✅ 필수 입력값 체크
+    if (!form.name || !form.studentId || !form.major || !form.phoneNum) {
+      alert("모든 정보를 입력해주세요.");
+      return;
+    }
 
-    if (res.ok) {
-      alert("회원가입 완료!");
-      navigate("/MatchInfo");
-    } else {
-      alert("회원가입 실패");
+    try {
+      const res = await fetch("https://final.sku-sku.com/students/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
+      });
+
+      if (res.ok) {
+        alert("회원가입 완료!");
+        navigate("/MatchInfo");
+      } else {
+        alert("회원가입 실패");
+      }
+    } catch (error) {
+      console.error("회원가입 요청 실패:", error);
+      alert("서버 오류가 발생했습니다.");
     }
   };
 

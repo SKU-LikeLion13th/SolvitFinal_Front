@@ -16,7 +16,6 @@ export default function MenuList() {
       setIsVisible(true);
     }
 
-    // 로그인된 유저 정보 가져오기
     const fetchUserName = async () => {
       try {
         const res = await API.get("/log/status", { withCredentials: true });
@@ -33,6 +32,9 @@ export default function MenuList() {
 
   // 로그인 처리 (OAuth)
   const handleLogin = () => {
+    const confirmLogin = window.confirm("성결 이메일(@sungkyul.ac.kr)로 로그인해주세요.");
+    if (!confirmLogin) return;
+
     const fromPage =
       location.state?.from ||
       new URLSearchParams(window.location.search).get("from");
@@ -53,7 +55,7 @@ export default function MenuList() {
   const handleLogout = async () => {
     try {
       await API.post("/log/out", { withCredentials: true });
-      setUserName(""); // 로그아웃 시 초기화
+      setUserName("");
       navigate("/", { replace: true });
     } catch (error) {
       console.error("로그아웃 실패:", error);
@@ -74,7 +76,7 @@ export default function MenuList() {
   const goMatchHistory = () => {
     if (!userName) {
       alert("로그인 후 조회 가능합니다.");
-      return; // 이동 막기
+      return;
     }
     animateAndNavigate("/MenuList/MatchHistory", "slideLeft");
   };
@@ -196,7 +198,7 @@ export default function MenuList() {
         }`}
       >
         <div className="h-full">
-          <div className="px-8 pb-12 py-8">
+          <div className="px-8 py-8 pb-12">
             <div className="cursor-pointer" onClick={goHome}>
               <img
                 src="/assets/images/Header/Back.png"
