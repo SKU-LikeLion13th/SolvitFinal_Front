@@ -14,6 +14,9 @@ export default function MatchHistory() {
   const [totalTickets, setTotalTickets] = useState(0);
   const [remainingTickets, setRemainingTickets] = useState(0);
   const [selectedSubmissionIndex, setSelectedSubmissionIndex] = useState(0);
+  const [isEnded, setIsEnded] = useState(false);
+
+  const targetDate = new Date("2025-10-01T09:00:00");
 
   const sportTypeMap = {
     SOCCER: "축구",
@@ -30,6 +33,14 @@ export default function MatchHistory() {
       window.location.href = window.location.pathname + window.location.search;
     }
   };
+
+  // 응모 마감 체크
+  useEffect(() => {
+    const now = new Date();
+    if (now >= targetDate) {
+      setIsEnded(true);
+    }
+  }, []);
 
   // 유저 상태 확인
   useEffect(() => {
@@ -93,6 +104,14 @@ export default function MatchHistory() {
   }
 
   const currentPredictions = submissions[selectedSubmissionIndex]?.predictions || [];
+
+  const handleGoMatch = () => {
+    if (isEnded) {
+      alert("승부예측이 마감되었습니다.");
+      return;
+    }
+    navigate('/Match');
+  };
 
   return (
     <MatchLayout onBack={handleBack}>
@@ -163,10 +182,19 @@ export default function MatchHistory() {
             </div>
             {remainingTickets > 0 && (
               <button
-                className="z-10 flex mb-10 w-[65%] justify-center bg-[#0073FF] text-white fontSB text-sm py-2 px-6 rounded-2xl"
-                onClick={() => navigate('/Match')}
+                className={`z-10 flex mb-10 w-[65%] justify-center fontSB text-sm py-2 px-6 rounded-2xl
+                  ${isEnded
+                    ? "bg-[#A9A9A9] text-[#3C3C3C] cursor-not-allowed"
+                    : "bg-[#0073FF] text-white"
+                  }`}
+                onClick={handleGoMatch}
+                disabled={isEnded}
               >
-                {remainingTickets > 1 ? '남은 응모권 사용' : '응모하러 가기'}
+                {isEnded
+                  ? "승부예측 마감"
+                  : remainingTickets > 1
+                  ? "남은 응모권 사용"
+                  : "응모하러 가기"}
               </button>
             )}
           </div>
