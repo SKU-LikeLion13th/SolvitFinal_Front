@@ -13,47 +13,54 @@ export default function Main() {
 
   useEffect(() => {
     setIsVisible(true);
+
+    // 현재 시간이 targetDate 이후면 마감 처리
+    const now = new Date();
+    if (now >= targetDate) {
+      setIsEnded(true);
+    }
   }, []);
 
   const goToLogin = async () => {
-  try {
-    // 로그인 상태 확인
-    const statusRes = await API.get("/log/status", { withCredentials: true });
+    try {
+      // 마감되면 응모 불가
+      if (isEnded) {
+        alert("승부예측이 마감되었습니다.");
+        return;
+      }
 
-    // 로그인 안 되어 있으면 로그인 페이지로 이동
-    if (!statusRes?.data?.name) {
-      navigate("/Login");
-      return;
+      // 로그인 상태 확인
+      const statusRes = await API.get("/log/status", { withCredentials: true });
+
+      if (!statusRes?.data?.name) {
+        navigate("/Login");
+        return;
+      }
+
+      // 응모 정보 조회
+      const submissionRes = await API.get("/students/submission/info", {
+        withCredentials: true,
+      });
+      const { remainingTickets } = submissionRes.data;
+
+      if (!remainingTickets || remainingTickets <= 0) {
+        alert("응모권이 없습니다.");
+        return;
+      }
+
+      navigate("/Match");
+    } catch (error) {
+      console.error(error);
+      const status = error?.response?.status;
+
+      if (!status || status === 401 || status === 403) {
+        navigate("/Login");
+        return;
+      }
+
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
     }
-
-    // 응모 정보 조회
-    const submissionRes = await API.get("/students/submission/info", {
-      withCredentials: true,
-    });
-    const { remainingTickets } = submissionRes.data;
-
-    // 남은 티켓이 0이면 응모 불가
-    if (!remainingTickets || remainingTickets <= 0) {
-      alert("응모권이 없습니다.");
-      return;
-    }
-
-    // 남은 티켓이 1장 이상이면 응모 가능
-    navigate("/Match");
-  } catch (error) {
-    console.error(error);
-
-    const status = error?.response?.status;
-
-    if (!status || status === 401 || status === 403) {
-      navigate("/Login");
-      return;
-    }
-
-    alert("오류가 발생했습니다. 다시 시도해주세요.");
-  }
-};
-
+  };
 
   return (
     <div className="relative min-h-screen pt-12 overflow-hidden">
@@ -201,6 +208,7 @@ export default function Main() {
           <br />
           승부예측 응모에 참여하고 상품 받아가자!
         </p>
+
         <button
           className={`text-[15px] fontSB w-[65%] rounded-2xl py-2 mt-6 transition-all duration-300 ${
             isEnded
@@ -210,7 +218,7 @@ export default function Main() {
           onClick={goToLogin}
           disabled={isEnded}
         >
-          {isEnded ? "응모마감" : "응모하러 가기"}
+          {isEnded ? "승부예측 마감" : "응모하러 가기"}
         </button>
       </div>
 
