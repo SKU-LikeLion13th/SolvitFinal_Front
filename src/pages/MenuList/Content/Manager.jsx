@@ -32,8 +32,8 @@ export default function Manager() {
       department: "관광학과 22학번",
       role: "부총학생회장",
       task: "행사 총관리",
-      imgWidth: "80px",
-      imgHeight: "80px",
+      imgWidth: "74px",
+      imgHeight: "74px",
     },
     {
       id: 3,
@@ -53,7 +53,7 @@ export default function Manager() {
       role: "총무부장",
       task: "예산 집행 및 물품 관리",
       imgWidth: "66px",
-      imgHeight: "80px",
+      imgHeight: "70px",
     },
     {
       id: 5,
@@ -62,8 +62,8 @@ export default function Manager() {
       department: "관광학과 22학번",
       role: "사업기획국장",
       task: "프로그램 관리 및 큐시트 제작",
-      imgWidth: "100px",
-      imgHeight: "100px",
+      imgWidth: "90px",
+      imgHeight: "90px",
     },
     {
       id: 6,
@@ -72,8 +72,8 @@ export default function Manager() {
       department: "경영학과 23학번",
       role: "사업기획국장",
       task: "프로그램 관리 및 큐시트 제작",
-      imgWidth: "85px",
-      imgHeight: "85px",
+      imgWidth: "78px",
+      imgHeight: "78px",
     },
     {
       id: 7,
@@ -114,6 +114,7 @@ export default function Manager() {
       task: "홍보 콘텐츠 제작",
       imgWidth: "60px",
       imgHeight: "70px",
+      marginBottom: "8px",
     },
     {
       id: 11,
@@ -152,8 +153,8 @@ export default function Manager() {
       department: "산업경영공학과 22학번",
       role: "안전시설국장",
       task: "행사 안전 관리 · 경기 운영 총괄",
-      imgWidth: "70px",
-      imgHeight: "70px",
+      imgWidth: "68px",
+      imgHeight: "68px",
     },
 
     {
@@ -196,7 +197,7 @@ export default function Manager() {
         >
           {/* 뒤로가기 버튼 */}
           <div
-            className="px-4 pb-12 pt-8 cursor-pointer"
+            className="px-4 pt-8 pb-12 cursor-pointer"
             onClick={() => onBack()}
           >
             <img
@@ -249,7 +250,7 @@ export default function Manager() {
                   {member.task && (
                     <>
                       <div className="w-[90%] h-[0.5px] bg-[#1880FF] my-2"></div>
-                      <p className="text-[7px] fontMedium">{member.task}</p>
+                      <p className="text-[6px] sm:text-[7px] fontMedium">{member.task}</p>
                     </>
                   )}
                 </div>

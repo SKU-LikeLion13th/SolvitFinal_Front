@@ -69,6 +69,8 @@ export default function Team() {
         department: "관광학과 22학번",
         role: "부총학생회장",
         task: "UX/UI 기획 및 디자인",
+        imgWidth: "74px",
+        imgHeight: "74px",
       },
     ],
   };
@@ -94,6 +96,10 @@ export default function Team() {
                     src={member.imgSrc}
                     alt={member.name}
                     className="object-contain"
+                    style={{
+                      width: member.imgWidth || "80px",
+                      height: member.imgHeight || "auto",
+                    }}
                   />
                 </div>
               )}
@@ -140,7 +146,7 @@ export default function Team() {
         }`}
       >
         <div className="pb-8 overflow-y-auto">
-          <div className="px-8 pb-12 pt-8 cursor-pointer" onClick={goBack}>
+          <div className="px-8 pt-8 pb-12 cursor-pointer" onClick={goBack}>
             <img
               src="/assets/images/Header/Back.png"
               className="w-[20px] h-[16px]"
